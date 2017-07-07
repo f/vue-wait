@@ -21,9 +21,7 @@
   },
   "main": "dist/vuex-loading.js",
   "files": [
-    "dist/vuex-loading.js",
-    "dist/vuex-loading.min.js",
-    "src",
+    "src/vuex-loading.js",
     "LICENSE",
     "README.md"
   ],
