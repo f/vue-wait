@@ -83,6 +83,40 @@ new Vue({
 });
 ```
 
+## Using `v-loading` Component
+
+In template, you should wrap your content with `v-loading` component to show loading on it.
+
+```html
+<v-loading loader='fetching data'>
+  <template slot="spinner">
+    This will be shown when "fetching data" loader starts.
+  </template>
+  
+  This will be shown when "fetching data" loader ends.
+</v-loading>
+```
+
+### Built-in Loaders (WIP)
+
+Also you can use built in loaders:
+ - `v-loading-spinner`
+ - `v-loading-heart`
+
+You need to put them into a `template` tag.
+
+```html
+<v-loading loader='fetching data'>
+  <template slot="spinner">
+    <v-loading-spinner height='30px' width='30px' />
+  </template>
+  
+  This will be shown when "fetching data" loader ends.
+</v-loading>
+```
+
+Please see `example` for more detailed example.
+
 ## License
 
 MIT © [Fatih Kadir Akın](https://github.com/f)
