@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+      }
+      #app {
+        margin: 50px auto;
+        width: 500px;
+        text-align: center;
+      }
+      .container {
+        padding: 50px;
+      }
+      button {
+        border: 0;
+        background-color: #fff;
+        border: 2px solid #9f0fa0;
+        border-radius: 4px;
+        margin: 5px;
+        color: #9f0fa0;
+        font-size: 16px;
+        padding: 8px;
+      }
+      .v-loading {
+        text-align: center;
+        opacity: .5;
+        animation: pulse 3s infinite;
+        animation-delay: 1s;
+      }
+
+      @-webkit-keyframes pulse {
+        0%, 100% {
+          opacity: .5;
+        }
+        50% {
+          opacity: .1;
+        }
+      }
+      @keyframes pulse {
+        0%, 100% {
+          opacity: .5;
+        }
+        50% {
+          opacity: .1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <v-loading loader='fetching data' message='Loading...'>
+          <template slot='spinner'>
+            <v-loading-heart width='1em' height='1em' />
+          </template>
+          This will be shown after load.
+        </v-loading>
+      </div>
+      <button @click='startLoading' :disable='$isLoading("fetching data")'>
+        <v-loading message='Loading...'>
+          <template slot='spinner'>
+            <v-loading-spinner width="1em" height="1em" />
+          </template>
+          Load Data
+        </v-loading>
+      </button>
+      <button @click='endLoading'>End</button>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
