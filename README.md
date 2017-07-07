@@ -4,7 +4,7 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http:
 
 <img src="./resources/vuex-loading.gif" width="640">
 
-**vuex-loading** helps to manage multiple loading states on the page.
+**vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages a Vuex store with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
 ## Requirements
 
@@ -45,12 +45,6 @@ Then you should register loading module:
 new Vue({
   el: '#app',
   store,
-  data() {
-    return {
-      email: '',
-      password: '',
-    }
-  },
   computed: {
     ...mapGetters('loading', [
       /*
@@ -102,6 +96,7 @@ In template, you should wrap your content with `v-loading` component to show loa
 Also you can use built in loaders:
  - `v-loading-spinner`
  - `v-loading-heart`
+ - ... more to come.
 
 You need to put them into a `template` tag.
 
