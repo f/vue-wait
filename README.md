@@ -1,6 +1,8 @@
-# vuex-loading
+# ⌛️ vuex-loading
 
-Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
+Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
+
+<img src="./resources/vuex-loading.gif" width="640">
 
 **vuex-loading** helps to manage multiple loading states on the page.
 
