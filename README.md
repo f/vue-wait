@@ -1,8 +1,10 @@
-# vuex-loading
+# ⌛️ vuex-loading
 
-Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
+Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
 
-**vuex-loading** helps to manage multiple loading states on the page.
+<img src="./resources/vuex-loading.gif" width="640">
+
+**vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages a Vuex store with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
 ## Requirements
 
@@ -43,12 +45,6 @@ Then you should register loading module:
 new Vue({
   el: '#app',
   store,
-  data() {
-    return {
-      email: '',
-      password: '',
-    }
-  },
   computed: {
     ...mapGetters('loading', [
       /*
@@ -80,6 +76,41 @@ new Vue({
   },
 });
 ```
+
+## Using `v-loading` Component
+
+In template, you should wrap your content with `v-loading` component to show loading on it.
+
+```html
+<v-loading loader='fetching data'>
+  <template slot="spinner">
+    This will be shown when "fetching data" loader starts.
+  </template>
+  
+  This will be shown when "fetching data" loader ends.
+</v-loading>
+```
+
+### Built-in Loaders (WIP)
+
+Also you can use built in loaders:
+ - `v-loading-spinner`
+ - `v-loading-heart`
+ - ... more to come.
+
+You need to put them into a `template` tag.
+
+```html
+<v-loading loader='fetching data'>
+  <template slot="spinner">
+    <v-loading-spinner height='30px' width='30px' />
+  </template>
+  
+  This will be shown when "fetching data" loader ends.
+</v-loading>
+```
+
+Please see `example` for more detailed example.
 
 ## License
 
