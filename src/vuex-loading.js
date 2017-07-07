@@ -21,7 +21,7 @@ function createComponent(moduleName) {
           <slot name='spinner'>
             <v-loading-spinner width="1em" height="1em" />
           </slot>
-          <span>{{ message || '...' }}</span>
+          <span>{{ message }}</span>
         </span>
         <slot v-if='!loadingStatus'></slot>
       </div>

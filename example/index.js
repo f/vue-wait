@@ -17,17 +17,36 @@ const store = new Vuex.Store({
 new Vue({
   el: '#app',
   store,
-  computed: {
-    isLoading() {
-      return this.$store.loading.getters.isLoading();
+  data() {
+    return {
+      loaders: [
+        'a',
+        'c',
+        'b',
+        'a',
+        'b',
+        'a',
+        'c',
+        'a',
+        'c',
+        'a',
+        'b'
+      ]
     }
   },
   methods: {
-    startLoading() {
-      this.$startLoading('fetching data');
+    writeCode() {
+      this.$startLoading('writing code');
     },
     endLoading() {
-      this.$endLoading('fetching data');
+      this.$endLoading('writing code');
+    },
+    toggleLoader(loader) {
+      if (this.$isLoading(loader)) {
+        this.$endLoading(loader);
+      } else {
+        this.$startLoading(loader);
+      }
     }
   },
 });

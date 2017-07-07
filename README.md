@@ -2,6 +2,8 @@
 
 Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
 
+**vuex-loading** helps to manage multiple loading states on the page.
+
 ## Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
