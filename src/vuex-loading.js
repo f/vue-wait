@@ -13,23 +13,25 @@ const uniq = (array) => {
   return array.filter((el, index, arr) => index == arr.indexOf(el));
 }
 
-function createComponent(moduleName) {
+function createComponent({ componentName, moduleName, className }) {
   return {
     template: `
       <div>
-        <span class='v-loading' v-if='loadingStatus'>
+        <span class='${className}' v-if='status'>
           <slot name='spinner'>
-            <v-loading-spinner width="1em" height="1em" />
+            <${componentName}-spinner :width="width || '1em'" :height="height || '1em'" />
           </slot>
           <span>{{ message }}</span>
         </span>
-        <slot v-if='!loadingStatus'></slot>
+        <slot v-if='!status'></slot>
       </div>
     `,
     props: [
       'when',
       'loader',
       'message',
+      'height',
+      'width'
     ],
     computed: {
       isLoading() {
@@ -46,7 +48,7 @@ function createComponent(moduleName) {
         }
         return store.getters[`${moduleName}/anyLoading`];
       },
-      loadingStatus() {
+      status() {
         if (this.when) {
           return this.when;
         }
@@ -89,7 +91,7 @@ const createStore = function (moduleName) {
 }
 
 // Vue plugin
-const createInstaller = function ({ moduleName, componentName }) {
+const createInstaller = function ({ moduleName, componentName, className }) {
   return function (Vue) {
     Vue.prototype.$startLoading = function (loaderMessage) {
       this.$store.dispatch(`${moduleName}/load`, loaderMessage, { root: true });
@@ -104,7 +106,7 @@ const createInstaller = function ({ moduleName, componentName }) {
       return this.$store.getters[`${moduleName}/anyLoading`];
     };
 
-    Vue.component(componentName, createComponent(moduleName));
+    Vue.component(componentName, createComponent({ componentName, moduleName, className }));
     Object.keys(spinners).forEach(spinner => {
       Vue.component(`${componentName}-${spinner}`, spinners[spinner])
     })
@@ -113,10 +115,11 @@ const createInstaller = function ({ moduleName, componentName }) {
 
 export default function createVuexLoader({
   moduleName = 'loading',
-  componentName = 'v-loading' 
+  componentName = 'v-loading',
+  className = 'v-loading',
 }) {
   return {
-    install: createInstaller({ moduleName, componentName }),
+    install: createInstaller({ moduleName, componentName, className }),
     Store: createStore(moduleName),
     // start and stop helpers for async processes
     startLoading(dispatcher, loaderMessage, callback) {

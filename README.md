@@ -29,6 +29,8 @@ const VuexLoading = createVuexLoader({
   moduleName: 'loading',
   // The Vue component name, 'v-loading' by default.
   componentName: 'v-loading',
+  // Vue component class name, 'v-loading' by default.
+  className: 'v-loading',
 });
 
 Vue.use(Vuex)

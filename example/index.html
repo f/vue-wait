@@ -41,7 +41,7 @@
       button[disabled] {
         opacity: 0.4;
       }
-      .v-loading {
+      .my-loading {
         text-align: center;
         opacity: .5;
         animation: pulse 3s infinite;
@@ -69,20 +69,20 @@
   <body>
     <div id="app">
       <div class="container">
-        <v-loading message='Something loading! Lovely...'>
+        <my-loading message='Something loading! Lovely...'>
           <template slot='spinner'>
-            <v-loading-heart width='1em' height='1em' />
+            <my-loading-heart width='1em' height='1em' />
           </template>
           This will be shown after load.
-        </v-loading>
+        </my-loading>
       </div>
       <button @click='$startLoading("writing code")' :disable='$isLoading("writing code")'>
-        <v-loading loader='writing code' message='Writing Code...'>
+        <my-loading loader='writing code' message='Writing Code...'>
           <template slot='spinner'>
-            <v-loading-spinner width="1em" height="1em" />
+            <my-loading-spinner width="1em" height="1em" />
           </template>
           Write Code
-        </v-loading>
+        </my-loading>
       </button>
       <button @click='endLoading' :disabled='!$isLoading("writing code")'>
         <span v-if='$isLoading("writing code")'>Stop Coding</span>
@@ -100,15 +100,15 @@
       </p>
       <ul class="list">
         <li v-for='loader in loaders' @click='toggleLoader(loader)'>
-          <v-loading :loader='loader' message=''>
+          <my-loading :loader='loader' message=''>
             <template slot='spinner' v-if='loader == "c"'>
-              <v-loading-heart width="1em" height="1em" />
+              <my-loading-heart width="1em" height="1em" />
             </template>
             <template slot='spinner' v-else>
-              <v-loading-spinner width="1em" height="1em" />
+              <my-loading-spinner width="1em" height="1em" />
             </template>
             {{ loader }}
-          </v-loading>
+          </my-loading>
         </li>
       </ul>
     </div>
