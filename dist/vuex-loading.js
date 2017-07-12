@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * vuex-loading v0.1.2
+ * vuex-loading v0.1.3
  *
  * (c) 2017 Fatih Kadir Akın <fatihkadirakin@gmail.com>
  *
@@ -14,14 +14,42 @@
 	(global.createVuexLoader = factory());
 }(this, (function () { 'use strict';
 
+var spinner = {
+  props: {
+    width: {
+      type: String,
+      default: '100'
+    },
+    height: {
+      type: String,
+      default: '100'
+    }
+  },
+  template: "\n    <svg style='vertical-align: middle' :width=\"width\" :height=\"height\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid\" class=\"uil-spin\">\n        <rect x=\"0\" y=\"0\" width=\"100\" height=\"100\" fill=\"none\" class=\"bk\"></rect>\n        <g transform=\"translate(50 50)\">\n            <g transform=\"rotate(0) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.87s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.87s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(45) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.75s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.75s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(90) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.62s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.62s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(135) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.5s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.5s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(180) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.37s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.37s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(225) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.25s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.25s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(270) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0.12s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0.12s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n            <g transform=\"rotate(315) translate(34 0)\">\n                <circle cx=\"0\" cy=\"0\" r=\"6\" fill=\"#000\">\n                    <animate attributeName=\"opacity\" from=\"1\" to=\"0.1\" begin=\"-0s\" dur=\"1s\" repeatCount=\"indefinite\"></animate>\n                    <animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.5\" to=\"1\" begin=\"-0s\" dur=\"1s\" repeatCount=\"indefinite\"></animateTransform>\n                </circle>\n            </g>\n        </g>\n    </svg>\n  "
+};
+
+var heart = {
+  props: {
+    width: {
+      type: String,
+      default: '100'
+    },
+    height: {
+      type: String,
+      default: '100'
+    }
+  },
+  template: "\n    <svg style='vertical-align: middle' :width='width' :height='height' xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid\" class=\"uil-heart\"><rect x=\"0\" y=\"0\" width=\"100\" height=\"100\" fill=\"none\" class=\"bk\"></rect><g transform=\"translate(50 50)\"><g><g transform=\"translate(-50 -50)\"><path d=\"M90,30.2c0-11-9-20.1-20-20.1s-20,9.1-20,20.2c0,0.2,0-0.3,0,0.7H50c0-1,0-0.6,0-0.8c0-11-9-20.1-20-20.1s-20,9.1-20,20.2 c0,0.2,0-0.3,0,0.7h0c0.3,20,30,39.5,40,55c10-15.5,39.7-35,40-55h0C90,30,90,30.4,90,30.2z\" fill=\"#f02\"></path></g><animateTransform attributeName=\"transform\" type=\"scale\" from=\"1.3\" to=\"0.9\" dur=\"1s\" repeatCount=\"indefinite\" calcMode=\"spline\" values=\"1.3;0.9;1.1;0.9\" keyTimes=\"0;0.3;0.301;1\" keySplines=\"0 0.75 0.25 1;0 1 0 1;0 .75 .25 1\"></animateTransform></g></g></svg>\n  "
+};
+
 var mutations = {
   LOAD: 'LOAD',
   END: 'END',
 };
 
 var spinners = {
-  spinner: require('./spinners/spinner').default,
-  heart: require('./spinners/heart').default,
+  spinner: spinner,
+  heart: heart,
 };
 
 // Base Utils
@@ -127,8 +155,8 @@ var createInstaller = function (ref) {
     };
 
     Vue.component(componentName, createComponent({ componentName: componentName, moduleName: moduleName, className: className }));
-    Object.keys(spinners).forEach(function (spinner) {
-      Vue.component((componentName + "-" + spinner), spinners[spinner]);
+    Object.keys(spinners).forEach(function (spinner$$1) {
+      Vue.component((componentName + "-" + spinner$$1), spinners[spinner$$1]);
     });
   }
 };

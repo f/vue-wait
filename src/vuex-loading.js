@@ -1,17 +1,20 @@
+import spinner from './spinners/spinner';
+import heart from './spinners/heart';
+
 const mutations = {
   LOAD: 'LOAD',
-  END: 'END',
+  END: 'END'
 };
 
 const spinners = {
-  spinner: require('./spinners/spinner').default,
-  heart: require('./spinners/heart').default,
+  spinner,
+  heart
 };
 
 // Base Utils
-const uniq = (array) => {
+const uniq = array => {
   return array.filter((el, index, arr) => index == arr.indexOf(el));
-}
+};
 
 function createComponent({ componentName, moduleName, className }) {
   return {
@@ -26,25 +29,19 @@ function createComponent({ componentName, moduleName, className }) {
         <slot v-if='!status'></slot>
       </div>
     `,
-    props: [
-      'when',
-      'loader',
-      'message',
-      'height',
-      'width'
-    ],
+    props: ['when', 'loader', 'message', 'height', 'width'],
     computed: {
       isLoading() {
         const store = this.$store;
         if (!store) {
-          throw new Error('Vuex not initialized.')
+          throw new Error('Vuex not initialized.');
         }
         return store.getters[`${moduleName}/isLoading`];
       },
       anyLoading() {
         const store = this.$store;
         if (!store) {
-          throw new Error('Vuex not initialized.')
+          throw new Error('Vuex not initialized.');
         }
         return store.getters[`${moduleName}/anyLoading`];
       },
@@ -56,67 +53,74 @@ function createComponent({ componentName, moduleName, className }) {
           return this.isLoading(this.loader);
         }
         return this.anyLoading;
-      },
-    },
-  }
+      }
+    }
+  };
 }
 
 // Vuex store to collect loadings
-const createStore = function (moduleName) {
-  return function (store) {
+const createStore = function(moduleName) {
+  return function(store) {
     store.registerModule(moduleName, {
       namespaced: true,
       state: {
-        activeLoaders: [],
+        activeLoaders: []
       },
       getters: {
-        isLoading: state => loaderMessage => state.activeLoaders.indexOf(loaderMessage) > -1,
-        anyLoading: state => state.activeLoaders.length > 0,
+        isLoading: state => loaderMessage =>
+          state.activeLoaders.indexOf(loaderMessage) > -1,
+        anyLoading: state => state.activeLoaders.length > 0
       },
       actions: {
-        load: ({ commit }, loaderMessage) => commit(mutations.LOAD, loaderMessage),
-        end: ({ commit }, loaderMessage) => commit(mutations.END, loaderMessage),
+        load: ({ commit }, loaderMessage) =>
+          commit(mutations.LOAD, loaderMessage),
+        end: ({ commit }, loaderMessage) => commit(mutations.END, loaderMessage)
       },
       mutations: {
-        [mutations.LOAD] (state, loaderMessage) {
+        [mutations.LOAD](state, loaderMessage) {
           state.activeLoaders.push(loaderMessage);
           state.activeLoaders = uniq(state.activeLoaders);
         },
-        [mutations.END] (state, loaderMessage) {
-          state.activeLoaders = uniq(state.activeLoaders).filter(p => p !== loaderMessage);
-        },
-      },
-    })
-  }
-}
+        [mutations.END](state, loaderMessage) {
+          state.activeLoaders = uniq(state.activeLoaders).filter(
+            p => p !== loaderMessage
+          );
+        }
+      }
+    });
+  };
+};
 
 // Vue plugin
-const createInstaller = function ({ moduleName, componentName, className }) {
-  return function (Vue) {
-    Vue.prototype.$startLoading = function (loaderMessage) {
+const createInstaller = function({ moduleName, componentName, className }) {
+  return function(Vue) {
+    Vue.prototype.$startLoading = function(loaderMessage) {
       this.$store.dispatch(`${moduleName}/load`, loaderMessage, { root: true });
     };
-    Vue.prototype.$endLoading = function (loaderMessage) {
+    Vue.prototype.$endLoading = function(loaderMessage) {
       this.$store.dispatch(`${moduleName}/end`, loaderMessage, { root: true });
     };
-    Vue.prototype.$isLoading = function (loaderMessage) {
+    Vue.prototype.$isLoading = function(loaderMessage) {
       return this.$store.getters[`${moduleName}/isLoading`](loaderMessage);
     };
-    Vue.prototype.$anyLoading = function () {
+    Vue.prototype.$anyLoading = function() {
       return this.$store.getters[`${moduleName}/anyLoading`];
     };
 
-    Vue.component(componentName, createComponent({ componentName, moduleName, className }));
+    Vue.component(
+      componentName,
+      createComponent({ componentName, moduleName, className })
+    );
     Object.keys(spinners).forEach(spinner => {
-      Vue.component(`${componentName}-${spinner}`, spinners[spinner])
-    })
-  }
-}
+      Vue.component(`${componentName}-${spinner}`, spinners[spinner]);
+    });
+  };
+};
 
 export default function createVuexLoader({
   moduleName = 'loading',
   componentName = 'v-loading',
-  className = 'v-loading',
+  className = 'v-loading'
 }) {
   return {
     install: createInstaller({ moduleName, componentName, className }),
@@ -133,4 +137,4 @@ export default function createVuexLoader({
       dispatcher(`${moduleName}/end`, loaderMessage, { root: true });
     }
   };
-};
+}
