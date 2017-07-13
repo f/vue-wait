@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * vuex-loading v0.1.5
+ * vuex-loading v0.1.6
  *
  * (c) 2017 Fatih Kadir Akın <fatihkadirakin@gmail.com>
  *
