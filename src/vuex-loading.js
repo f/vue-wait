@@ -129,22 +129,28 @@ function createVuexLoader({
 }
 
 function createActionHelpers({ moduleName }) {
+  const start = function(dispatcher, loaderMessage) {
+    dispatcher(`${moduleName}/loader`, loaderMessage, { root: true });
+  };
+  const end = function(dispatcher, loaderMessage) {
+    dispatcher(`${moduleName}/end`, loaderMessage, { root: true });
+  };
   return {
     // start and stop helpers for async processes
     startLoading(dispatcher, loaderMessage, callback) {
-      dispatcher(`${moduleName}/load`, loaderMessage, { root: true });
+      start(loaderMessage, loaderMessage);
       return callback()
         .then(response => {
-          this.endLoading(dispatcher, loaderMessage);
+          end(loaderMessage, loaderMessage);
           return response;
         })
         .catch(response => {
-          this.endLoading(dispatcher, loaderMessage);
+          end(loaderMessage, loaderMessage);
           return response;
         });
     },
     endLoading(dispatcher, loaderMessage) {
-      dispatcher(`${moduleName}/end`, loaderMessage, { root: true });
+      end(loaderMessage, loaderMessage);
     }
   };
 }
