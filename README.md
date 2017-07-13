@@ -93,6 +93,50 @@ In template, you should wrap your content with `v-loading` component to show loa
 </v-loading>
 ```
 
+## Making Common Loaders
+
+You may want to design your own reusable loader for your project. You better create a wrapper component called `my-spinner`:
+
+```html
+<!-- MySpinner.vue -->
+<i18n>
+  tr:
+    loading: Yükleniyor...
+  en:
+    loading: Loading...
+</i18n>
+
+<template lang="pug">
+  div.loading-spinner
+    //- Uses vue-awesome spinner
+    v-icon(name='refresh', spin)
+    span {{ $t('loading') }}
+</template>
+
+<style scoped lang="scss">
+  .loading-spinner {
+    opacity: 0.5;
+    margin: 50px auto;
+    text-align: center;
+    .fa-icon {
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  }
+</style>
+```
+
+Now you can use your spinner everywhere using `slot='spinner'` attribute:
+
+```html
+<template lang="pug">
+  v-loading(loader='fetching data')
+    my-spinner(slot='spinner')
+    div
+      p My main content after fetching data...
+</template>
+```
+
 ### Built-in Loaders (WIP)
 
 Also you can use built in loaders:
