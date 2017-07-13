@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createVuexLoader from '../src/vuex-loading';
+import { createVuexLoader } from 'vuex-loading';
 
 const VuexLoading = createVuexLoader({
   moduleName: 'loading',
   componentName: 'my-loading',
-  className: 'my-loading',
+  className: 'my-loading'
 });
 
 Vue.use(Vuex);
 Vue.use(VuexLoading);
 
 const store = new Vuex.Store({
-  plugins: [VuexLoading.Store],
+  plugins: [VuexLoading.Store]
 });
 
 new Vue({
@@ -20,20 +20,8 @@ new Vue({
   store,
   data() {
     return {
-      loaders: [
-        'a',
-        'c',
-        'b',
-        'a',
-        'b',
-        'a',
-        'c',
-        'a',
-        'c',
-        'a',
-        'b'
-      ]
-    }
+      loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']
+    };
   },
   methods: {
     writeCode() {
@@ -49,5 +37,5 @@ new Vue({
         this.$startLoading(loader);
       }
     }
-  },
+  }
 });
