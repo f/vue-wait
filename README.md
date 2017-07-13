@@ -2,7 +2,7 @@
 
 Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
 
-<img src="./resources/vuex-loading.gif" width="640">
+<img src="./resources/vuex-loading.gif" width="480">
 
 **vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages a Vuex store with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
@@ -200,6 +200,33 @@ Better example for a `button` with loading state:
 ```
 
 ## Making Reusable Loader Components
+
+With reusable loader components, you will be able to use custom loader components as example below. This will allow you to create better **user loading experience**.
+
+<img src="./resources/vue-loading-2.gif" width="480">
+
+In this example above, the **tab gets data from back-end**, and the **table loads data from back-end at the same time**. With **vuex-loading**, you will be able to manage these two seperated loading processes easily:
+
+```html
+<template lang='pug'>
+div
+  v-loading(loader='fetching tabs')
+    template(slot='spinner')
+      b-tabs
+        template(slot='tabs')
+          b-nav-item(active disabled)
+            v-icon(name='circle-o-notch', spin)
+    b-tabs
+      template(slot='tabs')
+        b-nav-item(v-for='tab in tabs') {{ tab.name }}
+
+  v-loading(loader='fetching data')
+    table-gradient-spinner(slot='spinner')
+    table
+      tr(v-for='row in data')
+        // ...
+</template>
+```
 
 You may want to design your own reusable loader for your project. You better create a wrapper component called `my-spinner`:
 
