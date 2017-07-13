@@ -117,7 +117,7 @@ const createInstaller = function({ moduleName, componentName, className }) {
   };
 };
 
-export default function createVuexLoader({
+function createVuexLoader({
   moduleName = 'loading',
   componentName = 'v-loading',
   className = 'v-loading'
@@ -128,7 +128,7 @@ export default function createVuexLoader({
   };
 }
 
-export function createActionHelpers({ moduleName }) {
+function createActionHelpers({ moduleName }) {
   return {
     // start and stop helpers for async processes
     startLoading(dispatcher, loaderMessage, callback) {
@@ -148,3 +148,8 @@ export function createActionHelpers({ moduleName }) {
     }
   };
 }
+
+export default {
+  createVuexLoader,
+  createActionHelpers
+};

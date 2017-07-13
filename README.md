@@ -22,7 +22,7 @@ $ yarn add vuex-loading
 ## Usage
 
 ```js
-import createVuexLoader from 'vuex-loading'
+import { createVuexLoader } from 'vuex-loading'
 
 const VuexLoading = createVuexLoader({
   // The Vuex module name, 'loading' by default.
