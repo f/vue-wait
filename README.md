@@ -79,13 +79,108 @@ new Vue({
 });
 ```
 
+## Global Template Helpers
+
+**vuex-loading** provides some helpers to you to use in your templates.
+
+### `$anyLoading`
+
+Returns boolean value if any loader exists in page.
+
+```html
+<template>
+  <progress-bar v-if="$anyLoading">Please wait...</progress-bar>
+</template>
+```
+
+### `$isLoading(loader String)`
+
+Returns boolean value if given loader exists in page.
+
+```html
+<template>
+  <progress-bar v-if="$isLoading('creating user')">Creating User...</progress-bar>
+</template>
+```
+
+### `$startLoading(loader String)`
+
+Starts the given loader.
+
+```html
+<template>
+  <button @click="$startLoading('creating user')">Create User</button>
+</template>
+```
+
+### `$endLoading(loader String)`
+
+Stops the given loader.
+
+```html
+<template>
+  <button @click="$endLoading('creating user')">Cancel</button>
+</template>
+```
+
+## Global Action Helpers
+
+**vuex-loading** provides some helpers to you to use in your Vuex stores.
+
+```js
+import { createActionHelpers } from 'vuex-loading'
+const { startLoading, endLoading } = createActionHelpers({
+  moduleName: 'loader'
+});
+```
+
+### `startLoading(dispatcher, loader String, async callback)`
+
+You can trigger loader from the action. This will make your templates more cleaner and you will have a accurate loader status.
+`startLoading` will trigger a loading and will end loader after async callback is finished.
+
+```js
+export default {
+  actions: {
+    async createUser({ commit, dispatch }) {
+      const response = await startLoading(dispatch, 'creating user', () => {
+        return fetch("...") // Some async job that returns Promise instance.
+      });
+      commit(types.CREATE_USER, response)
+    }
+  },
+  // ...
+}
+```
+
+### `endLoading(dispatcher, loader String)`
+
+Ends given loading from actions.
+
+```js
+export default {
+  actions: {
+    async createUser({ commit, dispatch }) {
+      try {
+        const response = await startLoading(dispatch, 'creating user', () => { /* ... */ });
+        commit(types.CREATE_USER, response)
+      } catch (e) {
+        // In any unexpected thing occurs on runtime, end the loading.
+        endLoading(dispatch, 'creating user')
+      }
+    }
+  },
+  // ...
+}
+```
+
 ## Using `v-loading` Component
 
 In template, you should wrap your content with `v-loading` component to show loading on it.
 
 ```html
 <v-loading loader='fetching data'>
-  <template slot="spinner">
+  <template slot='spinner'>
     This will be shown when "fetching data" loader starts.
   </template>
   
@@ -93,7 +188,18 @@ In template, you should wrap your content with `v-loading` component to show loa
 </v-loading>
 ```
 
-## Making Common Loaders
+Better example for a `button` with loading state:
+
+```html
+<button :disabled='$isLoading("creating user")'>
+  <v-loading loader='creating user'>
+    <template slot='spinner'>Creating User...</template>
+    Create User
+  </v-loading>
+</button>
+```
+
+## Making Reusable Loader Components
 
 You may want to design your own reusable loader for your project. You better create a wrapper component called `my-spinner`:
 

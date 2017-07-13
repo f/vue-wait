@@ -124,14 +124,24 @@ export default function createVuexLoader({
 }) {
   return {
     install: createInstaller({ moduleName, componentName, className }),
-    Store: createStore(moduleName),
+    Store: createStore(moduleName)
+  };
+}
+
+export function createActionHelpers({ moduleName }) {
+  return {
     // start and stop helpers for async processes
     startLoading(dispatcher, loaderMessage, callback) {
       dispatcher(`${moduleName}/load`, loaderMessage, { root: true });
-      return callback().then(response => {
-        this.endLoading(dispatcher, loaderMessage);
-        return response;
-      });
+      return callback()
+        .then(response => {
+          this.endLoading(dispatcher, loaderMessage);
+          return response;
+        })
+        .catch(response => {
+          this.endLoading(dispatcher, loaderMessage);
+          return response;
+        });
     },
     endLoading(dispatcher, loaderMessage) {
       dispatcher(`${moduleName}/end`, loaderMessage, { root: true });
