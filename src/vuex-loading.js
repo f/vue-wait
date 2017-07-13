@@ -138,19 +138,19 @@ function createActionHelpers({ moduleName }) {
   return {
     // start and stop helpers for async processes
     startLoading(dispatcher, loaderMessage, callback) {
-      start(loaderMessage, loaderMessage);
+      start(dispatcher, loaderMessage);
       return callback()
         .then(response => {
-          end(loaderMessage, loaderMessage);
+          end(dispatcher, loaderMessage);
           return response;
         })
         .catch(response => {
-          end(loaderMessage, loaderMessage);
+          end(dispatcher, loaderMessage);
           return response;
         });
     },
     endLoading(dispatcher, loaderMessage) {
-      end(loaderMessage, loaderMessage);
+      end(dispatcher, loaderMessage);
     }
   };
 }
