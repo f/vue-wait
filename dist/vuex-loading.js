@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * vuex-loading v0.1.7
+ * vuex-loading v0.1.8
  *
  * (c) 2017 Fatih Kadir Akın <fatihkadirakin@gmail.com>
  *
@@ -175,7 +175,7 @@ function createActionHelpers(ref) {
   var moduleName = ref.moduleName;
 
   var start = function(dispatcher, loaderMessage) {
-    dispatcher((moduleName + "/loader"), loaderMessage, { root: true });
+    dispatcher((moduleName + "/load"), loaderMessage, { root: true });
   };
   var end = function(dispatcher, loaderMessage) {
     dispatcher((moduleName + "/end"), loaderMessage, { root: true });
