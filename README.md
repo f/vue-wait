@@ -83,7 +83,7 @@ new Vue({
 
 **vuex-loading** provides some helpers to you to use in your templates.
 
-### `$anyLoading`
+#### `$anyLoading`
 
 Returns boolean value if any loader exists in page.
 
@@ -93,7 +93,7 @@ Returns boolean value if any loader exists in page.
 </template>
 ```
 
-### `$isLoading(loader String)`
+#### `$isLoading(loader String)`
 
 Returns boolean value if given loader exists in page.
 
@@ -103,7 +103,7 @@ Returns boolean value if given loader exists in page.
 </template>
 ```
 
-### `$startLoading(loader String)`
+#### `$startLoading(loader String)`
 
 Starts the given loader.
 
@@ -113,7 +113,7 @@ Starts the given loader.
 </template>
 ```
 
-### `$endLoading(loader String)`
+#### `$endLoading(loader String)`
 
 Stops the given loader.
 
@@ -134,7 +134,7 @@ const { startLoading, endLoading } = createActionHelpers({
 });
 ```
 
-### `startLoading(dispatcher, loader String, async callback)`
+#### `startLoading(dispatcher, loader String, async callback)`
 
 You can trigger loader from the action. This will make your templates more cleaner and you will have a accurate loader status.
 `startLoading` will trigger a loading and will end loader after async callback is finished.
@@ -153,7 +153,7 @@ export default {
 }
 ```
 
-### `endLoading(dispatcher, loader String)`
+#### `endLoading(dispatcher, loader String)`
 
 Ends given loading from actions.
 
