@@ -130,7 +130,7 @@ function createVuexLoader({
 
 function createActionHelpers({ moduleName }) {
   const start = function(dispatcher, loaderMessage) {
-    dispatcher(`${moduleName}/loader`, loaderMessage, { root: true });
+    dispatcher(`${moduleName}/load`, loaderMessage, { root: true });
   };
   const end = function(dispatcher, loaderMessage) {
     dispatcher(`${moduleName}/end`, loaderMessage, { root: true });
