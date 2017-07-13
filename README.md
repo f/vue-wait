@@ -4,6 +4,8 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http:
 
 <img src="./resources/vuex-loading.gif" width="480">
 
+> [Play with demo above](https://f.github.io/vuex-loading/).
+
 **vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages a Vuex store with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
 ## Requirements
