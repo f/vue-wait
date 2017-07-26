@@ -146,7 +146,7 @@ function createActionHelpers({ moduleName }) {
         })
         .catch(response => {
           end(dispatcher, loaderMessage);
-          return response;
+          return Promise.reject(response);
         });
     },
     endLoading(dispatcher, loaderMessage) {

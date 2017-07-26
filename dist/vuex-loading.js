@@ -191,7 +191,7 @@ function createActionHelpers(ref) {
         })
         .catch(function (response) {
           end(dispatcher, loaderMessage);
-          return response;
+          return Promise.reject(response);
         });
     },
     endLoading: function endLoading(dispatcher, loaderMessage) {
