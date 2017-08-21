@@ -147,8 +147,8 @@ function createActionHelpers({ moduleName }) {
             end(dispatcher, loaderMessage);
           })
           .catch(response => {
-            end(dispatcher, loaderMessage);
             reject(response);
+            end(dispatcher, loaderMessage);
           });
       });
     },
