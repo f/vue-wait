@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * vuex-loading v0.1.12
+ * vuex-loading v0.1.13
  *
  * (c) 2017 Fatih Kadir Akın <fatihkadirakin@gmail.com>
  *
@@ -184,7 +184,7 @@ function createActionHelpers(ref) {
     // start and stop helpers for async processes
     startLoading: function startLoading(dispatcher, loaderMessage, callback) {
       start(dispatcher, loaderMessage);
-
+      if(!callback) { return; }
       return new Promise(function (resolve, reject) {
         callback()
           .then(function (response) {
