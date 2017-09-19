@@ -136,11 +136,12 @@ const { startLoading, endLoading } = createActionHelpers({
 });
 ```
 
-#### `startLoading(dispatcher, loader String, async callback)`
+#### `startLoading(dispatcher, loader String [,async callback])`
 
-You can trigger loader from the action. This will make your templates more cleaner and you will have a accurate loader status.
-`startLoading` will trigger a loading and will end loader after async callback is finished.
+You can trigger loader from the action. This will make your templates cleaner and you will have an accurate loader status.
+`startLoading` will trigger a loading and will end loader after the optional async callback is finished.
 
+_Example using the Promise returning callback function_
 ```js
 export default {
   actions: {
@@ -149,6 +150,22 @@ export default {
         return fetch("...") // Some async job that returns Promise instance.
       });
       commit(types.CREATE_USER, response)
+    }
+  },
+  // ...
+}
+```
+
+_Example call without a provided callback_
+```js
+export default {
+  actions: {
+    createUser({ commit, dispatch }) {
+      startLoading(dispatch, 'creating user');
+      request('/create-user', (response) => {
+        endLoading(dispatch, 'creating user')
+        commit(types.CREATE_USER, response);
+      });
     }
   },
   // ...
@@ -185,7 +202,7 @@ In template, you should wrap your content with `v-loading` component to show loa
   <template slot='spinner'>
     This will be shown when "fetching data" loader starts.
   </template>
-  
+
   This will be shown when "fetching data" loader ends.
 </v-loading>
 ```
@@ -286,7 +303,7 @@ You need to put them into a `template` tag.
   <template slot="spinner">
     <v-loading-spinner height='30px' width='30px' />
   </template>
-  
+
   This will be shown when "fetching data" loader ends.
 </v-loading>
 ```
