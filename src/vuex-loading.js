@@ -130,7 +130,7 @@ function createVuexLoader(
   };
 }
 
-function createActionHelpers({ moduleName }) {
+function createActionHelpers({ moduleName = 'loading' } = {}) {
   const start = function(dispatcher, loaderMessage) {
     dispatcher(`${moduleName}/load`, loaderMessage, { root: true });
   };
