@@ -184,7 +184,7 @@ function createActionHelpers(ref) {
     // start and stop helpers for async processes
     startLoading: function startLoading(dispatcher, loaderMessage, callback) {
       start(dispatcher, loaderMessage);
-      if(!callback) { return; }
+      if (!callback) { return; }
       return new Promise(function (resolve, reject) {
         callback()
           .then(function (response) {
