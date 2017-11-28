@@ -7,7 +7,7 @@ Vue.use(VueLoading);
 
 new Vue({
     el: '#app',
-    vueLoading: new VueLoading(false, 'loading', false),
+    vueLoading: new VueLoading({registerComponents: false}),
     render: function (createElement) {
         return createElement(main)
     }

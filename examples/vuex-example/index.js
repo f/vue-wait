@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({});
 
-const vueLoading = new VueLoading(true, 'vuex-example-module')
+const vueLoading = new VueLoading({useVuex: true, moduleName: 'vuex-example-module'})
 new Vue({
     el: '#app',
     store,

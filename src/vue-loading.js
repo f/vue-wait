@@ -12,11 +12,13 @@ const uniq = array => {
 };
 
 export default class VueLoading {
-  constructor(
-    useVuex = false,
-    moduleName = 'loading',
-    registerComponents = true
-  ) {
+  constructor(options = {}) {
+    const {
+      useVuex = false,
+      moduleName = 'loading',
+      registerComponents = true
+    } = options; // unpack options into defaults
+
     this.useVuex = useVuex;
     this.moduleName = moduleName;
     this.registerComponents = registerComponents;

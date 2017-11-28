@@ -36,7 +36,7 @@ Then you should register `VueLoading` module:
 new Vue({
   el: '#app',
   store,
-  vueLoading: new VueLoading(false, 'loading', false), // configure VueLoading here
+  vueLoading: new VueLoading({registerComponents: false}), // configure VueLoading here
 });
 ```
 
@@ -58,7 +58,7 @@ Then you should register `vueLoading` module:
 new Vue({
   el: '#app',
   store,
-  vueLoading: new VueLoading(true, 'loading'), // configure VueLoading here
+  vueLoading: new VueLoading({useVuex: true, moduleName: 'vuex-example-module'}), // configure VueLoading here
 });
 ```
 
