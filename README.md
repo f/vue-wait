@@ -132,7 +132,7 @@ Stops the given loader.
 ```js
 import { createActionHelpers } from 'vuex-loading'
 const { startLoading, endLoading } = createActionHelpers({
-  moduleName: 'loader'
+  moduleName: 'loading'
 });
 ```
 
