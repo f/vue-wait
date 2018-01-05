@@ -117,18 +117,20 @@ const createInstaller = function({ moduleName, componentName, className }) {
   };
 };
 
-function createVuexLoader({
-  moduleName = 'loading',
-  componentName = 'v-loading',
-  className = 'v-loading'
-}) {
+function createVuexLoader(
+  {
+    moduleName = 'loading',
+    componentName = 'v-loading',
+    className = 'v-loading'
+  } = {}
+) {
   return {
     install: createInstaller({ moduleName, componentName, className }),
     Store: createStore(moduleName)
   };
 }
 
-function createActionHelpers({ moduleName }) {
+function createActionHelpers({ moduleName = 'loading' } = {}) {
   const start = function(dispatcher, loaderMessage) {
     dispatcher(`${moduleName}/load`, loaderMessage, { root: true });
   };
