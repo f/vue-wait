@@ -11,7 +11,7 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http:
 ## Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
-- [Vuex](http://vuex.vuejs.org) (v2.0.0+)
+- Optional - [Vuex](http://vuex.vuejs.org) (v2.0.0+)
 
 ## Installation
 
@@ -24,66 +24,74 @@ $ yarn add vuex-loading
 ## Usage
 
 ```js
-import { createVuexLoader } from 'vuex-loading'
-
-const VuexLoading = createVuexLoader({
-  // The Vuex module name, 'loading' by default.
-  moduleName: 'loading',
-  // The Vue component name, 'v-loading' by default.
-  componentName: 'v-loading',
-  // Vue component class name, 'v-loading' by default.
-  className: 'v-loading',
-});
+import VueLoading from 'vuex-loading'
 
 Vue.use(Vuex)
-Vue.use(VuexLoading)
-
-const store = new Vuex.Store({
-  plugins: [VuexLoading.Store],
-});
+Vue.use(VuexLoading) // add VueLoading as Vue plugin
 ```
 
-Then you should register loading module:
+Then you should register `VueLoading` module:
 
 ```js
 new Vue({
   el: '#app',
   store,
-  computed: {
-    ...mapGetters('loading', [
-      /*
-        `isLoading` returns a function with a parameter of loader name.
-        e.g. `isLoading('creating user')` will return you a boolean value.
-      */
-      'isLoading',
-      /*
-        `anyLoading` returns a boolean value if any loader name exists on store.
-      */
-      'anyLoading',
-    ])
-  },
-  methods: {
-    startLoading() {
-      /*
-        VuexLoading registers $startLoading method with loader name.
-        When you start a loader, it pushes the loader name to loading state.
-      */
-      this.$startLoading('fetching data');
-    },
-    endLoading() {
-      /*
-        VuexLoading registers $startLoading method with loader name.
-        When you stop a loader, it pulls the loader name from loading state.
-      */
-      this.$endLoading('fetching data');
-    },
-  },
+  vueLoading: new VueLoading({registerComponents: false}), // configure VueLoading here
 });
 ```
+
+## Usage with vuex
+
+Simply set `useVuex` parameter to `true` and optionally override
+`moduleName`
+
+```js
+import VueLoading from 'vuex-loading'
+
+Vue.use(Vuex)
+Vue.use(VuexLoading) // add VueLoading as Vue plugin
+```
+
+Then you should register `vueLoading` module:
+
+```js
+new Vue({
+  el: '#app',
+  store,
+  vueLoading: new VueLoading({useVuex: true, moduleName: 'vuex-example-module'}), // configure VueLoading here
+});
+```
+
+Now `VueLoading` will use `Vuex` store for data management
+which can be traced in `Vue dev tools`
+
+<img src="./resources/vue-loading-2.gif" width="480">
+
+## VueLoading options
+
+You can use this options for customize VueLoading behavior
+
+#### `useVuex`
+
+boolean value, false by default, use this value for enabling
+integration with `Vuex` store
+
+When this value is true `VueLoading` will store data in `Vuex` store
+and all changes to this data will be made by dispatching actions to store
+
+#### `moduleName`
+
+string value, `loading` by default.
+Name for `Vuex` store if `useVuex` set to true, otherwise not used.
+
+#### `registerComponents`
+
+boolean value, true by default, register `v-loading` components.
 
 ## Global Template Helpers
 
 **vuex-loading** provides some helpers to you to use in your templates.
+All features can be obtained from $loading property in Vue components
 
 #### `$anyLoading`
 
@@ -91,7 +99,7 @@ Returns boolean value if any loader exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$anyLoading">Please wait...</progress-bar>
+  <progress-bar v-if="$loading.anyLoading">Please wait...</progress-bar>
 </template>
 ```
 
@@ -101,7 +109,7 @@ Returns boolean value if given loader exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$isLoading('creating user')">Creating User...</progress-bar>
+  <progress-bar v-if="$loading.isLoading('creating user')">Creating User...</progress-bar>
 </template>
 ```
 
@@ -111,7 +119,7 @@ Starts the given loader.
 
 ```html
 <template>
-  <button @click="$startLoading('creating user')">Create User</button>
+  <button @click="$loading.startLoading('creating user')">Create User</button>
 </template>
 ```
 
@@ -121,7 +129,7 @@ Stops the given loader.
 
 ```html
 <template>
-  <button @click="$endLoading('creating user')">Cancel</button>
+  <button @click="$loading.endLoading('creating user')">Cancel</button>
 </template>
 ```
 
@@ -194,6 +202,16 @@ export default {
 ```
 
 ## Using `v-loading` Component
+
+If you disable `registerComponents` option then
+import and add `v-loading` into components
+
+```js
+import vLoading from 'vuex-loading/v-loading.vue'
+components: {
+            'v-loading': vLoading
+}
+```
 
 In template, you should wrap your content with `v-loading` component to show loading on it.
 
@@ -309,6 +327,11 @@ You need to put them into a `template` tag.
 ```
 
 Please see `example` for more detailed example.
+
+## Run example
+
+Use `npm run dev-vuex` or `npm run dev-default` commands
+for running examples locally.
 
 ## License
 
