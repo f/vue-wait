@@ -1,7 +1,7 @@
 {
   "name": "vuex-loading",
   "description": "Vuex Plugin for Global Loading Management",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "author": "Fatih Kadir Akın <fatihkadirakin@gmail.com>",
   "keywords": [
@@ -19,10 +19,8 @@
   "bugs": {
     "url": "https://github.com/f/vuex-loading/issues"
   },
-  "main": "dist/vuex-loading.js",
+  "main": "src/vue-loading.js",
   "files": [
-    "dist/vuex-loading.js",
-    "dist/vuex-loading.min.js",
     "src",
     "LICENSE",
     "README.md"
