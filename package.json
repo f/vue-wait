@@ -1,7 +1,7 @@
 {
   "name": "vuex-loading",
   "description": "Vuex Plugin for Global Loading Management",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "author": "Fatih Kadir Akın <fatihkadirakin@gmail.com>",
   "keywords": [
@@ -44,23 +44,16 @@
     ]
   },
   "devDependencies": {
-    "babel-preset-env": "^1.6.0",
     "eslint": "^4.2.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.1",
     "poi": "^9.5.4",
     "prettier": "^1.1.0",
-    "rollup": "^0.45.1",
-    "rollup-plugin-buble": "^0.15.0",
-    "uglify-js": "^3.0.24",
     "vue": "^2.0.0",
-    "vuex": "^2.0.0"
+    "vuex": "^3.0.1"
   },
   "peerDependencies": {
-    "vue": "^2.0.0",
-    "vuex": "^2.0.0"
+    "vue": "^2.0.0"
   },
-  "dependencies": {
-    "rollup-plugin-vue": "^3.0.0"
-  }
+  "dependencies": {}
 }
