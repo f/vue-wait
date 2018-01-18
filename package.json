@@ -38,7 +38,7 @@
       "prettier --single-quote --write",
       "git add"
     ],
-    "example/**/*.js": [
+    "examples/**/*.js": [
       "prettier --single-quote --write",
       "git add"
     ]
