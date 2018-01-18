@@ -28,7 +28,6 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rollup --environment NODE_ENV:production -c build/rollup.config.js && uglifyjs dist/vuex-loading.js --comments -o dist/vuex-loading.min.js",
     "test": "exit 0;",
     "precommit": "lint-staged",
     "dev-vuex": "poi examples/vuex-example/index.js",
@@ -60,5 +59,8 @@
   "peerDependencies": {
     "vue": "^2.0.0",
     "vuex": "^2.0.0"
+  },
+  "dependencies": {
+    "rollup-plugin-vue": "^3.0.0"
   }
 }

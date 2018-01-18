@@ -1,6 +1,8 @@
 # ⌛️ vuex-loading
 
-Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http://vuex.vuejs.org/).
+Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally) [Vuex](http://vuex.vuejs.org/).
+
+> Even it's named as "vuex-loading", Vuex is now completely optional.
 
 <img src="./resources/vuex-loading.gif" width="480">
 
@@ -11,7 +13,9 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and [Vuex](http:
 ## Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
-- Optional - [Vuex](http://vuex.vuejs.org) (v2.0.0+)
+
+## Power supplies
+- [Vuex](http://vuex.vuejs.org), optionally (v2.0.0+)
 
 ## Installation
 
@@ -26,8 +30,7 @@ $ yarn add vuex-loading
 ```js
 import VueLoading from 'vuex-loading'
 
-Vue.use(Vuex)
-Vue.use(VuexLoading) // add VueLoading as Vue plugin
+Vue.use(VueLoading) // add VueLoading as Vue plugin
 ```
 
 Then you should register `VueLoading` module:
@@ -40,7 +43,7 @@ new Vue({
 });
 ```
 
-## Usage with vuex
+## Usage with Vuex
 
 Simply set `useVuex` parameter to `true` and optionally override
 `moduleName`
@@ -49,7 +52,7 @@ Simply set `useVuex` parameter to `true` and optionally override
 import VueLoading from 'vuex-loading'
 
 Vue.use(Vuex)
-Vue.use(VuexLoading) // add VueLoading as Vue plugin
+Vue.use(VueLoading) // add VueLoading as Vue plugin
 ```
 
 Then you should register `vueLoading` module:
@@ -58,12 +61,12 @@ Then you should register `vueLoading` module:
 new Vue({
   el: '#app',
   store,
-  vueLoading: new VueLoading({useVuex: true, moduleName: 'vuex-example-module'}), // configure VueLoading here
+  vueLoading: new VueLoading({ useVuex: true, moduleName: 'vuex-example-module' }), // configure VueLoading here
 });
 ```
 
 Now `VueLoading` will use `Vuex` store for data management
-which can be traced in `Vue dev tools`
+which can be traced in `Vue DevTools`
 
 <img src="./resources/vue-loading-2.gif" width="480">
 
@@ -73,7 +76,7 @@ You can use this options for customize VueLoading behavior
 
 #### `useVuex`
 
-boolean value, false by default, use this value for enabling
+boolean value, `false` by default, use this value for enabling
 integration with `Vuex` store
 
 When this value is true `VueLoading` will store data in `Vuex` store
@@ -209,7 +212,7 @@ import and add `v-loading` into components
 ```js
 import vLoading from 'vuex-loading/v-loading.vue'
 components: {
-            'v-loading': vLoading
+  'v-loading': vLoading
 }
 ```
 
@@ -332,6 +335,11 @@ Please see `example` for more detailed example.
 
 Use `npm run dev-vuex` or `npm run dev-default` commands
 for running examples locally.
+
+## Contributors
+
+- Fatih Kadir Akın, (creator)
+- Igor, (maintainer, made Vuex-free)
 
 ## License
 
