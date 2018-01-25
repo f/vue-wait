@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vuex-loading.min.js',
+    filename: 'vuex-loading.js',
     library: 'VuexLoading',
     libraryTarget: 'umd',
     umdNamedDefine: true
