@@ -1,7 +1,5 @@
 import vLoading from './v-loading.vue';
 
-export let _Vue;
-
 const mutations = {
   LOAD: 'LOAD',
   END: 'END'
@@ -153,15 +151,14 @@ export default class VueLoading {
 }
 
 export function install(Vue) {
-  if (install.installed && _Vue && Vue === _Vue) {
+  if (install.installed && Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn(
-        '[vue-loading] already installed. Vue.use(VueLoading) should be called only once.'
+        '[vuex-loading] already installed. Vue.use(VuexLoading) should be called only once.'
       );
     }
     return;
   }
-  _Vue = Vue;
   install.installed = true;
   // applyMixin
   Vue.mixin({
