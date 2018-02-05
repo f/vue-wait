@@ -49,7 +49,7 @@ export default class VueLoading {
       },
       getters: {
         isLoading: state => loaderMessage =>
-          state.activeLoaders.indexOf(loaderMessage) > -1,
+          Array.isArray(loaderMessage) ? state.activeLoaders.some(v => loaderMessage.includes(v)) : state.activeLoaders.indexOf(loaderMessage) > -1,
         anyLoading: state => state.activeLoaders.length > 0
       },
       actions: {
