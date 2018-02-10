@@ -116,6 +116,16 @@ Returns boolean value if given loader exists in page.
 </template>
 ```
 
+#### `$isLoading(loaders Array<String>)`
+
+Returns boolean value if some of given loaders exists in page.
+
+```html
+<template>
+  <progress-bar v-if="$loading.isLoading(['creating user', 'page loading'])">Creating User...</progress-bar>
+</template>
+```
+
 #### `$startLoading(loader String)`
 
 Starts the given loader.
