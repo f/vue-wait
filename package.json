@@ -28,8 +28,8 @@
   ],
   "scripts": {
     "test": "exit 0;",
-		"precommit": "lint-staged",
-		"build": "rollup -c",
+    "precommit": "lint-staged",
+    "build": "rollup -c",
     "dev-vuex": "poi examples/vuex-example/index.js",
     "dev-default": "poi examples/default-example/index.js"
   },
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-		"babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -54,8 +54,8 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.0.1",
     "poi": "^9.5.4",
-		"prettier": "^1.1.0",
-		"rollup": "^0.56.1",
+    "prettier": "^1.1.0",
+    "rollup": "^0.56.1",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-node-resolve": "^3.0.3",
