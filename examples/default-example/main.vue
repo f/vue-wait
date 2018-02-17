@@ -31,7 +31,7 @@
             Toggle on any letter to load/unload together.
         </p>
         <ul class="list">
-            <li v-for='loader in loaders' @click='toggleLoader(loader)'>
+            <li v-for='loader in loaders' @click='toggleLoader(loader)' :key=loader.id>
                 <v-loading :loader='loader' message=''>
                     <template slot='spinner' v-if='loader == "c"'>
                         <loading-heart width="1em" height="1em"/>
@@ -52,7 +52,7 @@
     import loadingSpinner from '../../src/spinners/spinner.vue'
 
     export default {
-        name: 'main',
+        name: 'main-view',
         components: {
             'v-loading': vLoading,
             'loading-heart': loadingHeart,
