@@ -1,6 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.VuexLoading = {})));
+}(this, (function (exports) { 'use strict';
 
 var vLoading = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', [_vm.status ? _c('span', { attrs: { "width": _vm.width || '1em', "height": _vm.height || '1em' } }, [_vm._t("spinner"), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.message))])], 2) : _vm._e(), _vm._v(" "), !_vm.status ? _vm._t("default") : _vm._e()], 2);
@@ -248,3 +250,8 @@ VueLoading.install = install;
 exports.VueLoading = VueLoading;
 exports.install = install;
 exports.createActionHelpers = createActionHelpers;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
+//# sourceMappingURL=vuex-loading.umd.js.map
