@@ -94,7 +94,7 @@ boolean value, true by default, register `v-loading` components.
 ## Global Template Helpers
 
 **vuex-loading** provides some helpers to you to use in your templates.
-All features can be obtained from $loading property in Vue components
+All features can be obtained from $vuexLoading property in Vue components
 
 #### `$anyLoading`
 
@@ -102,7 +102,7 @@ Returns boolean value if any loader exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$loading.anyLoading">Please wait...</progress-bar>
+  <progress-bar v-if="$vuexLoading.anyLoading">Please wait...</progress-bar>
 </template>
 ```
 
@@ -112,7 +112,7 @@ Returns boolean value if given loader exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$loading.isLoading('creating user')">Creating User...</progress-bar>
+  <progress-bar v-if="$vuexLoading.isLoading('creating user')">Creating User...</progress-bar>
 </template>
 ```
 
@@ -122,7 +122,7 @@ Returns boolean value if some of given loaders exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$loading.isLoading(['creating user', 'page loading'])">Creating User...</progress-bar>
+  <progress-bar v-if="$vuexLoading.isLoading(['creating user', 'page loading'])">Creating User...</progress-bar>
 </template>
 ```
 
@@ -132,7 +132,7 @@ Starts the given loader.
 
 ```html
 <template>
-  <button @click="$loading.startLoading('creating user')">Create User</button>
+  <button @click="$vuexLoading.startLoading('creating user')">Create User</button>
 </template>
 ```
 
@@ -142,7 +142,7 @@ Stops the given loader.
 
 ```html
 <template>
-  <button @click="$loading.endLoading('creating user')">Cancel</button>
+  <button @click="$vuexLoading.endLoading('creating user')">Cancel</button>
 </template>
 ```
 

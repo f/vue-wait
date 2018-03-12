@@ -8,7 +8,7 @@
                 This will be shown after load.
             </v-loading>
         </div>
-        <button @click='$loading.startLoading("writing code")' :disable='$loading.isLoading("writing code")'>
+        <button @click='$vuexLoading.startLoading("writing code")' :disable='$vuexLoading.isLoading("writing code")'>
             <v-loading loader='writing code' message='Writing Code...'>
                 <template slot='spinner'>
                     <loading-spinner width="1em" height="1em"/>
@@ -16,15 +16,15 @@
                 Write Code
             </v-loading>
         </button>
-        <button @click='endLoading' :disabled='!$loading.isLoading("writing code")'>
-            <span v-if='$loading.isLoading("writing code")'>Stop Coding</span>
+        <button @click='endLoading' :disabled='!$vuexLoading.isLoading("writing code")'>
+            <span v-if='$vuexLoading.isLoading("writing code")'>Stop Coding</span>
             <span v-else>Coding Stopped</span>
         </button>
         <br>
-        <button @click='$loading.startLoading("c")' :disabled='$loading.isLoading("c")'>
+        <button @click='$vuexLoading.startLoading("c")' :disabled='$vuexLoading.isLoading("c")'>
             Start <b>"c"</b> Loader
         </button>
-        <button @click='$loading.endLoading("c")' :disabled='!$loading.isLoading("c")'>
+        <button @click='$vuexLoading.endLoading("c")' :disabled='!$vuexLoading.isLoading("c")'>
             Stop <b>"c"</b> Loader
         </button>
         <p>
@@ -65,16 +65,16 @@
         },
         methods: {
             writeCode() {
-                this.$loading.startLoading('writing code');
+                this.$vuexLoading.startLoading('writing code');
             },
             endLoading() {
-                this.$loading.endLoading('writing code');
+                this.$vuexLoading.endLoading('writing code');
             },
             toggleLoader(loader) {
-                if (this.$loading.isLoading(loader)) {
-                    this.$loading.endLoading(loader);
+                if (this.$vuexLoading.isLoading(loader)) {
+                    this.$vuexLoading.endLoading(loader);
                 } else {
-                    this.$loading.startLoading(loader);
+                    this.$vuexLoading.startLoading(loader);
                 }
             }
         }
