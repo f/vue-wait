@@ -241,7 +241,7 @@ In template, you should wrap your content with `v-loading` component to show loa
 Better example for a `button` with loading state:
 
 ```html
-<button :disabled='$isLoading("creating user")'>
+<button :disabled='$loading.isLoading("creating user")'>
   <v-loading loader='creating user'>
     <template slot='spinner'>Creating User...</template>
     Create User
