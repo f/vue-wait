@@ -1,14 +1,14 @@
 import Vue from 'vue';
-import VueLoading from '../../src/vue-loading';
+import { VueLoading } from '../../dist/vuex-loading';
 
-import main from './main.vue'
+import main from './main.vue';
 
 Vue.use(VueLoading);
 
 new Vue({
-    el: '#app',
-    vueLoading: new VueLoading({registerComponents: false}),
-    render: function (createElement) {
-        return createElement(main)
-    }
+  el: '#app',
+  vueLoading: new VueLoading({ registerComponents: false }),
+  render: function(createElement) {
+    return createElement(main);
+  }
 });
