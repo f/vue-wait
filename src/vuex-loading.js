@@ -49,7 +49,9 @@ export default class VueLoading {
       },
       getters: {
         isLoading: state => loaderMessage =>
-          Array.isArray(loaderMessage) ? state.activeLoaders.some(v => loaderMessage.includes(v)) : state.activeLoaders.indexOf(loaderMessage) > -1,
+          Array.isArray(loaderMessage)
+            ? state.activeLoaders.some(v => loaderMessage.includes(v))
+            : state.activeLoaders.indexOf(loaderMessage) > -1,
         anyLoading: state => state.activeLoaders.length > 0
       },
       actions: {
@@ -168,14 +170,14 @@ export function install(Vue) {
     beforeCreate() {
       const options = this.$options;
       if (options.vueLoading) {
-        this.$loading =
+        this.$vuexLoading =
           typeof options.vueLoading === 'function'
             ? new options.vueLoading()
             : options.vueLoading;
-        this.$loading.init(Vue, options.store); // store injection
-      } else if (options.parent && options.parent.$loading) {
-        this.$loading = options.parent.$loading;
-        this.$loading.init(Vue, options.parent.$store);
+        this.$vuexLoading.init(Vue, options.store); // store injection
+      } else if (options.parent && options.parent.$vuexLoading) {
+        this.$vuexLoading = options.parent.$vuexLoading;
+        this.$vuexLoading.init(Vue, options.parent.$store);
       }
     }
   });
