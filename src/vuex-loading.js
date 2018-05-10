@@ -170,14 +170,14 @@ export function install(Vue) {
     beforeCreate() {
       const options = this.$options;
       if (options.vueLoading) {
-        this.$vuexLoading =
+        this.$vueLoading =
           typeof options.vueLoading === 'function'
             ? new options.vueLoading()
             : options.vueLoading;
-        this.$vuexLoading.init(Vue, options.store); // store injection
-      } else if (options.parent && options.parent.$vuexLoading) {
-        this.$vuexLoading = options.parent.$vuexLoading;
-        this.$vuexLoading.init(Vue, options.parent.$store);
+        this.$vueLoading.init(Vue, options.store); // store injection
+      } else if (options.parent && options.parent.$vueLoading) {
+        this.$vueLoading = options.parent.$vueLoading;
+        this.$vueLoading.init(Vue, options.parent.$store);
       }
     }
   });

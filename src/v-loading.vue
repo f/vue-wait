@@ -18,9 +18,9 @@
           return this.when;
         }
         if (this.loader) {
-          return this.$vuexLoading.isLoading(this.loader);
+          return this.$vueLoading.isLoading(this.loader);
         }
-        return this.$vuexLoading.anyLoading;
+        return this.$vueLoading.anyLoading;
       }
     }
   }
