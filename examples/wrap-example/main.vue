@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <v-loading message='Something loading! Lovely...'>
-                <template slot='spinner'>
+                <template slot='loading'>
                     <loading-heart width='1em' height='1em'/>
                 </template>
                 This will be shown after load.
@@ -10,7 +10,7 @@
         </div>
         <button @click='fetchDataFromApi' :disable='$vueLoading.isLoading("fetch data")'>
             <v-loading loader='fetch data' message='Fetching data...'>
-                <template slot='spinner'>
+                <template slot='loading'>
                     <loading-spinner width="1em" height="1em"/>
                 </template>
                 Fetching response {{fetchResponse}}
@@ -19,7 +19,7 @@
 
         <button @click='syncCalculator' :disable='$vueLoading.isLoading("sync work")'>
             <v-loading loader='sync work' message='Calculating data...'>
-                <template slot='spinner'>
+                <template slot='loading'>
                     <loading-spinner width="1em" height="1em"/>
                 </template>
                 Calculate data {{calculateData}}

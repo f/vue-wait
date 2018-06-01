@@ -255,7 +255,7 @@ In template, you should wrap your content with `v-loading` component to show loa
 
 ```html
 <v-loading loader='fetching data'>
-  <template slot='spinner'>
+  <template slot='loading'>
     This will be shown when "fetching data" loader starts.
   </template>
 
@@ -268,7 +268,7 @@ Better example for a `button` with loading state:
 ```html
 <button :disabled='$vueLoading.isLoading("creating user")'>
   <v-loading loader='creating user'>
-    <template slot='spinner'>Creating User...</template>
+    <template slot='loading'>Creating User...</template>
     Create User
   </v-loading>
 </button>
@@ -286,7 +286,7 @@ In this example above, the **tab gets data from back-end**, and the **table load
 <template lang='pug'>
 div
   v-loading(loader='fetching tabs')
-    template(slot='spinner')
+    template(slot='loading')
       b-tabs
         template(slot='tabs')
           b-nav-item(active disabled)
@@ -296,7 +296,7 @@ div
         b-nav-item(v-for='tab in tabs') {{ tab.name }}
 
   v-loading(loader='fetching data')
-    table-gradient-spinner(slot='spinner')
+    table-gradient-spinner(slot='loading')
     table
       tr(v-for='row in data')
         // ...
@@ -334,12 +334,12 @@ You may want to design your own reusable loader for your project. You better cre
 </style>
 ```
 
-Now you can use your spinner everywhere using `slot='spinner'` attribute:
+Now you can use your spinner everywhere using `slot='loading'` attribute:
 
 ```html
 <template lang="pug">
   v-loading(loader='fetching data')
-    my-spinner(slot='spinner')
+    my-spinner(slot='loading')
     div
       p My main content after fetching data...
 </template>
@@ -356,7 +356,7 @@ You need to put them into a `template` tag.
 
 ```html
 <v-loading loader='fetching data'>
-  <template slot="spinner">
+  <template slot="loading">
     <v-loading-spinner height='30px' width='30px' />
   </template>
 
