@@ -32,11 +32,6 @@ import vLoading from '../../src/v-loading.vue'
 import loadingHeart from '../../src/spinners/heart.vue'
 import loadingSpinner from '../../src/spinners/spinner.vue'
 import {wrapLoading} from '../../src/vuex-loading'
-import axios from 'axios'
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 export default {
   name: 'main',
@@ -53,12 +48,14 @@ export default {
   },
   methods: {
     fetchDataFromApi: wrapLoading('fetch data', async function () {
-      // do work here
-      const response = await axios.get('http://echo.jsontest.com/key/value/one/two');
-      await sleep(2000);
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
 
-      this.fetchResponse = response.data;
-      console.log('fetch complete')
+      // do work here
+      await sleep(3000);
+      // simulate some api call
+      this.fetchResponse = Math.random()
     }),
     syncCalculator: wrapLoading('sync work', function () {
       for (let i = 2; i < 1000000000; i++) {

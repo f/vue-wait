@@ -227,12 +227,13 @@ _Example using with async function_
 ```js
 methods: {
   fetchDataFromApi: wrapLoading('fetch data', async function () {
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
     // do work here
-    const response = await axios.get('http://echo.jsontest.com/key/value/one/two');
-    await sleep(2000);
-
-    this.fetchResponse = response.data;
-    console.log('fetch complete')
+    await sleep(3000);
+    // simulate some api call
+    this.fetchResponse = Math.random()
   })
 }
 ```
