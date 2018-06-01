@@ -1,0 +1,128 @@
+<template>
+    <div>
+        <div class="container">
+            <v-loading message='Something loading! Lovely...'>
+                <template slot='spinner'>
+                    <loading-heart width='1em' height='1em'/>
+                </template>
+                This will be shown after load.
+            </v-loading>
+        </div>
+        <button @click='fetchDataFromApi()' :disable='$vueLoading.isLoading("fetch data")'>
+            <v-loading loader='fetch data' message='Fetching data...'>
+                <template slot='spinner'>
+                    <loading-spinner width="1em" height="1em"/>
+                </template>
+                Fetching response {{fetchResponse}}
+            </v-loading>
+        </button>
+    </div>
+</template>
+<script>
+import vLoading from '../../src/v-loading.vue'
+import loadingHeart from '../../src/spinners/heart.vue'
+import loadingSpinner from '../../src/spinners/spinner.vue'
+import {wrapLoading} from '../../src/vuex-loading'
+import axios from 'axios'
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export default {
+  name: 'main',
+  components: {
+    'v-loading': vLoading,
+    'loading-heart': loadingHeart,
+    'loading-spinner': loadingSpinner
+  },
+  data() {
+    return {
+      fetchResponse: null
+    };
+  },
+  methods: {
+    fetchDataFromApi: wrapLoading('fetch data', async function () {
+      // do work here
+      const response = await axios.get('http://echo.jsontest.com/key/value/one/two');
+      await sleep(2000);
+
+      this.fetchResponse = response.data;
+      console.log('fetch complete')
+    }, true)
+  }
+}
+</script>
+
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+#app {
+    margin: 50px auto;
+    width: 500px;
+    text-align: center;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.list li {
+    display: inline-block;
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    border: 2px solid #ccc;
+    line-height: 30px;
+}
+
+.container {
+    padding: 50px;
+}
+
+button {
+    border: 0;
+    background-color: #fff;
+    border: 2px solid #9f0fa0;
+    border-radius: 4px;
+    margin: 5px;
+    color: #9f0fa0;
+    font-size: 16px;
+    padding: 8px;
+}
+
+button[disabled] {
+    opacity: 0.4;
+}
+
+.my-loading {
+    text-align: center;
+    opacity: .5;
+    animation: pulse 3s infinite;
+    animation-delay: 1s;
+}
+
+@-webkit-keyframes pulse {
+    0%, 100% {
+        opacity: .5;
+    }
+    50% {
+        opacity: .1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: .5;
+    }
+    50% {
+        opacity: .1;
+    }
+}
+</style>

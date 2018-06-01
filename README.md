@@ -214,6 +214,27 @@ export default {
 }
 ```
 
+#### `wrapLoading(loader String, func Function, [,force_async = false])`
+
+Decorator that wraps function,
+will trigger a loading and will end loader after the original function (`func` argument) is finished.
+
+_Example using with async function_
+
+```js
+methods: {
+  fetchDataFromApi: wrapLoading('fetch data', async function () {
+    // do work here
+    const response = await axios.get('http://echo.jsontest.com/key/value/one/two');
+    await sleep(2000);
+
+    this.fetchResponse = response.data;
+    console.log('fetch complete')
+  }, true)}
+```
+
+See also `examples/wrap-example`
+
 ## Using `v-loading` Component
 
 If you disable `registerComponents` option then
