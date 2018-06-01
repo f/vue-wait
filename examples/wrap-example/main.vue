@@ -8,12 +8,21 @@
                 This will be shown after load.
             </v-loading>
         </div>
-        <button @click='fetchDataFromApi()' :disable='$vueLoading.isLoading("fetch data")'>
+        <button @click='fetchDataFromApi' :disable='$vueLoading.isLoading("fetch data")'>
             <v-loading loader='fetch data' message='Fetching data...'>
                 <template slot='spinner'>
                     <loading-spinner width="1em" height="1em"/>
                 </template>
                 Fetching response {{fetchResponse}}
+            </v-loading>
+        </button>
+
+        <button @click='syncCalculator' :disable='$vueLoading.isLoading("sync work")'>
+            <v-loading loader='sync work' message='Calculating data...'>
+                <template slot='spinner'>
+                    <loading-spinner width="1em" height="1em"/>
+                </template>
+                Calculate data {{calculateData}}
             </v-loading>
         </button>
     </div>
@@ -38,7 +47,8 @@ export default {
   },
   data() {
     return {
-      fetchResponse: null
+      fetchResponse: null,
+      calculateData: 0
     };
   },
   methods: {
@@ -49,6 +59,12 @@ export default {
 
       this.fetchResponse = response.data;
       console.log('fetch complete')
+    }),
+    syncCalculator: wrapLoading('sync work', function () {
+      for (let i = 2; i < 1000000000; i++) {
+        Math.sqrt(i)
+      }
+      this.calculateData += 1;
     }, true)
   }
 }

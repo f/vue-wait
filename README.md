@@ -214,10 +214,13 @@ export default {
 }
 ```
 
-#### `wrapLoading(loader String, func Function, [,force_async = false])`
+#### `wrapLoading(loader String, func Function, [,force_sync = false])`
 
 Decorator that wraps function,
 will trigger a loading and will end loader after the original function (`func` argument) is finished.
+
+By default `wrapLoading` return async function,
+if you want to wrap default sync function pass `true` in last argument
 
 _Example using with async function_
 
@@ -230,7 +233,8 @@ methods: {
 
     this.fetchResponse = response.data;
     console.log('fetch complete')
-  }, true)}
+  })
+}
 ```
 
 See also `examples/wrap-example`

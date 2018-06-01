@@ -213,25 +213,25 @@ export function createActionHelpers({ moduleName }) {
   };
 }
 
-export function wrapLoading(loader, func, force_async = false) {
+export function wrapLoading(loader, func, force_sync = false) {
   if (typeof func !== 'function') {
     console.warn('[vuex-loading] wrapLoading func argument must be a function');
     return func;
   }
-  if (func.constructor.name === 'AsyncFunction' || force_async === true) {
-    return async function() {
+  if (force_sync === true) {
+    return function() {
       try {
         this.$vueLoading.startLoading(loader);
-        return await func.apply(this, arguments);
+        return func.apply(this, arguments);
       } finally {
         this.$vueLoading.endLoading(loader);
       }
     };
   }
-  return function() {
+  return async function() {
     try {
       this.$vueLoading.startLoading(loader);
-      return func.apply(this, arguments);
+      return await func.apply(this, arguments);
     } finally {
       this.$vueLoading.endLoading(loader);
     }
