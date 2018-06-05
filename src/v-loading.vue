@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if='status' :width="width || '1em'" :height="height || '1em'">
-      <slot name='spinner'>
+      <slot name='loading'>
       </slot>
       <span>{{ message }}</span>
     </span>

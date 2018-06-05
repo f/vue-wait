@@ -30,7 +30,8 @@
     "precommit": "lint-staged",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dev-vuex": "poi examples/vuex-example/index.js",
-    "dev-default": "poi examples/default-example/index.js"
+    "dev-default": "poi examples/default-example/index.js",
+    "dev-wrap": "poi examples/wrap-example/index.js"
   },
   "lint-staged": {
     "src/**/*.js": [

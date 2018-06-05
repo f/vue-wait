@@ -27,7 +27,7 @@ export default class VueLoading {
   init(Vue /* Vue component instance */, store /* Vuex store */) {
     if (process.env.NODE_ENV !== 'production' && !install.installed) {
       console.warn(
-        `not installed. Make sure to call \`Vue.use(VueLoading)\` ` +
+        `[vuex-loading] not installed. Make sure to call \`Vue.use(VueLoading)\` ` +
           `before init root instance.`
       );
     }
@@ -209,6 +209,31 @@ export function createActionHelpers({ moduleName }) {
     },
     endLoading(dispatcher, loaderMessage) {
       end(dispatcher, loaderMessage);
+    }
+  };
+}
+
+export function wrapLoading(loader, func, force_sync = false) {
+  if (typeof func !== 'function') {
+    console.warn('[vuex-loading] wrapLoading func argument must be a function');
+    return func;
+  }
+  if (force_sync === true) {
+    return function() {
+      try {
+        this.$vueLoading.startLoading(loader);
+        return func.apply(this, arguments);
+      } finally {
+        this.$vueLoading.endLoading(loader);
+      }
+    };
+  }
+  return async function() {
+    try {
+      this.$vueLoading.startLoading(loader);
+      return await func.apply(this, arguments);
+    } finally {
+      this.$vueLoading.endLoading(loader);
     }
   };
 }

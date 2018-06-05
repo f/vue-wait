@@ -214,6 +214,32 @@ export default {
 }
 ```
 
+#### `wrapLoading(loader String, func Function, [,force_sync = false])`
+
+Decorator that wraps function,
+will trigger a loading and will end loader after the original function (`func` argument) is finished.
+
+By default `wrapLoading` return async function,
+if you want to wrap default sync function pass `true` in last argument
+
+_Example using with async function_
+
+```js
+methods: {
+  fetchDataFromApi: wrapLoading('fetch data', async function () {
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    // do work here
+    await sleep(3000);
+    // simulate some api call
+    this.fetchResponse = Math.random()
+  })
+}
+```
+
+See also `examples/wrap-example`
+
 ## Using `v-loading` Component
 
 If you disable `registerComponents` option then
@@ -230,7 +256,7 @@ In template, you should wrap your content with `v-loading` component to show loa
 
 ```html
 <v-loading loader='fetching data'>
-  <template slot='spinner'>
+  <template slot='loading'>
     This will be shown when "fetching data" loader starts.
   </template>
 
@@ -243,7 +269,7 @@ Better example for a `button` with loading state:
 ```html
 <button :disabled='$vueLoading.isLoading("creating user")'>
   <v-loading loader='creating user'>
-    <template slot='spinner'>Creating User...</template>
+    <template slot='loading'>Creating User...</template>
     Create User
   </v-loading>
 </button>
@@ -261,7 +287,7 @@ In this example above, the **tab gets data from back-end**, and the **table load
 <template lang='pug'>
 div
   v-loading(loader='fetching tabs')
-    template(slot='spinner')
+    template(slot='loading')
       b-tabs
         template(slot='tabs')
           b-nav-item(active disabled)
@@ -271,7 +297,7 @@ div
         b-nav-item(v-for='tab in tabs') {{ tab.name }}
 
   v-loading(loader='fetching data')
-    table-gradient-spinner(slot='spinner')
+    table-gradient-spinner(slot='loading')
     table
       tr(v-for='row in data')
         // ...
@@ -309,12 +335,12 @@ You may want to design your own reusable loader for your project. You better cre
 </style>
 ```
 
-Now you can use your spinner everywhere using `slot='spinner'` attribute:
+Now you can use your spinner everywhere using `slot='loading'` attribute:
 
 ```html
 <template lang="pug">
   v-loading(loader='fetching data')
-    my-spinner(slot='spinner')
+    my-spinner(slot='loading')
     div
       p My main content after fetching data...
 </template>
@@ -331,7 +357,7 @@ You need to put them into a `template` tag.
 
 ```html
 <v-loading loader='fetching data'>
-  <template slot="spinner">
+  <template slot="loading">
     <v-loading-spinner height='30px' width='30px' />
   </template>
 

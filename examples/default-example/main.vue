@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <v-loading message='Something loading! Lovely...'>
-                <template slot='spinner'>
+                <template slot='loading'>
                     <loading-heart width='1em' height='1em'/>
                 </template>
                 This will be shown after load.
@@ -10,7 +10,7 @@
         </div>
         <button @click='$vueLoading.startLoading("writing code")' :disable='$vueLoading.isLoading("writing code")'>
             <v-loading loader='writing code' message='Writing Code...'>
-                <template slot='spinner'>
+                <template slot='loading'>
                     <loading-spinner width="1em" height="1em"/>
                 </template>
                 Write Code
@@ -33,10 +33,10 @@
         <ul class="list">
             <li v-for='loader in loaders' @click='toggleLoader(loader)'>
                 <v-loading :loader='loader' message=''>
-                    <template slot='spinner' v-if='loader == "c"'>
+                    <template slot='loading' v-if='loader == "c"'>
                         <loading-heart width="1em" height="1em"/>
                     </template>
-                    <template slot='spinner' v-else>
+                    <template slot='loading' v-else>
                         <loading-spinner width="1em" height="1em"/>
                     </template>
                     {{ loader }}
