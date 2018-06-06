@@ -10,7 +10,8 @@ export function mapLoadingActions(vuexModuleName, actions) {
       try {
         this.__$vueLoadingInstance.startLoading(loader);
         return await this.$store.dispatch(
-          vuexModuleName ? `${vuexModuleName}/${action}` : action
+          vuexModuleName ? `${vuexModuleName}/${action}` : action,
+          ...args
         );
       } finally {
         this.__$vueLoadingInstance.endLoading(loader);
