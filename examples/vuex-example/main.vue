@@ -43,10 +43,22 @@
         </v-loading>
       </li>
     </ul>
+    <hr>
+    <button @click='incrementAsync'>
+      <v-loading loader="incrementing" message='incrementing...'>
+        <template slot='loading'>
+          <span class="animated">+</span>
+        </template>
+        <code>mapLoadingActions</code> {{ count }}
+      </v-loading>
+    </button>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { mapLoadingActions } from '../../src/vue-loading';
+
   export default {
     name: 'vuex-app',
     data() {
@@ -54,7 +66,13 @@
         loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']
       };
     },
+    computed: {
+      ...mapGetters(['count']),
+    },
     methods: {
+      ...mapLoadingActions({
+        incrementAsync: 'incrementing',
+      }),
       writeCode() {
         this.$vueLoading.startLoading('writing code');
       },
