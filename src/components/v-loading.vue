@@ -9,7 +9,6 @@
 </template>
 <script>
   export default {
-    name: 'v-loading',
     props: {
       visible: Boolean,
       loader: String,

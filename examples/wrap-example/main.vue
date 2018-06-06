@@ -1,29 +1,29 @@
 <template>
   <div id="app">
     <div class="container">
-      <v-loading message='Something loading! Lovely...'>
+      <my-spinner message='Something loading! Lovely...'>
         <template slot='loading'>
           <span class="animated">❤️</span>
         </template>
         This will be shown after load.
-      </v-loading>
+      </my-spinner>
     </div>
     <button @click='fetchDataFromApi' :disable='$vueLoading.isLoading("fetch data")'>
-      <v-loading loader='fetch data' message='Fetching data...'>
+      <my-spinner loader='fetch data' message='Fetching data...'>
         <template slot='loading'>
           <span class="animated">👾</span>
         </template>
         Fetching response {{ fetchResponse }}
-      </v-loading>
+      </my-spinner>
     </button>
 
     <button @click='syncCalculator' :disable='$vueLoading.isLoading("sync work")'>
-      <v-loading loader='sync work' message='Calculating data...'>
+      <my-spinner loader='sync work' message='Calculating data...'>
         <template slot='loading'>
           <span class="animated">❤️</span>
         </template>
         Calculate data {{ calculateData }}
-      </v-loading>
+      </my-spinner>
     </button>
   </div>
 </template>

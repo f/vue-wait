@@ -1,8 +1,8 @@
-export function mapLoadingActions(moduleName, actions) {
+export function mapLoadingActions(vuexModuleName, actions) {
   const mappings = {};
-  if (typeof moduleName === 'object') {
-    actions = moduleName;
-    moduleName = null;
+  if (typeof vuexModuleName === 'object') {
+    actions = vuexModuleName;
+    vuexModuleName = null;
   }
   Object.keys(actions).forEach(action => {
     const loader = actions[action];
@@ -10,7 +10,7 @@ export function mapLoadingActions(moduleName, actions) {
       try {
         this.__$vueLoadingInstance.startLoading(loader);
         return await this.$store.dispatch(
-          moduleName ? `${moduleName}/${action}` : action
+          vuexModuleName ? `${vuexModuleName}/${action}` : action
         );
       } finally {
         this.__$vueLoadingInstance.endLoading(loader);

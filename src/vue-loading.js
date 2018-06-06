@@ -14,9 +14,10 @@ import vLoading from './components/v-loading.vue';
 export default class VueLoading {
   constructor(options = {}) {
     const defaults = {
+      accessorName: '$vueLoading',
       useVuex: false,
-      componentName: vLoading.name,
-      moduleName: 'loading',
+      componentName: 'v-loading',
+      vuexModuleName: 'loading',
       registerComponent: true
     };
     this.options = {
@@ -42,18 +43,18 @@ export default class VueLoading {
     }
 
     if (this.options.useVuex) {
-      const { moduleName } = this.options;
+      const { vuexModuleName } = this.options;
       if (!store) {
         throw new Error('[vuex-loading] Vuex not initialized.');
       }
       this.store = store;
-      store.registerModule(moduleName, vuexStore);
+      store.registerModule(vuexModuleName, vuexStore);
 
       this.stateHandler = new Vue({
         computed: {
           isLoading: () => loader =>
-            store.getters[`${moduleName}/isLoading`](loader),
-          anyLoading: () => store.getters[`${moduleName}/anyLoading`]
+            store.getters[`${vuexModuleName}/isLoading`](loader),
+          anyLoading: () => store.getters[`${vuexModuleName}/anyLoading`]
         }
       });
     } else {
@@ -94,8 +95,8 @@ export default class VueLoading {
   }
 
   dispatchLoaderAction(action, loader) {
-    const { moduleName } = this.options;
-    this.store.dispatch(`${moduleName}/${action}`, loader, {
+    const { vuexModuleName } = this.options;
+    this.store.dispatch(`${vuexModuleName}/${action}`, loader, {
       root: true
     });
   }
@@ -133,11 +134,6 @@ export function install(Vue) {
      */
     beforeCreate() {
       const { vueLoading, store, parent } = this.$options;
-      let { helperName } = this.$options;
-
-      if (!helperName) {
-        helperName = '$vueLoading';
-      }
 
       let instance = null;
       if (vueLoading) {
@@ -145,14 +141,14 @@ export function install(Vue) {
           typeof vueLoading === 'function' ? new vueLoading() : vueLoading;
         // Inject store
         instance.init(Vue, store);
-      } else if (parent && parent[helperName]) {
-        instance = parent[helperName];
+      } else if (parent && parent.__$vueLoadingInstance) {
+        instance = parent.__$vueLoadingInstance;
         instance.init(Vue, parent.$store);
       }
-      this[helperName] = instance;
 
       // Store helper for internal use
       this.__$vueLoadingInstance = instance;
+      this[instance.options.accessorName] = instance;
     }
   });
 

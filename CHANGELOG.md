@@ -5,7 +5,7 @@
 - A complete rewrite, more extensible.
 - Readable and better code.
 - Update to Webpack 4
-- Remove built-in loaders.
+- Remove built-in loaders. Maybe we can create another repository including custom spinners.
 - Remove `width` and `height` props.
 - Strict props.
 - `isLoading` supports `RegExp` now.

@@ -33,13 +33,13 @@ const store = new Vuex.Store({
 
 const vueLoading = new VueLoading({
   useVuex: true,
-  moduleName: 'vuex-example-module'
+  vuexModuleName: 'vuex-example-module'
 });
 
 new Vue({
   el: '#app',
   store,
-  vueLoading: vueLoading,
+  vueLoading,
   render: function(createElement) {
     return createElement(main);
   }
