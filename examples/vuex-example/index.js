@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VueLoading from '../../src/vuex-loading';
+import VueLoading from '../../src/vue-loading';
 
 import main from './main.vue';
 
@@ -13,6 +13,7 @@ const vueLoading = new VueLoading({
   useVuex: true,
   moduleName: 'vuex-example-module'
 });
+
 new Vue({
   el: '#app',
   store,

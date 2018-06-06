@@ -3,7 +3,7 @@
     <div class="container">
       <v-loading message='Something loading! Lovely...'>
         <template slot='loading'>
-          <span class="animated">❤️</span>
+            <span class="animated">❤️</span>
         </template>
         This will be shown after load.
       </v-loading>
@@ -48,7 +48,7 @@
 
 <script>
   export default {
-    name: 'vuex-app',
+    name: 'vue-app',
     data() {
       return {
         loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']

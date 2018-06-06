@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueLoading from '../../src/vuex-loading';
+import VueLoading from '../../src/vue-loading';
 
 import main from './main.vue';
 

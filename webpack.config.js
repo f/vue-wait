@@ -1,46 +1,20 @@
-var path = require('path')
-var webpack = require('webpack')
+const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
-  entry: './src/vuex-loading.js',
+  mode: process.env.NODE_ENV,
+  entry: ["./src/vue-loading.js"],
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'vuex-loading.js',
-    library: 'VuexLoading',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    library: "VueLoading",
+    libraryTarget: "umd",
+    filename: "vue-loading.js"
   },
-
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: "vue-loader"
       }
     ]
   },
-  devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = false
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: false
-    }),
-  ])
-}
+  plugins: [new VueLoaderPlugin()]
+};
