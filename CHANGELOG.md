@@ -10,7 +10,7 @@
 - Strict props.
 - `isLoading` supports `RegExp` now.
 - Rename `registerComponents` to `registerComponent`
-- Added `helperName` option to change `$vueLoading` key.
+- Added `accessorName` option to change `$vueLoading` key.
 - Removed `createActionHelpers`, use `mapLoadingActions` or `wrapLoading` instead.
 
 ## v0.4.0

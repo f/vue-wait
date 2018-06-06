@@ -8,7 +8,7 @@
         This will be shown after load.
       </v-loading>
     </div>
-    <button @click='writeCode()' :disable='$vueLoading.isLoading("writing code")'>
+    <button @click='writeCode()' :disable='$l.isLoading("writing code")'>
       <v-loading loader='writing code' message='Writing Code...'>
         <template slot='loading'>
           <span class="animated">️️♻️</span>
@@ -16,15 +16,15 @@
         Write Code
       </v-loading>
     </button>
-    <button @click='endLoading()' :disabled='!$vueLoading.isLoading("writing code")'>
-      <span v-if='$vueLoading.isLoading("writing code")'>Stop Coding</span>
+    <button @click='endLoading()' :disabled='!$l.isLoading("writing code")'>
+      <span v-if='$l.isLoading("writing code")'>Stop Coding</span>
       <span v-else>Coding Stopped</span>
     </button>
     <br>
-    <button @click='$vueLoading.startLoading("c")' :disabled='$vueLoading.isLoading("c")'>
+    <button @click='$l.startLoading("c")' :disabled='$l.isLoading("c")'>
       Start <b>"c"</b> Loader
     </button>
-    <button @click='$vueLoading.endLoading("c")' :disabled='!$vueLoading.isLoading("c")'>
+    <button @click='$l.endLoading("c")' :disabled='!$l.isLoading("c")'>
       Stop <b>"c"</b> Loader
     </button>
     <p>
@@ -74,16 +74,16 @@
         incrementAsync: 'incrementing',
       }),
       writeCode() {
-        this.$vueLoading.startLoading('writing code');
+        this.$l.startLoading('writing code');
       },
       endLoading() {
-        this.$vueLoading.endLoading('writing code');
+        this.$l.endLoading('writing code');
       },
       toggleLoader(loader) {
-        if (this.$vueLoading.isLoading(loader)) {
-          this.$vueLoading.endLoading(loader);
+        if (this.$l.isLoading(loader)) {
+          this.$l.endLoading(loader);
         } else {
-          this.$vueLoading.startLoading(loader);
+          this.$l.startLoading(loader);
         }
       }
     }

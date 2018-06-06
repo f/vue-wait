@@ -33,7 +33,8 @@ const store = new Vuex.Store({
 
 const vueLoading = new VueLoading({
   useVuex: true,
-  vuexModuleName: 'vuex-example-module'
+  vuexModuleName: 'vuex-example-module',
+  accessorName: '$l'
 });
 
 new Vue({

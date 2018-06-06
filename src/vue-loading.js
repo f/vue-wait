@@ -146,9 +146,11 @@ export function install(Vue) {
         instance.init(Vue, parent.$store);
       }
 
-      // Store helper for internal use
-      this.__$vueLoadingInstance = instance;
-      this[instance.options.accessorName] = instance;
+      if (instance) {
+        // Store helper for internal use
+        this.__$vueLoadingInstance = instance;
+        this[instance.options.accessorName] = instance;
+      }
     }
   });
 
