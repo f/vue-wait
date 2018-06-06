@@ -48,7 +48,12 @@ export default class VueLoading {
         throw new Error('[vuex-loading] Vuex not initialized.');
       }
       this.store = store;
-      store.registerModule(vuexModuleName, vuexStore);
+
+      try {
+        store.unregisterModule(vuexModuleName);
+      } finally {
+        store.registerModule(vuexModuleName, vuexStore);
+      }
 
       this.stateHandler = new Vue({
         computed: {

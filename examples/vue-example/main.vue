@@ -16,8 +16,8 @@
         Write Code
       </v-loading>
     </button>
-    <button @click='endLoading()' :disabled='!$vueLoading.isLoading("writing code")'>
-      <span v-if='$vueLoading.isLoading("writing code")'>Stop Coding</span>
+    <button @click='endLoading()' :disabled='!$vueLoading.isLoading("writing*")'>
+      <span v-if='$vueLoading.isLoading("writing*")'>Stop Coding</span>
       <span v-else>Coding Stopped</span>
     </button>
     <br>

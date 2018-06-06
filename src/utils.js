@@ -1,6 +1,8 @@
+import { isMatch } from 'matcher';
+
 export function isLoading(loaders, loader) {
-  if (loader instanceof RegExp) {
-    return loaders.filter(l => l.match(loader)).length > 0;
+  if (loader.match(/[\*\!]/)) {
+    return loaders.filter(l => isMatch(l, loader)).length > 0;
   }
   return Array.isArray(loader)
     ? loaders.some(v => loader.includes(v))

@@ -67,5 +67,7 @@
   "peerDependencies": {
     "vue": "^2.5.16"
   },
-  "dependencies": {}
+  "dependencies": {
+    "matcher": "^1.1.1"
+  }
 }

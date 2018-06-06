@@ -8,7 +8,7 @@
 - Remove built-in loaders. Maybe we can create another repository including custom spinners.
 - Remove `width` and `height` props.
 - Strict props.
-- `isLoading` supports `RegExp` now.
+- `isLoading` supports matchers now `creating.*`, `!creating` etc. Please see [/sindresorhus/matcher](/sindresorhus/matcher).
 - Rename `registerComponents` to `registerComponent`
 - Added `accessorName` option to change `$vueLoading` key.
 - Removed `createActionHelpers`, use `mapLoadingActions` or `wrapLoading` instead.
