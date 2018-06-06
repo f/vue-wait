@@ -134,11 +134,13 @@ Returns boolean value if given loader exists in page.
 </template>
 ```
 
-Also you can use RegExp matcher to make it more flexible:
+Also you can use matcher to make it more flexible:
+
+Please see [matcher](https://github.com/sindresorhus/matcher/) library to see how to use matchers.
 
 ```html
 <template>
-  <progress-bar v-if="$vueLoading.isLoading(/creating.*/)">Creating something...</progress-bar>
+  <progress-bar v-if="$vueLoading.isLoading('creating.*')">Creating something...</progress-bar>
 </template>
 ```
 
