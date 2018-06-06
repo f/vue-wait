@@ -184,14 +184,35 @@ import { mapLoadingActions } from 'vuex-loading'
 
 // ...
   methods: {
-  ...mapLoadingActions({
-    getUsers: 'loading users',
-    createUser: 'creating user',
-    updateUser: 'updating user',
-  }),
+    ...mapLoadingActions('users', {
+      getUsers: 'loading users',
+      createUser: 'creating user',
+      updateUser: 'updating user',
+    }),
+  }
 // ...
 
 ```
+
+##### 😱 What happened to old `createActionHelpers`?
+
+**We've removed them**. Since they were just calling `dispatch`, you can just write like following example. We don't like complexity.
+
+```js
+//...
+actions: {
+  async getUsers({ dispatch }) {
+    const loader = 'getting users';
+
+    dispatch(`loading/startLoading`, loader, { root: true });
+    await UserService.getUsers();
+    dispatch(`loading/endLoading`, loader, { root: true });
+  }
+}
+//...
+```
+
+**Using `mapLoadingActions` or `wrapLoading` instead is a better way.**
 
 #### `wrapLoading(loader String, func Function, [,force_sync = false])`
 
