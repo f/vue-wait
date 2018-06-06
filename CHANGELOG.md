@@ -2,12 +2,16 @@
 
 ## v1.0.0
 
-- Remove built-in loaders
+- A complete rewrite, more extensible.
+- Readable and better code.
+- Update to Webpack 4
+- Remove built-in loaders.
 - Remove `width` and `height` props.
 - Strict props.
-- Loader supports RegExp
+- `isLoading` supports `RegExp` now.
 - Rename `registerComponents` to `registerComponent`
-- added `helperName` option
+- Added `helperName` option to change `$vueLoading` key.
+- Removed `createActionHelpers`, use `mapLoadingActions` or `wrapLoading` instead.
 
 ## v0.4.0
 
