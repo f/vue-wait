@@ -10,14 +10,14 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 **vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages an array (or Vuex store optionally) with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
-## 📦 Requirements
+## 📦  Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
 
-## 🚀 Power Supplies
+## 🚀  Power Supplies
 - [Vuex](http://vuex.vuejs.org), optionally (v2.0.0+)
 
-## Installation
+## 🔧 Installation
 
 ```bash
 $ yarn add vuex-loading
@@ -25,7 +25,7 @@ $ yarn add vuex-loading
 $ npm install vuex-loading
 ```
 
-## Usage
+## 📖 Usage
 
 ```js
 import VueLoading from 'vuex-loading'
@@ -49,7 +49,7 @@ new Vue({
 });
 ```
 
-## Usage with Vuex
+## ♻️ Usage with Vuex
 
 Simply set `useVuex` parameter to `true` and optionally override
 `vuexModuleName`
@@ -78,7 +78,7 @@ Now `VueLoading` will use `Vuex` store for data management which can be traced i
 
 <img src="./resources/vue-loading-2.gif" width="480">
 
-## VueLoading options
+## 🔁 VueLoading Options
 
 You can use this options for customize VueLoading behavior.
 
@@ -109,7 +109,7 @@ Name for `Vuex` store if `useVuex` set to true, otherwise not used.
 
 `String` value, `v-loading` by default, changes `v-loading` component name.
 
-## Global Template Helpers
+## 🌈 Global Template Helpers
 
 **vuex-loading** provides some helpers to you to use in your templates.
 All features can be obtained from $vueLoading property in Vue components.
@@ -172,7 +172,7 @@ Stops the given loader.
 </template>
 ```
 
-## Loading Action Mappers
+## 🔌 Loading Action Mappers
 
 **vuex-loading** provides `mapLoadingActions` mapper to be used with your Vuex stores.
 
@@ -240,7 +240,7 @@ methods: {
 
 See also `examples/wrap-example`
 
-## Using `v-loading` Component
+## 💧 Using `v-loading` Component
 
 If you disable `registerComponent` option then import and add `v-loading` into components
 
@@ -274,7 +274,7 @@ Better example for a `button` with loading state:
 </button>
 ```
 
-## Making Reusable Loader Components
+## ⚡️ Making Reusable Loader Components
 
 With reusable loader components, you will be able to use custom loader components as example below. This will allow you to create better **user loading experience**.
 
@@ -345,16 +345,16 @@ Now you can use your spinner everywhere using `slot='loading'` attribute:
 </template>
 ```
 
-## Run example
+## 🚌 Run example
 
 Use `npm run dev-vuex`, `npm run dev-vue` or `npm run dev-wrap` commands.
 for running examples locally.
 
-## Contributors
+## 🎯 Contributors
 
 - Fatih Kadir Akın, (creator)
 - Igor, (maintainer, made Vuex-free)
 
-## License
+## 🔑 License
 
 MIT © [Fatih Kadir Akın](https://github.com/f)
