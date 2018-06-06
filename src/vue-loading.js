@@ -9,16 +9,22 @@ import {
 import { mapLoadingActions, wrapLoading } from './helpers';
 
 import vuexStore from './vuex/store';
-import vLoading from './components/v-loading.vue';
+import vLoadingComponent from './components/v-loading.vue';
+import vLoadingDirective from './directives/loading.js';
 
 export default class VueLoading {
   constructor(options = {}) {
     const defaults = {
       accessorName: '$vueLoading',
+      // Vuex Options
       useVuex: false,
-      componentName: 'v-loading',
       vuexModuleName: 'loading',
-      registerComponent: true
+      // Components
+      registerComponent: true,
+      componentName: 'v-loading',
+      // Directives
+      registerDirective: true,
+      directiveName: 'loading'
     };
     this.options = {
       ...defaults,
@@ -39,7 +45,11 @@ export default class VueLoading {
     }
 
     if (this.options.registerComponent) {
-      Vue.component(this.options.componentName, vLoading);
+      Vue.component(this.options.componentName, vLoadingComponent);
+    }
+
+    if (this.options.registerDirective) {
+      Vue.directive(this.options.directiveName, vLoadingDirective);
     }
 
     if (this.options.useVuex) {

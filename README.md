@@ -42,9 +42,14 @@ new Vue({
   vueLoading: new VueLoading({
     // Defaults values are following:
     useVuex: false,              // Uses Vuex to manage loading state
-    componentName: 'v-loading',  // <v-loading> component name, you can set `my-loader` etc.
     vuexModuleName: 'loading',   // Vuex module name
+
     registerComponent: true      // Registers `v-loading` component
+    componentName: 'v-loading',  // <v-loading> component name, you can set `my-loader` etc.
+
+    registerDirective: true      // Registers `v-loading` directive
+    directiveName: 'loading',    // <span v-loading /> directive name, you can set `my-loader` etc.
+
   }),
 });
 ```
@@ -171,6 +176,81 @@ Stops the given loader.
 ```html
 <template>
   <button @click="$vueLoading.endLoading('creating user')">Cancel</button>
+</template>
+```
+
+## 🏹 Directives
+
+You can use directives to make your template cleaner.
+
+#### `v-loading:visible='"loader name"'`
+
+Shows if the given loader is loading.
+
+```html
+<template>
+  <progress-bar v-loading:visible='"creating user"'>Creating User...</progress-bar>
+</template>
+```
+
+#### `v-loading:hidden='"loader name"'` or `v-loading:visible.not='"loader name"'`
+
+Hides if the given loader is loading.
+
+```html
+<template>
+  <main v-loading:hidden='"creating *"'>Some Content</main>
+</template>
+```
+
+#### `v-loading:disabled='"loader name"'`
+
+Sets `disabled="disabled"` attribute to element if the given loader is loading.
+
+```html
+<template>
+  <input v-loading:disabled="'*'" placeholder="Username" />
+  <input v-loading:disabled="'*'" placeholder="Password" />
+</template>
+```
+
+#### `v-loading:enabled='"loader name"'` or `v-loading:disabled.not='"loader name"'`
+
+Removes `disabled="disabled"` attribute to element if the given loader is loading.
+
+```html
+<template>
+  <button v-loading:enabled='"creating user"'>Abort Request</button>
+</template>
+```
+
+#### `v-loading:click.start='"loader name"'`
+
+Starts given loader on click.
+
+```html
+<template>
+  <button v-loading:click.start='"create user"'>Start loader</button>
+</template>
+```
+
+#### `v-loading:click.end='"loader name"'`
+
+Ends given loader on click.
+
+```html
+<template>
+  <button v-loading:click.end='"create user"'>End loader</button>
+</template>
+```
+
+#### `v-loading:toggle='"loader name"'`
+
+Toggles given loader on click.
+
+```html
+<template>
+  <button v-loading:toggle='"flip flop"'>Toggles the loader</button>
 </template>
 ```
 

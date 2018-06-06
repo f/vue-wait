@@ -12,6 +12,7 @@
 - Rename `registerComponents` to `registerComponent`
 - Added `accessorName` option to change `$vueLoading` key.
 - Removed `createActionHelpers`, use `mapLoadingActions` or `wrapLoading` instead.
+- Added `v-loading:visible`, `v-loading:hidden`, `v-loading:disabled`, `v-loading:enabled`, `v-loading:click` directives.
 
 ## v0.4.0
 
