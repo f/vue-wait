@@ -1,7 +1,7 @@
 import { isMatch } from 'matcher';
 
 export function isWaiting(waiters, waiter) {
-  if (waiter.match(/[\*\!]/)) {
+  if (typeof waiter === 'string' && waiter.match(/[\*\!]/)) {
     return waiters.filter(l => isMatch(l, waiter)).length > 0;
   }
   return Array.isArray(waiter)
