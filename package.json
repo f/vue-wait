@@ -22,9 +22,8 @@
   "main": "src/vue-loading.js",
   "browser": "dist/vue-loading.js",
   "files": [
-    "src",
-    "LICENSE",
-    "README.md"
+    "dist",
+    "src"
   ],
   "scripts": {
     "test": "exit 0;",
