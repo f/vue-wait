@@ -6,7 +6,8 @@ module.exports = {
   output: {
     library: "VueLoading",
     libraryTarget: "umd",
-    filename: "vue-loading.js"
+    filename: "vue-loading.js",
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
   module: {
     rules: [
