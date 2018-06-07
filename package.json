@@ -19,7 +19,8 @@
   "bugs": {
     "url": "https://github.com/f/vuex-loading/issues"
   },
-  "main": "dist/vue-loading.js",
+  "main": "src/vue-loading.js",
+  "browser": "dist/vue-loading.js",
   "files": [
     "src",
     "LICENSE",
