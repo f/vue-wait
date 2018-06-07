@@ -262,15 +262,15 @@ Toggles given loader on click.
 </template>
 ```
 
-## 🔌 Loading Action Mappers
+## 🔌 Loading Action and Getter Mappers
 
-**vue-wait** provides `mapWaitingActions` mapper to be used with your Vuex stores.
+**vue-wait** provides `mapWaitingActions` and `mapWaitingGetters` mapper to be used with your Vuex stores.
 
 Let's assume you have a store and async **action**s called `createUser` and `updateUser`.
 It will call the methods you map and will start loaders while action is resolved.
 
 ```js
-import { mapWaitingActions } from 'vue-wait'
+import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 
 // ...
   methods: {
@@ -278,6 +278,16 @@ import { mapWaitingActions } from 'vue-wait'
       getUsers: 'loading users',
       createUser: 'creating user',
       updateUser: 'updating user',
+    }),
+  },
+  computed: {
+    ...mapWaitingGetters({
+      somethingWithUsers: [
+        'loading users',
+        'creating user',
+        'updating user',
+      ],
+      deletingUser: 'deleting user',
     }),
   }
 // ...

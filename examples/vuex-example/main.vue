@@ -52,12 +52,13 @@
         <code>mapWaitingActions</code> {{ count }}
       </v-wait>
     </button>
+    <span v-if='isIncrementing'>is incrementing...</span>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-  import { mapWaitingActions } from '../../src/vue-wait';
+  import { mapWaitingActions, mapWaitingGetters } from '../../src/vue-wait';
 
   export default {
     name: 'vuex-app',
@@ -68,10 +69,13 @@
     },
     computed: {
       ...mapGetters(['count']),
+      ...mapWaitingGetters({
+        isIncrementing: 'incrementing count',
+      }),
     },
     methods: {
       ...mapWaitingActions({
-        incrementAsync: 'incrementing',
+        incrementAsync: 'incrementing count',
       }),
       writeCode() {
         this.$l.start('writing code');

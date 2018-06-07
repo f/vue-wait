@@ -21,6 +21,17 @@ export function mapWaitingActions(vuexModuleName, actions) {
   return mappings;
 }
 
+export function mapWaitingGetters(getters) {
+  const mappings = {};
+  Object.keys(getters).forEach(getter => {
+    const waiter = getters[getter];
+    mappings[getter] = function() {
+      return this.__$waitInstance.isWaiting(waiter);
+    };
+  });
+  return mappings;
+}
+
 export function waitFor(waiter, func, forceSync = false) {
   if (typeof func !== 'function') {
     console.warn('[vue-wait] waitFor second argument must be a function');

@@ -1,6 +1,6 @@
 import { isWaiting, any, start, end, nodeIsDebug } from './utils';
 
-import { mapWaitingActions, waitFor } from './helpers';
+import { mapWaitingActions, mapWaitingGetters, waitFor } from './helpers';
 
 import vuexStore from './vuex/store';
 import vWaitComponent from './components/v-wait.vue';
@@ -164,6 +164,6 @@ export function install(Vue) {
 }
 
 // Bypass helpers
-export { mapWaitingActions, waitFor };
+export { mapWaitingActions, mapWaitingGetters, waitFor };
 
 VueWait.install = install;
