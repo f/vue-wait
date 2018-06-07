@@ -44,10 +44,10 @@ new Vue({
     useVuex: false,              // Uses Vuex to manage wait state
     vuexModuleName: 'wait',      // Vuex module name
 
-    registerComponent: true      // Registers `v-wait` component
+    registerComponent: true,     // Registers `v-wait` component
     componentName: 'v-wait',     // <v-wait> component name, you can set `my-loader` etc.
 
-    registerDirective: true      // Registers `v-wait` directive
+    registerDirective: true,     // Registers `v-wait` directive
     directiveName: 'wait',       // <span v-wait /> directive name, you can set `my-loader` etc.
 
   }),
