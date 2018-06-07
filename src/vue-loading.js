@@ -59,9 +59,7 @@ export default class VueLoading {
       }
       this.store = store;
 
-      try {
-        store.unregisterModule(vuexModuleName);
-      } finally {
+      if (!store._modules.get([vuexModuleName])) {
         store.registerModule(vuexModuleName, vuexStore);
       }
 
