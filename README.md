@@ -2,30 +2,30 @@
 
 Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally) [Vuex](http://vuex.vuejs.org/).
 
-> Even it's named as "vuex-loading", Vuex is now completely optional.
+> ⚠️ Even it's named as **`vuex-loading`**, Vuex is completely optional.
 
 <img src="./resources/vuex-loading.gif" width="480">
 
 > [Play with demo above](https://f.github.io/vuex-loading/).
 
-**vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages a Vuex store with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
+**vuex-loading** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages an array (or Vuex store optionally) with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
-## Requirements
+## 📦  Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
 
-## Power supplies
+## 🚀  Power Supplies
 - [Vuex](http://vuex.vuejs.org), optionally (v2.0.0+)
 
-## Installation
+## 🔧 Installation
 
 ```bash
-$ npm install vuex-loading
-# or if you using Yarn
 $ yarn add vuex-loading
+# or if you using npm
+$ npm install vuex-loading
 ```
 
-## Usage
+## 📖 Usage
 
 ```js
 import VueLoading from 'vuex-loading'
@@ -39,14 +39,25 @@ Then you should register `VueLoading` module:
 new Vue({
   el: '#app',
   store,
-  vueLoading: new VueLoading({registerComponents: false}), // configure VueLoading here
+  vueLoading: new VueLoading({
+    // Defaults values are following:
+    useVuex: false,              // Uses Vuex to manage loading state
+    vuexModuleName: 'loading',   // Vuex module name
+
+    registerComponent: true      // Registers `v-loading` component
+    componentName: 'v-loading',  // <v-loading> component name, you can set `my-loader` etc.
+
+    registerDirective: true      // Registers `v-loading` directive
+    directiveName: 'loading',    // <span v-loading /> directive name, you can set `my-loader` etc.
+
+  }),
 });
 ```
 
-## Usage with Vuex
+## ♻️ Usage with Vuex
 
 Simply set `useVuex` parameter to `true` and optionally override
-`moduleName`
+`vuexModuleName`
 
 ```js
 import VueLoading from 'vuex-loading'
@@ -61,42 +72,54 @@ Then you should register `vueLoading` module:
 new Vue({
   el: '#app',
   store,
-  vueLoading: new VueLoading({ useVuex: true, moduleName: 'vuex-example-module' }), // configure VueLoading here
+  vueLoading: new VueLoading({
+    useVuex: true, // You must pass this option `true` to use Vuex
+    vuexModuleName: 'vuex-example-module' // It's optional, `loading` by default.
+  }),
 });
 ```
 
-Now `VueLoading` will use `Vuex` store for data management
-which can be traced in `Vue DevTools`
+Now `VueLoading` will use `Vuex` store for data management which can be traced in `Vue DevTools > Vuex`
 
 <img src="./resources/vue-loading-2.gif" width="480">
 
-## VueLoading options
+## 🔁 VueLoading Options
 
-You can use this options for customize VueLoading behavior
+You can use this options for customize VueLoading behavior.
+
+#### `accessorName`
+
+`String` value, `$vueLoading` by default, you can change this value to rename the accessor.
+
+E.g. if you rename this to `$l`, your `VueLoading` methods will be accessible by `$l.isLoading(..)` etc.
 
 #### `useVuex`
 
-boolean value, `false` by default, use this value for enabling
+`Boolean` value, `false` by default, use this value for enabling
 integration with `Vuex` store
 
 When this value is true `VueLoading` will store data in `Vuex` store
 and all changes to this data will be made by dispatching actions to store
 
-#### `moduleName`
+#### `vuexModuleName`
 
-string value, `loading` by default.
+`String` value, `loading` by default.
 Name for `Vuex` store if `useVuex` set to true, otherwise not used.
 
-#### `registerComponents`
+#### `registerComponent`
 
-boolean value, true by default, register `v-loading` components.
+`Boolean` value, `true` by default, register `v-loading` component.
 
-## Global Template Helpers
+#### `componentName`
+
+`String` value, `v-loading` by default, changes `v-loading` component name.
+
+## 🌈 Global Template Helpers
 
 **vuex-loading** provides some helpers to you to use in your templates.
-All features can be obtained from $vueLoading property in Vue components
+All features can be obtained from $vueLoading property in Vue components.
 
-#### `$anyLoading`
+#### `.anyLoading`
 
 Returns boolean value if any loader exists in page.
 
@@ -106,7 +129,7 @@ Returns boolean value if any loader exists in page.
 </template>
 ```
 
-#### `$isLoading(loader String)`
+#### `.isLoading(loader String | RegExp)`
 
 Returns boolean value if given loader exists in page.
 
@@ -116,7 +139,17 @@ Returns boolean value if given loader exists in page.
 </template>
 ```
 
-#### `$isLoading(loaders Array<String>)`
+Also you can use matcher to make it more flexible:
+
+Please see [matcher](https://github.com/sindresorhus/matcher/) library to see how to use matchers.
+
+```html
+<template>
+  <progress-bar v-if="$vueLoading.isLoading('creating.*')">Creating something...</progress-bar>
+</template>
+```
+
+#### `.isLoading(loaders Array<String>)`
 
 Returns boolean value if some of given loaders exists in page.
 
@@ -126,7 +159,7 @@ Returns boolean value if some of given loaders exists in page.
 </template>
 ```
 
-#### `$startLoading(loader String)`
+#### `.startLoading(loader String)`
 
 Starts the given loader.
 
@@ -136,7 +169,7 @@ Starts the given loader.
 </template>
 ```
 
-#### `$endLoading(loader String)`
+#### `.endLoading(loader String)`
 
 Stops the given loader.
 
@@ -146,85 +179,133 @@ Stops the given loader.
 </template>
 ```
 
-## Global Action Helpers
+## 🏹 Directives
 
-**vuex-loading** provides some helpers to you to use in your Vuex stores.
+You can use directives to make your template cleaner.
 
-```js
-import { createActionHelpers } from 'vuex-loading'
-const { startLoading, endLoading } = createActionHelpers({
-  moduleName: 'loading'
-});
+#### `v-loading:visible='"loader name"'`
+
+Shows if the given loader is loading.
+
+```html
+<template>
+  <progress-bar v-loading:visible='"creating user"'>Creating User...</progress-bar>
+</template>
 ```
 
-#### `startLoading(dispatcher, loader String [,async callback])`
+#### `v-loading:hidden='"loader name"'` or `v-loading:visible.not='"loader name"'`
 
-You can trigger loader from the action. This will make your templates cleaner and you will have an accurate loader status.
-`startLoading` will trigger a loading and will end loader after the optional async callback is finished.
+Hides if the given loader is loading.
 
-_Example using the Promise returning callback function_
+```html
+<template>
+  <main v-loading:hidden='"creating *"'>Some Content</main>
+</template>
+```
+
+#### `v-loading:disabled='"loader name"'`
+
+Sets `disabled="disabled"` attribute to element if the given loader is loading.
+
+```html
+<template>
+  <input v-loading:disabled="'*'" placeholder="Username" />
+  <input v-loading:disabled="'*'" placeholder="Password" />
+</template>
+```
+
+#### `v-loading:enabled='"loader name"'` or `v-loading:disabled.not='"loader name"'`
+
+Removes `disabled="disabled"` attribute to element if the given loader is loading.
+
+```html
+<template>
+  <button v-loading:enabled='"creating user"'>Abort Request</button>
+</template>
+```
+
+#### `v-loading:click.start='"loader name"'`
+
+Starts given loader on click.
+
+```html
+<template>
+  <button v-loading:click.start='"create user"'>Start loader</button>
+</template>
+```
+
+#### `v-loading:click.end='"loader name"'`
+
+Ends given loader on click.
+
+```html
+<template>
+  <button v-loading:click.end='"create user"'>End loader</button>
+</template>
+```
+
+#### `v-loading:toggle='"loader name"'`
+
+Toggles given loader on click.
+
+```html
+<template>
+  <button v-loading:toggle='"flip flop"'>Toggles the loader</button>
+</template>
+```
+
+## 🔌 Loading Action Mappers
+
+**vuex-loading** provides `mapLoadingActions` mapper to be used with your Vuex stores.
+
+Let's assume you have a store and async **action**s called `createUser` and `updateUser`.
+It will call the methods you map and will start loaders while action is resolved.
+
 ```js
-export default {
-  actions: {
-    async createUser({ commit, dispatch }) {
-      const response = await startLoading(dispatch, 'creating user', () => {
-        return fetch("...") // Some async job that returns Promise instance.
-      });
-      commit(types.CREATE_USER, response)
-    }
-  },
-  // ...
+import { mapLoadingActions } from 'vuex-loading'
+
+// ...
+  methods: {
+    ...mapLoadingActions('users', {
+      getUsers: 'loading users',
+      createUser: 'creating user',
+      updateUser: 'updating user',
+    }),
+  }
+// ...
+
+```
+
+##### 😱 What happened to old `createActionHelpers`?
+
+**We've removed them**. Since they were just calling `dispatch`, you can just write like following example. We don't like complexity.
+
+```js
+//...
+actions: {
+  async getUsers({ dispatch }) {
+    const loader = 'getting users';
+
+    dispatch(`loading/startLoading`, loader, { root: true });
+    await UserService.getUsers();
+    dispatch(`loading/endLoading`, loader, { root: true });
+  }
 }
+//...
 ```
 
-_Example call without a provided callback_
-```js
-export default {
-  actions: {
-    createUser({ commit, dispatch }) {
-      startLoading(dispatch, 'creating user');
-      request('/create-user', (response) => {
-        endLoading(dispatch, 'creating user')
-        commit(types.CREATE_USER, response);
-      });
-    }
-  },
-  // ...
-}
-```
-
-#### `endLoading(dispatcher, loader String)`
-
-Ends given loading from actions.
-
-```js
-export default {
-  actions: {
-    async createUser({ commit, dispatch }) {
-      try {
-        const response = await startLoading(dispatch, 'creating user', () => { /* ... */ });
-        commit(types.CREATE_USER, response)
-      } catch (e) {
-        // In any unexpected thing occurs on runtime, end the loading.
-        endLoading(dispatch, 'creating user')
-      }
-    }
-  },
-  // ...
-}
-```
+**Using `mapLoadingActions` or `wrapLoading` instead is a better way.**
 
 #### `wrapLoading(loader String, func Function, [,force_sync = false])`
 
-Decorator that wraps function,
-will trigger a loading and will end loader after the original function (`func` argument) is finished.
+Decorator that wraps function, will trigger a loading and will end loader after the original function (`func` argument) is finished.
 
-By default `wrapLoading` return async function,
-if you want to wrap default sync function pass `true` in last argument
+By default `wrapLoading` return async function, if you want to wrap default sync function pass `true` in last argument
 
 _Example using with async function_
 
 ```js
+...
 methods: {
   fetchDataFromApi: wrapLoading('fetch data', async function () {
     function sleep(ms) {
@@ -236,17 +317,17 @@ methods: {
     this.fetchResponse = Math.random()
   })
 }
+...
 ```
 
 See also `examples/wrap-example`
 
-## Using `v-loading` Component
+## 💧 Using `v-loading` Component
 
-If you disable `registerComponents` option then
-import and add `v-loading` into components
+If you disable `registerComponent` option then import and add `v-loading` into components
 
 ```js
-import vLoading from 'vuex-loading/v-loading.vue'
+import vLoading from 'vuex-loading/src/components/v-loading.vue'
 components: {
   'v-loading': vLoading
 }
@@ -275,7 +356,7 @@ Better example for a `button` with loading state:
 </button>
 ```
 
-## Making Reusable Loader Components
+## ⚡️ Making Reusable Loader Components
 
 With reusable loader components, you will be able to use custom loader components as example below. This will allow you to create better **user loading experience**.
 
@@ -346,37 +427,16 @@ Now you can use your spinner everywhere using `slot='loading'` attribute:
 </template>
 ```
 
-### Built-in Loaders (WIP)
+## 🚌 Run example
 
-Also you can use built in loaders:
- - `v-loading-spinner`
- - `v-loading-heart`
- - ... more to come.
-
-You need to put them into a `template` tag.
-
-```html
-<v-loading loader='fetching data'>
-  <template slot="loading">
-    <v-loading-spinner height='30px' width='30px' />
-  </template>
-
-  This will be shown when "fetching data" loader ends.
-</v-loading>
-```
-
-Please see `example` for more detailed example.
-
-## Run example
-
-Use `npm run dev-vuex` or `npm run dev-default` commands
+Use `npm run dev-vuex`, `npm run dev-vue` or `npm run dev-wrap` commands.
 for running examples locally.
 
-## Contributors
+## 🎯 Contributors
 
 - Fatih Kadir Akın, (creator)
 - Igor, (maintainer, made Vuex-free)
 
-## License
+## 🔑 License
 
 MIT © [Fatih Kadir Akın](https://github.com/f)

@@ -1,7 +1,7 @@
 {
   "name": "vuex-loading",
   "description": "Vuex Plugin for Global Loading Management",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Fatih Kadir Akın <fatihkadirakin@gmail.com>",
   "keywords": [
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/f/vuex-loading/issues"
   },
-  "main": "dist/vuex-loading.js",
+  "main": "dist/vue-loading.js",
   "files": [
     "src",
     "LICENSE",
@@ -28,9 +28,9 @@
   "scripts": {
     "test": "exit 0;",
     "precommit": "lint-staged",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev-vuex": "poi examples/vuex-example/index.js",
-    "dev-default": "poi examples/default-example/index.js",
+    "dev-vue": "poi examples/vue-example/index.js",
     "dev-wrap": "poi examples/wrap-example/index.js"
   },
   "lint-staged": {
@@ -44,25 +44,30 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.49",
+    "@babel/preset-env": "^7.0.0-beta.49",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.1.3",
+    "css-loader": "^0.28.11",
     "eslint": "^4.2.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.1",
-    "poi": "^9.5.4",
+    "lint-staged": "^7.1.3",
+    "poi": "^10.2.3",
     "prettier": "^1.1.0",
-    "vue": "^2.0.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "vue-html-loader": "^1.2.4",
-    "vue-loader": "^13.7.0",
+    "vue-loader": "^15.2.4",
+    "vue-style-loader": "^4.1.0",
+    "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
-    "webpack": "^3.10.0"
+    "webpack": "^4.11.1",
+    "webpack-cli": "^3.0.2"
   },
   "peerDependencies": {
-    "vue": "^2.0.0"
+    "vue": "^2.5.16"
   },
-  "dependencies": {}
+  "dependencies": {
+    "matcher": "^1.1.1"
+  }
 }

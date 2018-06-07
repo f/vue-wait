@@ -3,12 +3,12 @@
     <div class="container">
       <v-loading message='Something loading! Lovely...'>
         <template slot='loading'>
-          <span class="animated">❤️</span>
+            <span class="animated">❤️</span>
         </template>
         This will be shown after load.
       </v-loading>
     </div>
-    <button @click='writeCode()' :disable='$l.isLoading("writing code")'>
+    <button @click='writeCode()' v-loading:disabled='"writing code"'>
       <v-loading loader='writing code' message='Writing Code...'>
         <template slot='loading'>
           <span class="animated">️️♻️</span>
@@ -16,22 +16,22 @@
         Write Code
       </v-loading>
     </button>
-    <button @click='endLoading()' :disabled='!$l.isLoading("writing code")'>
-      <span v-if='$l.isLoading("writing code")'>Stop Coding</span>
-      <span v-else>Coding Stopped</span>
+    <button v-loading:click.end='"writing code"'>
+      <span v-loading:visible="'writing *'">Stop Coding</span>
+      <span v-loading:visible.not="'writing *'">Coding Stopped</span>
     </button>
     <br>
-    <button @click='$l.startLoading("c")' :disabled='$l.isLoading("c")'>
+    <button v-loading:click.start='"c"' v-loading:disabled='"c"'>
       Start <b>"c"</b> Loader
     </button>
-    <button @click='$l.endLoading("c")' :disabled='!$l.isLoading("c")'>
+    <button v-loading:click.end='"c"' v-loading:disabled.not='"c"'>
       Stop <b>"c"</b> Loader
     </button>
     <p>
       Toggle on any letter to load/unload together.
     </p>
     <ul class="list">
-      <li v-for='loader in loaders' :key='loader + Math.random()' @click='toggleLoader(loader)'>
+      <li v-for='loader in loaders' :key='loader + Math.random()' v-loading:toggle='loader'>
         <v-loading :loader='loader'>
           <template slot='loading' v-if='loader == "c"'>
             <span class="animated">🎉</span>
@@ -43,48 +43,23 @@
         </v-loading>
       </li>
     </ul>
-    <hr>
-    <button @click='incrementAsync'>
-      <v-loading loader="incrementing" message='incrementing...'>
-        <template slot='loading'>
-          <span class="animated">+</span>
-        </template>
-        <code>mapLoadingActions</code> {{ count }}
-      </v-loading>
-    </button>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { mapLoadingActions } from '../../src/vue-loading';
-
   export default {
-    name: 'vuex-app',
+    name: 'vue-app',
     data() {
       return {
         loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']
       };
     },
-    computed: {
-      ...mapGetters(['count']),
-    },
     methods: {
-      ...mapLoadingActions({
-        incrementAsync: 'incrementing',
-      }),
       writeCode() {
-        this.$l.startLoading('writing code');
+        this.$vueLoading.startLoading('writing code');
       },
       endLoading() {
-        this.$l.endLoading('writing code');
-      },
-      toggleLoader(loader) {
-        if (this.$l.isLoading(loader)) {
-          this.$l.endLoading(loader);
-        } else {
-          this.$l.startLoading(loader);
-        }
+        this.$vueLoading.endLoading('writing code');
       }
     }
   }
