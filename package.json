@@ -1,7 +1,7 @@
 {
   "name": "vue-wait",
   "description": "Vue Plugin for Global Loading Management",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "author": "Fatih Kadir Akın <fatihkadirakin@gmail.com>",
   "keywords": [
