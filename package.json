@@ -1,6 +1,6 @@
 {
-  "name": "vuex-loading",
-  "description": "Vuex Plugin for Global Loading Management",
+  "name": "vue-wait",
+  "description": "Vue Plugin for Global Loading Management",
   "version": "1.0.4",
   "license": "MIT",
   "author": "Fatih Kadir Akın <fatihkadirakin@gmail.com>",
@@ -11,15 +11,15 @@
     "loading",
     "loader"
   ],
-  "homepage": "https://github.com/f/vuex-loading#readme",
+  "homepage": "https://github.com/f/vue-wait#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/f/vuex-loading.git"
+    "url": "git+https://github.com/f/vue-wait.git"
   },
   "bugs": {
-    "url": "https://github.com/f/vuex-loading/issues"
+    "url": "https://github.com/f/vue-wait/issues"
   },
-  "main": "dist/vue-loading.js",
+  "main": "dist/vue-wait.js",
   "files": [
     "dist",
     "src"

@@ -1,46 +1,46 @@
 <template>
   <div id="app">
     <div class="container">
-      <v-loading message='Something loading! Lovely...'>
-        <template slot='loading'>
-            <span class="animated">❤️</span>
+      <v-wait message='Something loading! Lovely...'>
+        <template slot='waiting'>
+          <span class="animated">❤️</span>
         </template>
         This will be shown after load.
-      </v-loading>
+      </v-wait>
     </div>
-    <button @click='writeCode()' v-loading:disabled='"writing code"'>
-      <v-loading loader='writing code' message='Writing Code...'>
-        <template slot='loading'>
+    <button @click='writeCode()' v-wait:disabled='"writing code"'>
+      <v-wait for='writing code' message='Writing Code...'>
+        <template slot='waiting'>
           <span class="animated">️️♻️</span>
         </template>
         Write Code
-      </v-loading>
+      </v-wait>
     </button>
-    <button v-loading:click.end='"writing code"'>
-      <span v-loading:visible="'writing *'">Stop Coding</span>
-      <span v-loading:visible.not="'writing *'">Coding Stopped</span>
+    <button v-wait:click.end='"writing code"'>
+      <span v-wait:visible="'writing *'">Stop Coding</span>
+      <span v-wait:visible.not="'writing *'">Coding Stopped</span>
     </button>
     <br>
-    <button v-loading:click.start='"c"' v-loading:disabled='"c"'>
+    <button v-wait:click.start='"c"' v-wait:disabled='"c"'>
       Start <b>"c"</b> Loader
     </button>
-    <button v-loading:click.end='"c"' v-loading:disabled.not='"c"'>
+    <button v-wait:click.end='"c"' v-wait:disabled.not='"c"'>
       Stop <b>"c"</b> Loader
     </button>
     <p>
       Toggle on any letter to load/unload together.
     </p>
     <ul class="list">
-      <li v-for='loader in loaders' :key='loader + Math.random()' v-loading:toggle='loader'>
-        <v-loading :loader='loader'>
-          <template slot='loading' v-if='loader == "c"'>
+      <li v-for='loader in loaders' :key='loader + Math.random()' v-wait:toggle='loader'>
+        <v-wait :for='loader'>
+          <template slot='waiting' v-if='loader == "c"'>
             <span class="animated">🎉</span>
           </template>
-          <template slot='loading' v-else>
+          <template slot='waiting' v-else>
             <span class="animated">👋🏻</span>
           </template>
           {{ loader }}
-        </v-loading>
+        </v-wait>
       </li>
     </ul>
   </div>
@@ -56,10 +56,10 @@
     },
     methods: {
       writeCode() {
-        this.$vueLoading.startLoading('writing code');
+        this.$wait.start('writing code');
       },
-      endLoading() {
-        this.$vueLoading.endLoading('writing code');
+      end() {
+        this.$wait.end('writing code');
       }
     }
   }

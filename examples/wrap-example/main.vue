@@ -1,34 +1,34 @@
 <template>
   <div id="app">
     <div class="container">
-      <my-spinner message='Something loading! Lovely...'>
-        <template slot='loading'>
+      <my-waiter message='Something loading! Lovely...'>
+        <template slot='waiting'>
           <span class="animated">❤️</span>
         </template>
         This will be shown after load.
-      </my-spinner>
+      </my-waiter>
     </div>
-    <button @click='fetchDataFromApi' :disable='$vueLoading.isLoading("fetch data")'>
-      <my-spinner loader='fetch data' message='Fetching data...'>
-        <template slot='loading'>
+    <button @click='fetchDataFromApi' :disable='$wait.isWaiting("fetch data")'>
+      <my-waiter for='fetch data' message='Fetching data...'>
+        <template slot='waiting'>
           <span class="animated">👾</span>
         </template>
         Fetching response {{ fetchResponse }}
-      </my-spinner>
+      </my-waiter>
     </button>
 
-    <button @click='syncCalculator' :disable='$vueLoading.isLoading("sync work")'>
-      <my-spinner loader='sync work' message='Calculating data...'>
-        <template slot='loading'>
+    <button @click='syncCalculator' :disable='$wait.isWaiting("sync work")'>
+      <my-waiter for='sync work' message='Calculating data...'>
+        <template slot='waiting'>
           <span class="animated">❤️</span>
         </template>
         Calculate data {{ calculateData }}
-      </my-spinner>
+      </my-waiter>
     </button>
   </div>
 </template>
 <script>
-  import { wrapLoading } from '../../src/vue-loading'
+  import { waitFor } from '../../src/vue-wait'
 
   export default {
     name: 'wrap-app',
@@ -39,7 +39,7 @@
       };
     },
     methods: {
-      fetchDataFromApi: wrapLoading('fetch data', async function () {
+      fetchDataFromApi: waitFor('fetch data', async function () {
         function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -49,7 +49,7 @@
         // simulate some api call
         this.fetchResponse = Math.random()
       }),
-      syncCalculator: wrapLoading('sync work', function () {
+      syncCalculator: waitFor('sync work', function () {
         for (let i = 2; i < 1000000000; i++) {
           Math.sqrt(i)
         }

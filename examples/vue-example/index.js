@@ -1,13 +1,13 @@
 import Vue from 'vue';
-import VueLoading from '../../src/vue-loading';
+import VueWait from '../../src/vue-wait';
 
 import main from './main.vue';
 
-Vue.use(VueLoading);
+Vue.use(VueWait);
 
 new Vue({
   el: '#app',
-  vueLoading: new VueLoading({ registerComponents: false }),
+  wait: new VueWait({ registerComponents: false }),
   render: function(createElement) {
     return createElement(main);
   }
