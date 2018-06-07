@@ -1,24 +1,24 @@
 import { isMatch } from 'matcher';
 
-export function isLoading(loaders, loader) {
-  if (loader.match(/[\*\!]/)) {
-    return loaders.filter(l => isMatch(l, loader)).length > 0;
+export function isWaiting(waiters, waiter) {
+  if (waiter.match(/[\*\!]/)) {
+    return waiters.filter(l => isMatch(l, waiter)).length > 0;
   }
-  return Array.isArray(loader)
-    ? loaders.some(v => loader.includes(v))
-    : loaders.indexOf(loader) > -1;
+  return Array.isArray(waiter)
+    ? waiters.some(v => waiter.includes(v))
+    : waiters.indexOf(waiter) > -1;
 }
 
-export function anyLoading(loaders) {
-  return loaders.length > 0;
+export function any(waiters) {
+  return waiters.length > 0;
 }
 
-export function startLoading(loaders, loader) {
-  return uniqArray([...loaders, loader]);
+export function start(waiters, waiter) {
+  return uniqArray([...waiters, waiter]);
 }
 
-export function endLoading(loaders, loader) {
-  return uniqArray(loaders).filter(l => l !== loader);
+export function end(waiters, waiter) {
+  return uniqArray(waiters).filter(l => l !== waiter);
 }
 
 export function uniqArray(array) {

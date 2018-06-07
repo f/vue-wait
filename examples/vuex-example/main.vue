@@ -1,30 +1,30 @@
 <template>
   <div id="app">
     <div class="container">
-      <v-loading message='Something loading! Lovely...'>
-        <template slot='loading'>
+      <v-wait message='Something loading! Lovely...'>
+        <template slot='waiting'>
           <span class="animated">❤️</span>
         </template>
         This will be shown after load.
-      </v-loading>
+      </v-wait>
     </div>
-    <button @click='writeCode()' :disable='$l.isLoading("writing code")'>
-      <v-loading loader='writing code' message='Writing Code...'>
-        <template slot='loading'>
+    <button @click='writeCode()' :disable='$l.isWaiting("writing code")'>
+      <v-wait for='writing code' message='Writing Code...'>
+        <template slot='waiting'>
           <span class="animated">️️♻️</span>
         </template>
         Write Code
-      </v-loading>
+      </v-wait>
     </button>
-    <button @click='endLoading()' :disabled='!$l.isLoading("writing code")'>
-      <span v-if='$l.isLoading("writing code")'>Stop Coding</span>
+    <button @click='end()' :disabled='!$l.isWaiting("writing code")'>
+      <span v-if='$l.isWaiting("writing code")'>Stop Coding</span>
       <span v-else>Coding Stopped</span>
     </button>
     <br>
-    <button @click='$l.startLoading("c")' :disabled='$l.isLoading("c")'>
+    <button @click='$l.start("c")' :disabled='$l.isWaiting("c")'>
       Start <b>"c"</b> Loader
     </button>
-    <button @click='$l.endLoading("c")' :disabled='!$l.isLoading("c")'>
+    <button @click='$l.end("c")' :disabled='!$l.isWaiting("c")'>
       Stop <b>"c"</b> Loader
     </button>
     <p>
@@ -32,32 +32,32 @@
     </p>
     <ul class="list">
       <li v-for='loader in loaders' :key='loader + Math.random()' @click='toggleLoader(loader)'>
-        <v-loading :loader='loader'>
-          <template slot='loading' v-if='loader == "c"'>
+        <v-wait :for='loader'>
+          <template slot='waiting' v-if='loader == "c"'>
             <span class="animated">🎉</span>
           </template>
-          <template slot='loading' v-else>
+          <template slot='waiting' v-else>
             <span class="animated">👋🏻</span>
           </template>
           {{ loader }}
-        </v-loading>
+        </v-wait>
       </li>
     </ul>
     <hr>
     <button @click='incrementAsync'>
-      <v-loading loader="incrementing" message='incrementing...'>
-        <template slot='loading'>
+      <v-wait for="incrementing" message='incrementing...'>
+        <template slot='waiting'>
           <span class="animated">+</span>
         </template>
-        <code>mapLoadingActions</code> {{ count }}
-      </v-loading>
+        <code>mapWaitingActions</code> {{ count }}
+      </v-wait>
     </button>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-  import { mapLoadingActions } from '../../src/vue-loading';
+  import { mapWaitingActions } from '../../src/vue-wait';
 
   export default {
     name: 'vuex-app',
@@ -70,20 +70,20 @@
       ...mapGetters(['count']),
     },
     methods: {
-      ...mapLoadingActions({
+      ...mapWaitingActions({
         incrementAsync: 'incrementing',
       }),
       writeCode() {
-        this.$l.startLoading('writing code');
+        this.$l.start('writing code');
       },
-      endLoading() {
-        this.$l.endLoading('writing code');
+      end() {
+        this.$l.end('writing code');
       },
       toggleLoader(loader) {
-        if (this.$l.isLoading(loader)) {
-          this.$l.endLoading(loader);
+        if (this.$l.isWaiting(loader)) {
+          this.$l.end(loader);
         } else {
-          this.$l.startLoading(loader);
+          this.$l.start(loader);
         }
       }
     }

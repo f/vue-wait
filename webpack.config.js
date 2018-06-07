@@ -2,11 +2,11 @@ const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: ["./src/vue-loading.js"],
+  entry: ["./src/vue-wait.js"],
   output: {
-    library: "VueLoading",
+    library: "VueWait",
     libraryTarget: "umd",
-    filename: "vue-loading.js",
+    filename: "vue-wait.js",
     globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
   module: {

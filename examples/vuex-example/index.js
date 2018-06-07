@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VueLoading from '../../src/vue-loading';
+import VueWait from '../../src/vue-wait';
 
 import main from './main.vue';
 
-Vue.use(VueLoading);
+Vue.use(VueWait);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -31,7 +31,7 @@ const store = new Vuex.Store({
   }
 });
 
-const vueLoading = new VueLoading({
+const wait = new VueWait({
   useVuex: true,
   vuexModuleName: 'vuex-example-module',
   accessorName: '$l'
@@ -40,7 +40,7 @@ const vueLoading = new VueLoading({
 new Vue({
   el: '#app',
   store,
-  vueLoading,
+  wait,
   render: function(createElement) {
     return createElement(main);
   }
