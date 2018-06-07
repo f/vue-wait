@@ -1,4 +1,4 @@
-# ⌛️ vuex-loading
+<img src="./resources/logo.png" width="500">
 
 Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally) [Vuex](http://vuex.vuejs.org/).
 
