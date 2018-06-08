@@ -81,8 +81,6 @@ new Vue({
 
 Now `VueWait` will use `Vuex` store for data management which can be traced in `Vue DevTools > Vuex`
 
-<img src="./resources/vue-wait-2.gif" width="480">
-
 ## ♻️ Usage with Nuxt.js
 
 Add `vue-wait/nuxt` to modules section of `nuxt.config.js`
