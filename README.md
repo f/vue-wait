@@ -83,6 +83,25 @@ Now `VueWait` will use `Vuex` store for data management which can be traced in `
 
 <img src="./resources/vue-wait-2.gif" width="480">
 
+## ♻️ Usage with Nuxt.js
+
+Add `vue-wait/nuxt` to modules section of `nuxt.config.js`
+
+```js
+{
+  modules: [
+    // Simple usage
+    'vue-wait/nuxt'
+
+    // Optionally passing options in module configuration
+    ['vue-wait/nuxt', { useVuex: true }]
+  ],
+
+  // Optionally passing options in module top level configuration
+  wait: { useVuex: true }
+}
+```
+
 ## 🔁 `VueWait` Options
 
 You can use this options for customize VueWait behavior.
