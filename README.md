@@ -4,6 +4,10 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 > Formerly known as **vuex-loading**
 
+[![npm version](https://badge.fury.io/js/vue-wait.svg)](https://badge.fury.io/js/vue-wait)
+
+---
+
 <img src="./resources/vue-wait.gif" width="480">
 
 > [Play with demo above](https://f.github.io/vue-wait/).
