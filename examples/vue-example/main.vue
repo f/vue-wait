@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <v-wait message='Something loading! Lovely...'>
+      <v-wait message='Something loading! Lovely...' :delay=2000>
         <template slot='waiting'>
           <span class="animated">❤️</span>
         </template>
@@ -32,7 +32,7 @@
     </p>
     <ul class="list">
       <li v-for='loader in loaders' :key='loader + Math.random()' v-wait:toggle='loader'>
-        <v-wait :for='loader'>
+        <v-wait :for='loader' :delay=2000>
           <template slot='waiting' v-if='loader == "c"'>
             <span class="animated">🎉</span>
           </template>
