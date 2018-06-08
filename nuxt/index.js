@@ -25,8 +25,8 @@ module.exports = function nuxtVueWaitModule(moduleOptions) {
 
     // Register plugin
     this.addPlugin({
-        src: resolve(__dirname, 'vue-wait-plugin.js'),
-        fileName: 'vue-wait-plugin.template.js',
+        src: resolve(__dirname, 'vue-wait-plugin.template.js'),
+        fileName: 'vue-wait-plugin.js',
         options: options
     })
 };
