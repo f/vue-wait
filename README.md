@@ -108,40 +108,15 @@ Add `vue-wait/nuxt` to modules section of `nuxt.config.js`
 
 You can use this options for customize VueWait behavior.
 
-#### `accessorName`
-
-`String` value, `$wait` by default, you can change this value to rename the accessor.
-
-E.g. if you rename this to `$w`, your `VueWait` methods will be accessible by `$w.isWaiting(..)` etc.
-
-#### `useVuex`
-
-`Boolean` value, `false` by default, use this value for enabling
-integration with `Vuex` store
-
-When this value is true `VueWait` will store data in `Vuex` store
-and all changes to this data will be made by dispatching actions to store
-
-#### `vuexModuleName`
-
-`String` value, `loading` by default.
-Name for `Vuex` store if `useVuex` set to true, otherwise not used.
-
-#### `registerComponent`
-
-`Boolean` value, `true` by default, registers `v-wait` component.
-
-#### `componentName`
-
-`String` value, `v-wait` by default, changes `v-wait` component name.
-
-#### `registerDirective`
-
-`Boolean` value, `true` by default, registers `v-wait` directive.
-
-#### `directiveName`
-
-`String` value, `wait` by default, changes `v-wait` directive name.
+| Option Name | Type | Default | Description |
+| ----------- | ---- | ------- | ----------- |
+| `accessorName` | `String` | `"$wait"` | You can change this value to rename the accessor. E.g. if you rename this to `$w`, your `VueWait` methods will be accessible by `$w.isWaiting(..)` etc. |
+| `useVuex` | `Boolean` | `false` | Use this value for enabling integration with `Vuex` store. When this value is true `VueWait` will store data in `Vuex` store and all changes to this data will be made by dispatching actions to store |
+| `vuexModuleName` | `String` | `"wait"` | Name for `Vuex` store if `useVuex` set to true, otherwise not used. |
+| `registerComponent` | `Boolean` | `true` | Registers `v-wait` component. |
+| `componentName` | `String` | `"v-wait"` | Changes `v-wait` component name. |
+| `registerDirective` | `Boolean` | `true` | Registers `v-wait` directive. |
+| `directiveName` | `String` | `"v-wait"` | Changes `v-wait` directive name. |
 
 ## 🌈 Global Template Helpers
 
