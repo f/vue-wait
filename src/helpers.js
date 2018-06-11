@@ -26,7 +26,7 @@ export function mapWaitingGetters(getters) {
   Object.keys(getters).forEach(getter => {
     const waiter = getters[getter];
     mappings[getter] = function() {
-      return this.__$waitInstance.isWaiting(waiter);
+      return this.__$waitInstance.is(waiter);
     };
   });
   return mappings;

@@ -1,5 +1,6 @@
-import { isWaiting, any, start, end, nodeIsDebug } from './utils';
+import { is, any, start, end, nodeIsDebug } from './utils';
 
+// Import to export
 import { mapWaitingActions, mapWaitingGetters, waitFor } from './helpers';
 
 import vuexStore from './vuex/store';
@@ -59,8 +60,7 @@ export default class VueWait {
 
       this.stateHandler = new Vue({
         computed: {
-          isWaiting: () => loader =>
-            store.getters[`${vuexModuleName}/isWaiting`](loader),
+          is: () => waiter => store.getters[`${vuexModuleName}/is`](waiter),
           any: () => store.getters[`${vuexModuleName}/any`]
         }
       });
@@ -68,23 +68,23 @@ export default class VueWait {
       this.stateHandler = new Vue({
         data() {
           return {
-            activeLoaders: []
+            waitingFor: []
           };
         },
         computed: {
-          isWaiting() {
-            return loader => isWaiting(this.activeLoaders, loader);
+          is() {
+            return waiter => is(this.waitingFor, waiter);
           },
           any() {
-            return any(this.activeLoaders);
+            return any(this.waitingFor);
           }
         },
         methods: {
-          start(loader) {
-            this.activeLoaders = start(this.activeLoaders, loader);
+          start(waiter) {
+            this.waitingFor = start(this.waitingFor, waiter);
           },
-          end(loader) {
-            this.activeLoaders = end(this.activeLoaders, loader);
+          end(waiter) {
+            this.waitingFor = end(this.waitingFor, waiter);
           }
         }
       });
@@ -97,31 +97,31 @@ export default class VueWait {
     return this.stateHandler.any;
   }
 
-  isWaiting(loader) {
-    return this.stateHandler.isWaiting(loader);
+  is(waiter) {
+    return this.stateHandler.is(waiter);
   }
 
-  dispatchLoaderAction(action, loader) {
+  dispatchWaitingAction(action, waiter) {
     const { vuexModuleName } = this.options;
-    this.store.dispatch(`${vuexModuleName}/${action}`, loader, {
+    this.store.dispatch(`${vuexModuleName}/${action}`, waiter, {
       root: true
     });
   }
 
-  start(loader) {
+  start(waiter) {
     if (this.options.useVuex) {
-      this.dispatchLoaderAction('start', loader);
+      this.dispatchWaitingAction('start', waiter);
       return;
     }
-    this.stateHandler.start(loader);
+    this.stateHandler.start(waiter);
   }
 
-  end(loader) {
+  end(waiter) {
     if (this.options.useVuex) {
-      this.dispatchLoaderAction('end', loader);
+      this.dispatchWaitingAction('end', waiter);
       return;
     }
-    this.stateHandler.end(loader);
+    this.stateHandler.end(waiter);
   }
 }
 
@@ -129,7 +129,7 @@ export function install(Vue) {
   if (install.installed && Vue) {
     if (nodeIsDebug()) {
       console.warn(
-        '[vue-wait] already installed. Vue.use(VuexLoading) should be called only once.'
+        '[vue-wait] already installed. Vue.use(VueWait) should be called only once.'
       );
     }
     return;
@@ -163,7 +163,7 @@ export function install(Vue) {
   install.installed = true;
 }
 
-// Bypass helpers
+// Export which are imported to export
 export { mapWaitingActions, mapWaitingGetters, waitFor };
 
 VueWait.install = install;

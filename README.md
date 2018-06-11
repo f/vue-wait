@@ -110,7 +110,7 @@ You can use this options for customize VueWait behavior.
 
 | Option Name | Type | Default | Description |
 | ----------- | ---- | ------- | ----------- |
-| `accessorName` | `String` | `"$wait"` | You can change this value to rename the accessor. E.g. if you rename this to `$w`, your `VueWait` methods will be accessible by `$w.isWaiting(..)` etc. |
+| `accessorName` | `String` | `"$wait"` | You can change this value to rename the accessor. E.g. if you rename this to `$w`, your `VueWait` methods will be accessible by `$w.waits(..)` etc. |
 | `useVuex` | `Boolean` | `false` | Use this value for enabling integration with `Vuex` store. When this value is true `VueWait` will store data in `Vuex` store and all changes to this data will be made by dispatching actions to store |
 | `vuexModuleName` | `String` | `"wait"` | Name for `Vuex` store if `useVuex` set to true, otherwise not used. |
 | `registerComponent` | `Boolean` | `true` | Registers `v-wait` component. |
@@ -133,13 +133,13 @@ Returns boolean value if any loader exists in page.
 </template>
 ```
 
-#### `.isWaiting(loader String | Matcher)`
+#### `.is(loader String | Matcher)`
 
 Returns boolean value if given loader exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$wait.isWaiting('creating user')">Creating User...</progress-bar>
+  <progress-bar v-if="$wait.is('creating user')">Creating User...</progress-bar>
 </template>
 ```
 
@@ -149,17 +149,17 @@ Please see [matcher](https://github.com/sindresorhus/matcher/) library to see ho
 
 ```html
 <template>
-  <progress-bar v-if="$wait.isWaiting('creating.*')">Creating something...</progress-bar>
+  <progress-bar v-if="$wait.is('creating.*')">Creating something...</progress-bar>
 </template>
 ```
 
-#### `.isWaiting(loaders Array<String>)`
+#### `.is(loaders Array<String>)`
 
 Returns boolean value if some of given loaders exists in page.
 
 ```html
 <template>
-  <progress-bar v-if="$wait.isWaiting(['creating user', 'page loading'])">Creating User...</progress-bar>
+  <progress-bar v-if="$wait.is(['creating user', 'page loading'])">Creating User...</progress-bar>
 </template>
 ```
 
@@ -362,7 +362,7 @@ In template, you should wrap your content with `v-wait` component to show loadin
 Better example for a `button` with loading state:
 
 ```html
-<button :disabled='$wait.isWaiting("creating user")'>
+<button :disabled='$wait.is("creating user")'>
   <v-wait for='creating user'>
     <template slot='waiting'>Creating User...</template>
     Create User

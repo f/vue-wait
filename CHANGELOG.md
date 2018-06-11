@@ -1,5 +1,9 @@
 # vue-wait changelog
 
+## v1.2.0
+- Rename `isWaiting` to `is` to make the code less crowded.
+- Better array matching
+
 ## v1.1.0
 - Rename package to `vue-wait`
 - `anyLoading` to `any`

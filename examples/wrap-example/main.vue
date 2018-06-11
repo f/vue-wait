@@ -8,7 +8,7 @@
         This will be shown after load.
       </my-waiter>
     </div>
-    <button @click='fetchDataFromApi' :disable='$wait.isWaiting("fetch data")'>
+    <button @click='fetchDataFromApi' :disable='$wait.is("fetch data")'>
       <my-waiter for='fetch data' message='Fetching data...'>
         <template slot='waiting'>
           <span class="animated">👾</span>
@@ -17,7 +17,7 @@
       </my-waiter>
     </button>
 
-    <button @click='syncCalculator' :disable='$wait.isWaiting("sync work")'>
+    <button @click='syncCalculator' :disable='$wait.is("sync work")'>
       <my-waiter for='sync work' message='Calculating data...'>
         <template slot='waiting'>
           <span class="animated">❤️</span>

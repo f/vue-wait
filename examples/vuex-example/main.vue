@@ -8,7 +8,7 @@
         This will be shown after load.
       </v-wait>
     </div>
-    <button @click='writeCode()' :disable='$l.isWaiting("writing code")'>
+    <button @click='writeCode()' :disable='$l.is("writing code")'>
       <v-wait for='writing code' message='Writing Code...'>
         <template slot='waiting'>
           <span class="animated">️️♻️</span>
@@ -16,15 +16,15 @@
         Write Code
       </v-wait>
     </button>
-    <button @click='end()' :disabled='!$l.isWaiting("writing code")'>
-      <span v-if='$l.isWaiting("writing code")'>Stop Coding</span>
+    <button @click='end()' :disabled='!$l.is("writing code")'>
+      <span v-if='$l.is("writing code")'>Stop Coding</span>
       <span v-else>Coding Stopped</span>
     </button>
     <br>
-    <button @click='$l.start("c")' :disabled='$l.isWaiting("c")'>
+    <button @click='$l.start("c")' :disabled='$l.is("c")'>
       Start <b>"c"</b> Loader
     </button>
-    <button @click='$l.end("c")' :disabled='!$l.isWaiting("c")'>
+    <button @click='$l.end("c")' :disabled='!$l.is("c")'>
       Stop <b>"c"</b> Loader
     </button>
     <p>
@@ -84,7 +84,7 @@
         this.$l.end('writing code');
       },
       toggleLoader(loader) {
-        if (this.$l.isWaiting(loader)) {
+        if (this.$l.is(loader)) {
           this.$l.end(loader);
         } else {
           this.$l.start(loader);

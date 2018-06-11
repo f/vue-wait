@@ -16,7 +16,7 @@ function bind(el, binding, vNode, oldVNode) {
       el.addEventListener(
         'click',
         () => {
-          const isWaiting = instance.isWaiting(value);
+          const isWaiting = instance.is(value);
           if (!isWaiting) {
             instance.start(value);
           } else {
@@ -35,7 +35,7 @@ function update(el, binding, vNode, oldVNode) {
   const { arg, modifiers, value } = binding;
   const instance = vNode.context.__$waitInstance;
 
-  let isWaiting = instance.isWaiting(value);
+  let isWaiting = instance.is(value);
   if (modifiers.not || ['hidden', 'enabled'].includes(arg)) {
     isWaiting = !isWaiting;
   }

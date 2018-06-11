@@ -1,28 +1,28 @@
 import { isMatch } from 'matcher';
 
-export function isWaiting(waiters, waiter) {
+function uniqArray(array) {
+  return array.filter((el, index, arr) => index == arr.indexOf(el));
+}
+
+export function is(waitingFor, waiter) {
   if (typeof waiter === 'string' && waiter.match(/[\*\!]/)) {
-    return waiters.filter(l => isMatch(l, waiter)).length > 0;
+    return waitingFor.filter(w => isMatch(w, waiter)).length > 0;
   }
   return Array.isArray(waiter)
-    ? waiters.some(v => waiter.includes(v))
-    : waiters.indexOf(waiter) > -1;
+    ? waitingFor.some(w => is(waiter, w))
+    : waitingFor.includes(waiter);
 }
 
-export function any(waiters) {
-  return waiters.length > 0;
+export function any(waitingFor) {
+  return waitingFor.length > 0;
 }
 
-export function start(waiters, waiter) {
-  return uniqArray([...waiters, waiter]);
+export function start(waitingFor, waiter) {
+  return uniqArray([...waitingFor, waiter]);
 }
 
-export function end(waiters, waiter) {
-  return uniqArray(waiters).filter(l => l !== waiter);
-}
-
-export function uniqArray(array) {
-  return array.filter((el, index, arr) => index == arr.indexOf(el));
+export function end(waitingFor, waiter) {
+  return uniqArray(waitingFor).filter(l => l !== waiter);
 }
 
 export function nodeIsDebug() {

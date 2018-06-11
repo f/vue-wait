@@ -1,29 +1,29 @@
-import { isWaiting, any, start, end } from '../utils';
+import { is, any, start, end } from '../utils';
 
 const mutations = {
-  START_WAITING: 'START_WAITING',
-  END_WAITING: 'END_WAITING'
+  START: 'START',
+  END: 'END'
 };
 
 export default {
   namespaced: true,
   state: {
-    activeLoaders: []
+    waitingFor: []
   },
   getters: {
-    isWaiting: state => loader => isWaiting(state.activeLoaders, loader),
-    any: state => any(state.activeLoaders)
+    is: state => waiter => is(state.waitingFor, waiter),
+    any: state => any(state.waitingFor)
   },
   actions: {
-    start: ({ commit }, loader) => commit(mutations.START_WAITING, loader),
-    end: ({ commit }, loader) => commit(mutations.END_WAITING, loader)
+    start: ({ commit }, waiter) => commit(mutations.START, waiter),
+    end: ({ commit }, waiter) => commit(mutations.END, waiter)
   },
   mutations: {
-    [mutations.START_WAITING](state, loader) {
-      state.activeLoaders = start(state.activeLoaders, loader);
+    [mutations.START](state, waiter) {
+      state.waitingFor = start(state.waitingFor, waiter);
     },
-    [mutations.END_WAITING](state, loader) {
-      state.activeLoaders = end(state.activeLoaders, loader);
+    [mutations.END](state, waiter) {
+      state.waitingFor = end(state.waitingFor, waiter);
     }
   }
 };

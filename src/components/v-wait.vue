@@ -1,10 +1,10 @@
 <template lang="html">
   <div>
-    <span v-if='isWaiting'>
+    <span v-if='waitsFor'>
       <slot name='waiting'></slot>
       <span v-if='message'>{{ message }}</span>
     </span>
-    <slot v-if='!isWaiting'></slot>
+    <slot v-else></slot>
   </div>
 </template>
 <script>
@@ -15,12 +15,12 @@
       message: String,
     },
     computed: {
-      isWaiting() {
+      waitsFor() {
         if (this.visible) {
           return this.visible;
         }
         if (this.for) {
-          return this.__$waitInstance.isWaiting(this.for);
+          return this.__$waitInstance.is(this.for);
         }
         return this.__$waitInstance.any;
       }
