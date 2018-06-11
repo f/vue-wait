@@ -480,7 +480,7 @@ Now you can use your spinner everywhere using `slot='waiting'` attribute:
 
 ## 📦 Using with external spinner libraries
 
-You can use `vue-wait` with another spinner libraries like [epic-spinners](/https://github.com/epicmaxco/epic-spinners) or other libraries. You just need to add `slot="waiting"` to the component and Vue handles rest of the work.
+You can use `vue-wait` with another spinner libraries like [epic-spinners](https://github.com/epicmaxco/epic-spinners) or other libraries. You just need to add `slot="waiting"` to the component and Vue handles rest of the work.
 
 First register the component,
 ```js
