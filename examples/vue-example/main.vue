@@ -8,6 +8,15 @@
         This will be shown after load.
       </v-wait>
     </div>
+    <v-wait for='writing code' message='You can also use outsourced spinners like epic-spinners'>
+      <orbit-spinner
+        style="display: block; margin: 0 auto;"
+        slot='waiting'
+        :animation-duration="1500"
+        :size="64"
+        :color="'#ff1d5e'"
+      />
+    </v-wait>
     <button @click='writeCode()' v-wait:disabled='"writing code"'>
       <v-wait for='writing code' message='Writing Code...'>
         <template slot='waiting'>

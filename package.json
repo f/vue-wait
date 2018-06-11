@@ -51,6 +51,7 @@
     "babel-loader": "^8.0.0-beta.3",
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.11",
+    "epic-spinners": "^1.0.3",
     "eslint": "^4.2.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.3",

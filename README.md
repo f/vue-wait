@@ -405,22 +405,32 @@ In this example above, the **tab gets data from back-end**, and the **table load
 
 ```html
 <template lang='pug'>
-div
-  v-wait(for='fetching tabs')
-    template(slot='waiting')
-      b-tabs
-        template(slot='tabs')
-          b-nav-item(active disabled)
-            v-icon(name='circle-o-notch', spin)
-    b-tabs
-      template(slot='tabs')
-        b-nav-item(v-for='tab in tabs') {{ tab.name }}
-
-  v-wait(for='fetching data')
-    table-gradient-spinner(slot='waiting')
-    table
-      tr(v-for='row in data')
-        // ...
+  <div>
+    <v-wait for="fetching tabs">
+      <template slot="waiting">
+        <b-tabs>
+          <template slot="tabs">
+            <b-nav-item active="active" disabled>
+              <v-icon name="circle-o-notch" spin="spin" />
+            </b-nav-item>
+          </template>
+        </b-tabs>
+      </template>
+      <b-tabs>
+        <template slot="tabs">
+          <b-nav-item v-for="tab in tabs">{{ tab.name }}</b-nav-item>
+        </template>
+      </b-tabs>
+    </v-wait>
+    <v-wait for="fetching data">
+      <table-gradient-spinner slot="waiting" />
+      <table>
+        <tr v-for="row in data">
+          <!-- ...-->
+        </tr>
+      </table>
+    </v-wait>
+  </div>
 </template>
 ```
 
@@ -435,11 +445,11 @@ You may want to design your own reusable loader for your project. You better cre
     loading: Loading...
 </i18n>
 
-<template lang="pug">
-  div.loading-spinner
-    //- Uses vue-awesome spinner
-    v-icon(name='refresh', spin)
-    span {{ $t('loading') }}
+<template>
+  <div class="loading-spinner">
+    <v-icon name="refresh" spin="spin" />
+    <span>{{ $t('loading') }}</span>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -459,12 +469,40 @@ Now you can use your spinner everywhere using `slot='waiting'` attribute:
 
 ```html
 <template lang="pug">
-  v-wait(for='fetching data')
-    my-waiter(slot='waiting')
-    div
-      p My main content after fetching data...
+  <v-wait for="fetching data">
+    <my-waiter slot="waiting" />
+    <div>
+      <p>My main content after fetching data...</p>
+    </div>
+  </v-wait>
 </template>
 ```
+
+## 📦 Using with external spinner libraries
+
+You can use `vue-wait` with another spinner libraries like [epic-spinners](/https://github.com/epicmaxco/epic-spinners) or other libraries. You just need to add `slot="waiting"` to the component and Vue handles rest of the work.
+
+First register the component,
+```js
+import { OrbitSpinner } from 'epic-spinners';
+Vue.component('orbit-spinner', OrbitSpinner);
+```
+
+Then use it in your as a `v-wait`'s `waiting` slot.
+```html
+<v-wait for='something to load'>
+  <orbit-spinner
+    slot='waiting'
+    :animation-duration="1500"
+    :size="64"
+    :color="'#ff1d5e'"
+  />
+</v-wait>
+```
+
+... and done!
+
+For other libraries you can use, please see [Loaders section of **vuejs/awesome-vue**](https://github.com/vuejs/awesome-vue#loader).
 
 ## 🚌 Run example
 
