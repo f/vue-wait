@@ -153,7 +153,7 @@ Please see [matcher](https://github.com/sindresorhus/matcher/) library to see ho
 </template>
 ```
 
-#### `.is(loaders Array<String>)`
+#### `.is(loaders Array<String | Matcher>)`
 
 Returns boolean value if some of given loaders exists in page.
 
