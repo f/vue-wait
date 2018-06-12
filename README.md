@@ -290,25 +290,32 @@ import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 
 ```
 
-##### 😱 What happened to old `createActionHelpers`?
+### ☢️Advanced Getters and Actions Usage
 
-**We've removed them**. Since they were just calling `dispatch`, you can just write like following example. We don't like complexity.
+> The Vuex module name is `wait` by default. If you've changed on config, you should get it by `rootGetters['<vuex module name>/is']` or `rootGetters['<vuex module name>/any']`.
 
-```js
-//...
-actions: {
-  async getUsers({ dispatch }) {
-    const waiter = 'getting users';
+You can access `vue-wait`'s Vuex getters using `rootGetters` in Vuex.
 
-    dispatch(`wait/start`, waiter, { root: true });
-    await UserService.getUsers();
-    dispatch(`wait/end`, waiter, { root: true });
+```
+...
+getters: {
+  cartOperationInProgress(state, getters, rootState, rootGetters) {
+    return rootGetters['wait/is']('cart.*');
   }
-}
-//...
+},
 ```
 
-**Using `mapWaitingActions` or `waitFor` instead is a better way.**
+And you can start and end loaders using `wait` actions. You must pass `root: true` option to the `dispatch` method.
+
+```js
+actions: {
+  async addItemToCart({ dispatch }, item) {
+    dispatch('wait/start', 'cart.addItem', { root: true });
+    await CartService.addItem(item);
+    dispatch('wait/end', 'cart.addItem', { root: true });
+  }
+},
+```
 
 #### `waitFor(loader String, func Function, [,force_sync = false])`
 
