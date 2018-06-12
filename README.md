@@ -296,8 +296,7 @@ import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 
 You can access `vue-wait`'s Vuex getters using `rootGetters` in Vuex.
 
-```
-...
+```js
 getters: {
   cartOperationInProgress(state, getters, rootState, rootGetters) {
     return rootGetters['wait/is']('cart.*');
