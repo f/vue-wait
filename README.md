@@ -78,7 +78,7 @@ new Vue({
   store,
   wait: new VueWait({
     useVuex: true, // You must pass this option `true` to use Vuex
-    vuexModuleName: 'vuex-example-module' // It's optional, `loading` by default.
+    vuexModuleName: 'vuex-example-module' // It's optional, `wait` by default.
   }),
 });
 ```
