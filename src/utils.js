@@ -1,4 +1,4 @@
-import { isMatch } from 'matcher';
+import { isMatch } from './lib/matcher';
 
 function uniqArray(array) {
   return array.filter((el, index, arr) => index == arr.indexOf(el));
