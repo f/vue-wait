@@ -8,6 +8,7 @@
         This will be shown after load.
       </v-wait>
     </div>
+    <input type="text" :value='$l.percent("writing code")'>
     <button @click='writeCode()' :disable='$l.is("writing code")'>
       <v-wait for='writing code' message='Writing Code...'>
         <template slot='waiting'>

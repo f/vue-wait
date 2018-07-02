@@ -1,4 +1,13 @@
-import { is, any, start, end, nodeIsDebug } from './utils';
+import {
+  is,
+  any,
+  start,
+  end,
+  progress,
+  percent,
+  endProgress,
+  nodeIsDebug
+} from './utils';
 
 // Import to export
 import { mapWaitingActions, mapWaitingGetters, waitFor } from './helpers';
@@ -61,14 +70,17 @@ export default class VueWait {
       this.stateHandler = new Vue({
         computed: {
           is: () => waiter => store.getters[`${vuexModuleName}/is`](waiter),
-          any: () => store.getters[`${vuexModuleName}/any`]
+          any: () => store.getters[`${vuexModuleName}/any`],
+          percent: () => waiter =>
+            store.getters[`${vuexModuleName}/percent`](waiter)
         }
       });
     } else {
       this.stateHandler = new Vue({
         data() {
           return {
-            waitingFor: []
+            waitingFor: [],
+            progresses: {}
           };
         },
         computed: {
@@ -77,6 +89,9 @@ export default class VueWait {
           },
           any() {
             return any(this.waitingFor);
+          },
+          percent() {
+            return waiter => percent(this.progresses, waiter);
           }
         },
         methods: {
@@ -85,6 +100,10 @@ export default class VueWait {
           },
           end(waiter) {
             this.waitingFor = end(this.waitingFor, waiter);
+            this.progresses = endProgress(this.progresses, waiter);
+          },
+          progress({ waiter, current, total }) {
+            this.progresses = progress(this.progresses, waiter, current, total);
           }
         }
       });
@@ -99,6 +118,10 @@ export default class VueWait {
 
   is(waiter) {
     return this.stateHandler.is(waiter);
+  }
+
+  percent(waiter) {
+    return this.stateHandler.percent(waiter);
   }
 
   dispatchWaitingAction(action, waiter) {
@@ -122,6 +145,23 @@ export default class VueWait {
       return;
     }
     this.stateHandler.end(waiter);
+  }
+
+  progress(waiter, current, total = 100) {
+    if (!this.is(waiter)) {
+      this.start(waiter);
+    }
+
+    if (current >= total) {
+      this.end(waiter);
+      return;
+    }
+
+    if (this.options.useVuex) {
+      this.dispatchWaitingAction('progress', { waiter, current, total });
+      return;
+    }
+    this.stateHandler.progress({ waiter, current, total });
   }
 }
 
