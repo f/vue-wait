@@ -8,9 +8,6 @@
         This will be shown after load.
       </v-wait>
     </div>
-    <div>
-      <progress min="0" max="100" :value='$l.percent("writing code")'></progress>
-    </div>
     <button @click='writeCode()' :disable='$l.is("writing code")'>
       <v-wait for='writing code' message='Writing Code...'>
         <template slot='waiting'>
@@ -56,6 +53,22 @@
       </v-wait>
     </button>
     <span v-if='isIncrementing'>is incrementing...</span>
+    <hr>
+    Percentage of <code>writing code</code>: <span>{{ $l.percent('writing code') }}</span>
+    <p>
+      <label>Native Progress</label><br>
+      <progress min="0" max="100" :value='$l.percent("writing code")'></progress>
+    </p>
+    <p>
+      <label>Custom Progress</label><br>
+      <div class="progress">
+        <div class="percent" :style="`width: ${$l.percent('writing code')}%`"></div>
+      </div>
+    </p>
+    <button @click="$l.progress('writing code', 10)">Set progress to 10</button>
+    <button @click="$l.progress('writing code', 50)">Set progress to 50</button>
+    <button @click="$l.progress('writing code', 100, 101)">Set progress to 100 of 101</button>
+    <button @click="$l.progress('writing code', 50, 200)">Set progress to 50 of 200 (25%)</button>
   </div>
 </template>
 
@@ -141,6 +154,24 @@
 
   .container {
     padding: 50px;
+  }
+
+  .progress {
+    width: 400px;
+    height: 40px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .percent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    background-color: blue;
+    transition-duration: 200ms;
   }
 
   button {
