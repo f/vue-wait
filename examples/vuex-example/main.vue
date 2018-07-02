@@ -62,7 +62,6 @@
 <script>
   import { mapGetters } from 'vuex';
   import { mapWaitingActions, mapWaitingGetters } from '../../src/vue-wait';
-import wait from '../../src/directives/wait';
 
   export default {
     name: 'vuex-app',
