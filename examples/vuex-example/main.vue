@@ -8,7 +8,9 @@
         This will be shown after load.
       </v-wait>
     </div>
-    <input type="text" :value='$l.percent("writing code")'>
+    <div>
+      <progress min="0" max="100" :value='$l.percent("writing code")'></progress>
+    </div>
     <button @click='writeCode()' :disable='$l.is("writing code")'>
       <v-wait for='writing code' message='Writing Code...'>
         <template slot='waiting'>
@@ -60,6 +62,7 @@
 <script>
   import { mapGetters } from 'vuex';
   import { mapWaitingActions, mapWaitingGetters } from '../../src/vue-wait';
+import wait from '../../src/directives/wait';
 
   export default {
     name: 'vuex-app',
@@ -68,10 +71,16 @@
         loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']
       };
     },
+    watch: {
+      isWritingCode() {
+        if (!this.isWritingCode) clearInterval(this.timer);
+      }
+    },
     computed: {
       ...mapGetters(['count']),
       ...mapWaitingGetters({
         isIncrementing: 'incrementing count',
+        isWritingCode: 'writing code',
       }),
     },
     methods: {
@@ -80,9 +89,14 @@
       }),
       writeCode() {
         this.$l.start('writing code');
+        let i = this.$l.percent('writing code');
+        this.timer = setInterval(() => {
+          this.$l.progress('writing code', i++);
+        }, 100);
       },
       end() {
         this.$l.end('writing code');
+        clearInterval(this.timer);
       },
       toggleLoader(loader) {
         if (this.$l.is(loader)) {
@@ -99,6 +113,10 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
+  }
+
+  progress {
+    transition-duration: 100ms;
   }
 
   #app {

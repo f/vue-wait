@@ -133,13 +133,23 @@ Returns boolean value if any loader exists in page.
 </template>
 ```
 
-#### `.is(loader String | Matcher)`
+#### `.is(loader String | Matcher)` or `.waiting(loader String | Matcher)`
 
 Returns boolean value if given loader exists in page.
 
 ```html
 <template>
   <progress-bar v-if="$wait.is('creating user')">Creating User...</progress-bar>
+</template>
+```
+
+You can use **`waiting`** alias instead of **`is`**.
+
+```html
+<template>
+  <div v-if="$wait.waiting('fetching users')">
+    Fetching users...
+  </div>
 </template>
 ```
 
@@ -153,7 +163,7 @@ Please see [matcher](https://github.com/sindresorhus/matcher/) library to see ho
 </template>
 ```
 
-#### `.is(loaders Array<String | Matcher>)`
+#### `.is(loaders Array<String | Matcher>)` or `.waiting(loaders Array<String | Matcher>)`
 
 Returns boolean value if some of given loaders exists in page.
 
@@ -180,6 +190,29 @@ Stops the given loader.
 ```html
 <template>
   <button @click="$wait.end('creating user')">Cancel</button>
+</template>
+```
+
+#### `.progress(loader String, current [, total = 100])`
+
+Sets the progress of the given loader.
+
+```html
+<template>
+  <progress min="0" max="100" :value="$wait.percent('downloading')" />
+  <button @click="$wait.progress('downloading', 10)">Set progress to 10</button>
+  <button @click="$wait.progress('downloading', 50)">Set progress to 50</button>
+  <button @click="$wait.progress('downloading', 50, 200)">Set progress to 50 of 200 (25%)</button>
+</template>
+```
+
+#### `.percent(loader String)`
+
+Returns the percentage of the given loader.
+
+```html
+<template>
+  <progress min="0" max="100" :value="$wait.percent('downloading')" />
 </template>
 ```
 
@@ -316,7 +349,7 @@ actions: {
 },
 ```
 
-#### `waitFor(loader String, func Function, [,force_sync = false])`
+#### `waitFor(loader String, func Function [,forceSync = false])`
 
 Decorator that wraps function, will trigger a loading and will end loader after the original function (`func` argument) is finished.
 
