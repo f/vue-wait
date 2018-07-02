@@ -120,6 +120,11 @@ export default class VueWait {
     return this.stateHandler.is(waiter);
   }
 
+  // alias for `is`
+  waiting(waiter) {
+    return this.is(waiter);
+  }
+
   percent(waiter) {
     return this.stateHandler.percent(waiter);
   }
