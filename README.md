@@ -8,7 +8,7 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 ---
 
-<img src="./resources/vue-wait.gif" width="480">
+![vue-wait](https://user-images.githubusercontent.com/196477/42170484-4d91e36a-7e1f-11e8-9cee-816bfe857db2.gif)
 
 > [Play with demo above](https://f.github.io/vue-wait/).
 
