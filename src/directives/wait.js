@@ -11,6 +11,10 @@ function bind(el, binding, vNode, oldVNode) {
         el.addEventListener('click', () => instance.end(value), false);
         break;
       }
+      if (modifiers.progress) {
+        el.addEventListener('click', () => instance.progress(...value), false);
+        break;
+      }
       break;
     case 'toggle':
       el.addEventListener(

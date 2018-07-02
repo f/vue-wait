@@ -53,6 +53,26 @@
       </v-wait>
     </button>
     <span v-if='isIncrementing'>is incrementing...</span>
+    <hr>
+    Percentage of <code>writing code</code>: <span>{{ $l.percent('writing code') }}</span>
+    <p>
+      <label>Native Progress</label><br>
+      <progress min="0" max="100" :value='$l.percent("writing code")'></progress>
+    </p>
+    <p>
+      <label>Custom Progress</label><br>
+      <span class="progress">
+        <span class="percent" :style="`width: ${$l.percent('writing code')}%`"></span>
+      </span>
+    </p>
+    <button @click='writeCode()'>
+      Start <code>writing code</code>
+    </button>
+    <button v-wait:click.progress="['writing code', 10]">Set progress to 10</button>
+    <button v-wait:click.progress="['writing code', 50]">Set progress to 50</button>
+    <button v-wait:click.progress="['writing code', 100, 100]">Set progress to 100 of 100</button>
+    <button v-wait:click.progress="['writing code', 101]">Set progress to 101 (complete)</button>
+    <button v-wait:click.progress="['writing code', 50, 200]">Set progress to 50 of 200 (25%)</button>
   </div>
 </template>
 
@@ -67,10 +87,16 @@
         loaders: ['a', 'c', 'b', 'a', 'b', 'a', 'c', 'a', 'c', 'a', 'b']
       };
     },
+    watch: {
+      isWritingCode() {
+        if (!this.isWritingCode) clearInterval(this.timer);
+      }
+    },
     computed: {
       ...mapGetters(['count']),
       ...mapWaitingGetters({
         isIncrementing: 'incrementing count',
+        isWritingCode: 'writing code',
       }),
     },
     methods: {
@@ -79,9 +105,14 @@
       }),
       writeCode() {
         this.$l.start('writing code');
+        let i = this.$l.percent('writing code');
+        this.timer = setInterval(() => {
+          this.$l.progress('writing code', i++);
+        }, 100);
       },
       end() {
         this.$l.end('writing code');
+        clearInterval(this.timer);
       },
       toggleLoader(loader) {
         if (this.$l.is(loader)) {
@@ -123,6 +154,25 @@
 
   .container {
     padding: 50px;
+  }
+
+  .progress {
+    width: 400px;
+    height: 40px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    margin: 0 auto;
+    display: inline-block;
+    position: relative;
+  }
+
+  .percent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    background-color: blue;
+    transition-duration: 600ms;
   }
 
   button {
