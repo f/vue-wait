@@ -32,7 +32,8 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev-vuex": "poi examples/vuex-example/index.js",
     "dev-vue": "poi examples/vue-example/index.js",
-    "dev-wrap": "poi examples/wrap-example/index.js"
+    "dev-wrap": "poi examples/wrap-example/index.js",
+    "build-gh-pages": "poi build --out-dir=/tmp/gh-pages examples/vuex-example/index.js"
   },
   "lint-staged": {
     "src/**/*.js": [
