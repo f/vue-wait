@@ -206,6 +206,21 @@ Sets the progress of the given loader.
 </template>
 ```
 
+##### Completing the Progress
+
+To complete the progress, `current` value should be set bigger than `100`.
+If you `total` is given, `current` must be bigger than `total`.
+
+```html
+<button @click="$wait.progress('downloading', 101)">Set as downloaded (101 of 100)</button>
+```
+
+or
+
+```html
+<button @click="$wait.progress('downloading', 5, 6)">Set as downloaded (6 of 5)</button>
+```
+
 #### `.percent(loader String)`
 
 Returns the percentage of the given loader.
@@ -288,6 +303,16 @@ Toggles given loader on click.
 ```html
 <template>
   <button v-wait:toggle='"flip flop"'>Toggles the loader</button>
+</template>
+```
+
+#### `v-wait:click.progress='["loader name", 80]'`
+
+Sets the progress of given loader on click.
+
+```html
+<template>
+  <button v-wait:click.progress='["downloading", 80]'>Set the "downloading" loader to 80</button>
 </template>
 ```
 

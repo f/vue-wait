@@ -61,14 +61,18 @@
     </p>
     <p>
       <label>Custom Progress</label><br>
-      <div class="progress">
-        <div class="percent" :style="`width: ${$l.percent('writing code')}%`"></div>
-      </div>
+      <span class="progress">
+        <span class="percent" :style="`width: ${$l.percent('writing code')}%`"></span>
+      </span>
     </p>
-    <button @click="$l.progress('writing code', 10)">Set progress to 10</button>
-    <button @click="$l.progress('writing code', 50)">Set progress to 50</button>
-    <button @click="$l.progress('writing code', 100, 101)">Set progress to 100 of 101</button>
-    <button @click="$l.progress('writing code', 50, 200)">Set progress to 50 of 200 (25%)</button>
+    <button @click='writeCode()'>
+      Start <code>writing code</code>
+    </button>
+    <button v-wait:click.progress="['writing code', 10]">Set progress to 10</button>
+    <button v-wait:click.progress="['writing code', 50]">Set progress to 50</button>
+    <button v-wait:click.progress="['writing code', 100, 100]">Set progress to 100 of 100</button>
+    <button v-wait:click.progress="['writing code', 101]">Set progress to 101 (complete)</button>
+    <button v-wait:click.progress="['writing code', 50, 200]">Set progress to 50 of 200 (25%)</button>
   </div>
 </template>
 
@@ -127,10 +131,6 @@
     font-size: 20px;
   }
 
-  progress {
-    transition-duration: 100ms;
-  }
-
   #app {
     margin: 50px auto;
     width: 500px;
@@ -162,6 +162,7 @@
     background-color: #ccc;
     border: 1px solid #999;
     margin: 0 auto;
+    display: inline-block;
     position: relative;
   }
 
@@ -171,7 +172,7 @@
     left: 0;
     height: 40px;
     background-color: blue;
-    transition-duration: 200ms;
+    transition-duration: 600ms;
   }
 
   button {

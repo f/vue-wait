@@ -157,7 +157,7 @@ export default class VueWait {
       this.start(waiter);
     }
 
-    if (current >= total) {
+    if (current > total) {
       this.end(waiter);
       return;
     }

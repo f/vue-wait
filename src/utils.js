@@ -26,7 +26,7 @@ export function end(waitingFor, waiter) {
 }
 
 export function progress(progresses, waiter, current, total = 100) {
-  if (current >= total) {
+  if (current > total) {
     return endProgress(progresses, waiter);
   }
 
