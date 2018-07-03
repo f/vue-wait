@@ -2,6 +2,8 @@
 
 Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally) [Vuex](http://vuex.vuejs.org/).
 
+**Read the [Medium post "Managing Complex Waiting Experiences on Web UIs"](https://medium.com/@fkadev/managing-complex-waiting-experiences-on-web-uis-29534d2d92a8).**
+
 > Formerly known as **vuex-loading**
 
 [![npm version](https://badge.fury.io/js/vue-wait.svg)](https://badge.fury.io/js/vue-wait)
