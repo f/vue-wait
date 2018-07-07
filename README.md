@@ -37,7 +37,7 @@ new Vue({
 
 ### 3. Use in Your Components
 
-```js
+```vue
 <template>
   <v-wait for="my list is to load">
     <template slot="waiting">
