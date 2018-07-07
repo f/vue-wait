@@ -189,7 +189,7 @@ All features can be obtained from $wait property in Vue components.
 
 Returns boolean value if any loader exists in page.
 
-```html
+```vue
 <template>
   <progress-bar v-if="$wait.any">Please wait...</progress-bar>
 </template>
@@ -199,7 +199,7 @@ Returns boolean value if any loader exists in page.
 
 Returns boolean value if given loader exists in page.
 
-```html
+```vue
 <template>
   <progress-bar v-if="$wait.is('creating user')">Creating User...</progress-bar>
 </template>
@@ -207,7 +207,7 @@ Returns boolean value if given loader exists in page.
 
 You can use **`waiting`** alias instead of **`is`**.
 
-```html
+```vue
 <template>
   <div v-if="$wait.waiting('fetching users')">
     Fetching users...
@@ -219,7 +219,7 @@ Also you can use matcher to make it more flexible:
 
 Please see [matcher](https://github.com/sindresorhus/matcher/) library to see how to use matchers.
 
-```html
+```vue
 <template>
   <progress-bar v-if="$wait.is('creating.*')">Creating something...</progress-bar>
 </template>
@@ -229,7 +229,7 @@ Please see [matcher](https://github.com/sindresorhus/matcher/) library to see ho
 
 Returns boolean value if some of given loaders exists in page.
 
-```html
+```vue
 <template>
   <progress-bar v-if="$wait.is(['creating user', 'page loading'])">Creating User...</progress-bar>
 </template>
@@ -239,7 +239,7 @@ Returns boolean value if some of given loaders exists in page.
 
 Starts the given loader.
 
-```html
+```vue
 <template>
   <button @click="$wait.start('creating user')">Create User</button>
 </template>
@@ -249,7 +249,7 @@ Starts the given loader.
 
 Stops the given loader.
 
-```html
+```vue
 <template>
   <button @click="$wait.end('creating user')">Cancel</button>
 </template>
@@ -259,7 +259,7 @@ Stops the given loader.
 
 Sets the progress of the given loader.
 
-```html
+```vue
 <template>
   <progress min="0" max="100" :value="$wait.percent('downloading')" />
   <button @click="$wait.progress('downloading', 10)">Set progress to 10</button>
@@ -273,13 +273,13 @@ Sets the progress of the given loader.
 To complete the progress, `current` value should be set bigger than `100`.
 If you `total` is given, `current` must be bigger than `total`.
 
-```html
+```vue
 <button @click="$wait.progress('downloading', 101)">Set as downloaded (101 of 100)</button>
 ```
 
 or
 
-```html
+```vue
 <button @click="$wait.progress('downloading', 5, 6)">Set as downloaded (6 of 5)</button>
 ```
 
@@ -287,7 +287,7 @@ or
 
 Returns the percentage of the given loader.
 
-```html
+```vue
 <template>
   <progress min="0" max="100" :value="$wait.percent('downloading')" />
 </template>
@@ -301,7 +301,7 @@ You can use directives to make your template cleaner.
 
 Shows if the given loader is loading.
 
-```html
+```vue
 <template>
   <progress-bar v-wait:visible='"creating user"'>Creating User...</progress-bar>
 </template>
@@ -311,7 +311,7 @@ Shows if the given loader is loading.
 
 Hides if the given loader is loading.
 
-```html
+```vue
 <template>
   <main v-wait:hidden='"creating *"'>Some Content</main>
 </template>
@@ -321,7 +321,7 @@ Hides if the given loader is loading.
 
 Sets `disabled="disabled"` attribute to element if the given loader is loading.
 
-```html
+```vue
 <template>
   <input v-wait:disabled="'*'" placeholder="Username" />
   <input v-wait:disabled="'*'" placeholder="Password" />
@@ -332,7 +332,7 @@ Sets `disabled="disabled"` attribute to element if the given loader is loading.
 
 Removes `disabled="disabled"` attribute to element if the given loader is loading.
 
-```html
+```vue
 <template>
   <button v-wait:enabled='"creating user"'>Abort Request</button>
 </template>
@@ -342,7 +342,7 @@ Removes `disabled="disabled"` attribute to element if the given loader is loadin
 
 Starts given loader on click.
 
-```html
+```vue
 <template>
   <button v-wait:click.start='"create user"'>Start loader</button>
 </template>
@@ -352,7 +352,7 @@ Starts given loader on click.
 
 Ends given loader on click.
 
-```html
+```vue
 <template>
   <button v-wait:click.end='"create user"'>End loader</button>
 </template>
@@ -362,7 +362,7 @@ Ends given loader on click.
 
 Toggles given loader on click.
 
-```html
+```vue
 <template>
   <button v-wait:toggle='"flip flop"'>Toggles the loader</button>
 </template>
@@ -372,7 +372,7 @@ Toggles given loader on click.
 
 Sets the progress of given loader on click.
 
-```html
+```vue
 <template>
   <button v-wait:click.progress='["downloading", 80]'>Set the "downloading" loader to 80</button>
 </template>
@@ -477,7 +477,7 @@ components: {
 
 In template, you should wrap your content with `v-wait` component to show loading on it.
 
-```html
+```vue
 <v-wait for='fetching data'>
   <template slot='waiting'>
     This will be shown when "fetching data" loader starts.
@@ -489,7 +489,7 @@ In template, you should wrap your content with `v-wait` component to show loadin
 
 Better example for a `button` with loading state:
 
-```html
+```vue
 <button :disabled='$wait.is("creating user")'>
   <v-wait for='creating user'>
     <template slot='waiting'>Creating User...</template>
@@ -506,7 +506,7 @@ With reusable loader components, you will be able to use custom loader component
 
 In this example above, the **tab gets data from back-end**, and the **table loads data from back-end at the same time**. With **vue-wait**, you will be able to manage these two seperated loading processes easily:
 
-```html
+```vue
 <template lang='pug'>
   <div>
     <v-wait for="fetching tabs">
@@ -539,7 +539,7 @@ In this example above, the **tab gets data from back-end**, and the **table load
 
 You may want to design your own reusable loader for your project. You better create a wrapper component called `my-waiter`:
 
-```html
+```vue
 <!-- MySpinner.vue -->
 <i18n>
   tr:
@@ -570,7 +570,7 @@ You may want to design your own reusable loader for your project. You better cre
 
 Now you can use your spinner everywhere using `slot='waiting'` attribute:
 
-```html
+```vue
 <template lang="pug">
   <v-wait for="fetching data">
     <my-waiter slot="waiting" />
@@ -592,7 +592,7 @@ Vue.component('orbit-spinner', OrbitSpinner);
 ```
 
 Then use it in your as a `v-wait`'s `waiting` slot.
-```html
+```vue
 <v-wait for='something to load'>
   <orbit-spinner
     slot='waiting'
