@@ -16,6 +16,66 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 **vue-wait** helps to manage multiple loading states on the page without any conflict. It's based on a **very simple idea** that manages an array (or Vuex store optionally) with multiple loading states. The **built-in loader component** listens its registered loader and immediately become loading state.
 
+# ⏩Quick Start
+
+1. Install:
+```bash
+yarn add vue-wait
+```
+ 
+2. Require:
+```js
+import VueWait from 'vue-wait'
+
+Vue.use(VueWait)
+
+new Vue({
+  // your vue config
+  wait: new VueWait(),
+})
+```
+
+3. Use in Your Components
+
+```js
+<template>
+  <v-wait for="my list is to load">
+    <template slot="waiting">
+      <div>
+        <img src="loading.gif" />
+        Loading the list...
+      </div>
+    </template>
+    <ul>
+      <li v-for="item in myList">{{ item }}</li>
+    </ul>
+  </v-wait>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        myList: []
+      }
+    },
+    async created() {
+      // start waiting
+      this.$wait.start('my list is to load');
+      
+      this.myList = await fetch('/my-list-url');
+      
+      // stop waiting
+      this.$wait.end('my list is to load');
+    },
+  };
+</script>
+```
+
+**vue-wait has more abilities to make the management easier, please read the complete documentation.**
+
+# ▶️Detailed Start
+
 ## 📦  Requirements
 
 - [Vue.js](https://vuejs.org) (v2.0.0+)
@@ -385,6 +445,8 @@ By default `waitFor` return async function, if you want to wrap default sync fun
 _Example using with async function_
 
 ```js
+import { waitFor } from 'vue-wait';
+
 ...
 methods: {
   fetchDataFromApi: waitFor('fetch data', async function () {
