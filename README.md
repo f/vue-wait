@@ -18,12 +18,12 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 # ⏩Quick Start
 
-1. Install:
+### 1. Install:
 ```bash
 yarn add vue-wait
 ```
  
-2. Require:
+### 2. Require:
 ```js
 import VueWait from 'vue-wait'
 
@@ -35,7 +35,7 @@ new Vue({
 })
 ```
 
-3. Use in Your Components
+### 3. Use in Your Components
 
 ```js
 <template>
@@ -72,7 +72,7 @@ new Vue({
 </script>
 ```
 
-**vue-wait has more abilities to make the management easier, please read the complete documentation.**
+> **vue-wait has more abilities to make the management easier, please read the complete documentation.**
 
 # ▶️Detailed Start
 
