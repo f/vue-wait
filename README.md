@@ -18,6 +18,10 @@ Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally)
 
 # ⏩Quick Start
 
+If you are a **try and learn** developer, you can start trying the **vue-wait** now using [codesandbox.io](https://codesandbox.io).
+
+[![Edit VueWait Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/85q3vpm42?autoresize=1&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FMyList.vue)
+
 ### 1. Install:
 ```bash
 yarn add vue-wait
@@ -73,8 +77,6 @@ new Vue({
 ```
 
 > **vue-wait has more abilities to make the management easier, please read the complete documentation.**
-
-[![Edit VueWait Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/85q3vpm42?autoresize=1&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FMyList.vue)
 
 # ▶️Detailed Start
 
