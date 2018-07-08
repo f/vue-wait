@@ -74,6 +74,8 @@ new Vue({
 
 > **vue-wait has more abilities to make the management easier, please read the complete documentation.**
 
+[![Edit VueWait Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/85q3vpm42?autoresize=1&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FMyList.vue)
+
 # ▶️Detailed Start
 
 ## 📦  Requirements
