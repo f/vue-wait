@@ -618,8 +618,14 @@ for running examples locally.
 
 ## 🎯 Contributors
 
-- Fatih Kadir Akın, (creator)
-- Igor, (maintainer, made Vuex-free)
+ - Fatih Kadir Akın, (creator)
+ - Igor, (maintainer, made Vuex-free)
+
+## 🔗 Other Implementations
+
+Since **vue-wait** based on a very simple idea, it can be implemented on other frameworks.
+
+ - [dom-wait](https://github.com/f/dom-wait): Multiple Process Loader Management for vanilla JavaScript.
 
 ## 🔑 License
 
