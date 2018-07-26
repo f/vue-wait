@@ -1,10 +1,13 @@
+<p align="center">
 <img src="./resources/logo.png" width="500">
+</p>
+<p align="center">
+ Multiple Process Loader Management for <a href="http://vuejs.org/" rel="nofollow" class="rich-diff-level-one">Vue</a> and (optionally) <a href="http://vuex.vuejs.org/" rel="nofollow" class="rich-diff-level-one">Vuex</a>.
+</p>
 
-Multiple Process Loader Management for [Vue](http://vuejs.org/) and (optionally) [Vuex](http://vuex.vuejs.org/).
-
-**Read the [Medium post "Managing Complex Waiting Experiences on Web UIs"](https://medium.com/@fkadev/managing-complex-waiting-experiences-on-web-uis-29534d2d92a8).**
-
-> This project formerly known as **vuex-loading**
+<p align="center">
+ <strong class="rich-diff-level-one">Read the <a href="https://medium.com/@fkadev/managing-complex-waiting-experiences-on-web-uis-29534d2d92a8" rel="nofollow">Medium post "Managing Complex Waiting Experiences on Web UIs"</a>.</strong>
+</p>
 
 [![npm version](https://badge.fury.io/js/vue-wait.svg)](https://badge.fury.io/js/vue-wait)
 
@@ -89,11 +92,17 @@ new Vue({
 
 ## 🔧 Installation
 
+via CLI:
+
 ```bash
 $ yarn add vue-wait
 # or if you using npm
 $ npm install vue-wait
 ```
+
+via Vue UI:
+
+<img src="./resources/vue-ui-install.png" width="600" />
 
 ## 📖 Usage
 
