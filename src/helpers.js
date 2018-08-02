@@ -4,8 +4,14 @@ export function mapWaitingActions(vuexModuleName, actions) {
     actions = vuexModuleName;
     vuexModuleName = null;
   }
-  Object.keys(actions).forEach(action => {
-    const waiter = actions[action];
+
+  const isActionsArray = Array.isArray(actions);
+
+  for (let [action, waiter] of Object.entries(actions)) {
+    if (isActionsArray) {
+      action = waiter;
+    }
+
     mappings[action] = async function(...args) {
       try {
         this.__$waitInstance.start(waiter);
@@ -17,7 +23,8 @@ export function mapWaitingActions(vuexModuleName, actions) {
         this.__$waitInstance.end(waiter);
       }
     };
-  });
+  }
+
   return mappings;
 }
 
