@@ -4,20 +4,47 @@ export function mapWaitingActions(vuexModuleName, actions) {
     actions = vuexModuleName;
     vuexModuleName = null;
   }
-  Object.keys(actions).forEach(action => {
-    const waiter = actions[action];
-    mappings[action] = async function(...args) {
-      try {
-        this.__$waitInstance.start(waiter);
-        return await this.$store.dispatch(
-          vuexModuleName ? `${vuexModuleName}/${action}` : action,
-          ...args
-        );
-      } finally {
-        this.__$waitInstance.end(waiter);
+  const isActionsArray = Array.isArray(actions);
+  let method, action, waiter;
+
+  for (let [key, entry] of Object.entries(actions)) {
+    if (entry === Object(entry)) {
+      if (isActionsArray) {
+        method = entry.action;
+        if (entry.method !== undefined) {
+          method = entry.method;
+        }
+      } else {
+        method = key;
       }
-    };
-  });
+      action = entry.action;
+      waiter = entry.loader;
+    } else {
+      if (isActionsArray) {
+        method = action = entry;
+        waiter = entry;
+      } else {
+        method = action = key;
+        waiter = key;
+      }
+    }
+    if (!waiter) {
+      waiter = action;
+    }
+    if (action) {
+      mappings[method] = async function(...args) {
+        try {
+          this.__$waitInstance.start(waiter);
+          return await this.$store.dispatch(
+            vuexModuleName ? `${vuexModuleName}/${action}` : action,
+            ...args
+          );
+        } finally {
+          this.__$waitInstance.end(waiter);
+        }
+      };
+    }
+  }
   return mappings;
 }
 
