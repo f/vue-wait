@@ -5,9 +5,9 @@ export function mapWaitingActions(vuexModuleName, actions) {
     vuexModuleName = null;
   }
   const isActionsArray = Array.isArray(actions);
-  let method, action, waiter;
 
   for (let [key, entry] of Object.entries(actions)) {
+    let method, action, waiter;
     if (entry === Object(entry)) {
       if (isActionsArray) {
         method = entry.action;
@@ -25,7 +25,7 @@ export function mapWaitingActions(vuexModuleName, actions) {
         waiter = entry;
       } else {
         method = action = key;
-        waiter = key;
+        waiter = entry;
       }
     }
     if (!waiter) {
