@@ -420,6 +420,36 @@ import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
     }),
   }
 // ...
+```
+
+You can also map **action** to custom method and customize loader name like in example below:
+
+```js
+import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
+
+// ...
+  methods: {
+    ...mapWaitingActions('users', {
+      getUsers: { action: 'getUsers', loader: 'loading users' },
+      createUser: { action: 'createUser', loader: 'creating user'},
+      createSuperUser: { action: 'createUser', loader: 'creating super user' },
+    }),
+  }, 
+// ...
+```
+
+There is also possibility to use array as a second argument to mapWaitingActions:
+```js
+// ...
+  methods: {
+    ...mapWaitingActions('users', [
+      'getUsers',
+      { method: 'createUser', action: 'createUser', loader: 'creating user'},
+      { method: 'createSuperUser', action: 'createUser', loader: 'creating super user' },
+    ]),
+  }, 
+// ...
+
 
 ```
 
