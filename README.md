@@ -655,6 +655,51 @@ For other libraries you can use, please see [Loaders section of **vuejs/awesome-
 Use `npm run dev-vuex`, `npm run dev-vue` or `npm run dev-wrap` commands.
 for running examples locally.
 
+## ✔ Testing components
+
+You can test components using `vue-wait` but it requires configuration. Let's take a basic component for instance:
+
+```vue
+<v-wait for="loading">
+   <Spinner slot="waiting" />
+   <ul class="suggestions">
+      <li v-for="suggestion in suggestions">{{ suggestion.Name }}</li>
+   </ul>
+</v-wait>
+```
+
+```js
+const localVue = createLocalVue();
+localVue.use(Vuex); // optionally when you use Vuex integration
+
+it('uses vue-wait component', () => {
+    const wrapper = shallowMount(Suggestions, { localVue });
+    expect(wrapper.find('.suggestions').exists()).toBe(true);
+});
+```
+
+`vue-test-utils` will replace `v-wait` component with an empty `div`, making it difficult to test correctly.
+
+First, make your local Vue instance use `vue-wait`,
+
+```js
+const localVue = createLocalVue();
+localVue.use(Vuex); // optionally when you use Vuex integration
+localVue.use(VueWait);
+```
+
+Then inject the `wait` property using `VueWait` constructor,
+
+```js
+it('uses vue-wait component', () => {
+    const wrapper = shallowMount(SuggestedAddresses, {
+      localVue,
+      wait: new VueWait()
+    });
+    expect(wrapper.find('.suggestions').exists()).toBe(true); // it works!
+});
+```
+
 ## 🎯 Contributors
 
  - Fatih Kadir Akın, (creator)
