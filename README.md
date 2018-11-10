@@ -709,6 +709,7 @@ it('uses vue-wait component', () => {
 
 Since **vue-wait** based on a very simple idea, it can be implemented on other frameworks.
 
+ - [react-wait](https://github.com/f/react-wait): Multiple Process Loader Management for React.
  - [dom-wait](https://github.com/f/dom-wait): Multiple Process Loader Management for vanilla JavaScript.
 
 ## 🔑 License
