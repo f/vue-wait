@@ -21,6 +21,7 @@
     "url": "https://github.com/f/vue-wait/issues"
   },
   "main": "dist/vue-wait.js",
+  "types": "src/types/index.d.ts",
   "files": [
     "dist",
     "src",
