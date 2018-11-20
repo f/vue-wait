@@ -9,7 +9,7 @@ export function is(waitingFor, waiter) {
     return waitingFor.filter(w => isMatch(w, waiter)).length > 0;
   }
   return Array.isArray(waiter)
-    ? waitingFor.some(w => is(waiter, w))
+    ? waiter.some(w => is(waitingFor, w))
     : waitingFor.includes(waiter);
 }
 
