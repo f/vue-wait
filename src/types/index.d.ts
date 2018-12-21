@@ -8,7 +8,7 @@ export default class VueWait extends VueWaitInstance {
 
     static install(): PluginFunction<any>;
 
-    static init(Vue: Vue, store: Store<any>): any;
+    static init(Vue: Vue, store: Store<any>): void;
 }
 
 /**
@@ -77,10 +77,10 @@ export class VueWaitInstance {
      * @param {number} [total]
      * @memberof VueWaitInstance
      */
-    progress(waiter: string, current: number, total?: number): any ;
+    progress(waiter: string, current: number, total?: number): Promise<any>;
 
-    waitFor(waiter: any, callback: AsyncFunction, forceSync?: false): Promise<any>;
-    waitFor(waiter: any, callback: Function, forceSync: true): Promise<any>;
+    waitFor(waiter: string, callback: AsyncFunction, forceSync?: false): Promise<any> | any;
+    waitFor(waiter: string, callback: Function, forceSync: true): Promise<any> | any;
 }
 
 export interface VueWaitOptions {
