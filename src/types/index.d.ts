@@ -113,3 +113,7 @@ export interface VueWaitOptions{
    */
   directiveName?: string;
 }
+
+export function mapWaitingGetters(getters: any): any;
+
+export function mapWaitingActions(vuexModuleName: any, actions: any): any;
