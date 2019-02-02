@@ -1,14 +1,14 @@
 import Vue, { PluginFunction } from 'vue';
 import { Store } from 'vuex';
 
-type AsyncFunction = ((any) => Promise<any>) | Promise<any>;
+type AsyncFunction = ((...args: any) => Promise<any>) | Promise<any>;
 
 export default class VueWait extends VueWaitInstance {
   constructor(options?: VueWaitOptions);
 
   static install(): PluginFunction<any>;
 
-  static init(Vue: Vue, store: Store<any>);
+  static init(Vue: Vue, store: Store<any>): void;
 }
 
 /**
@@ -77,10 +77,10 @@ export class VueWaitInstance {
    * @param {number} [total]
    * @memberof VueWaitInstance
    */
-  progress(waiter: string, current: number, total?: number);
+  progress(waiter: string, current: number, total?: number): void;
 
-  waitFor(waiter, callback: AsyncFunction, forceSync?: false): Promise<any>;
-  waitFor(waiter, callback: Function, forceSync: true): Promise<any>;
+  waitFor(waiter: string, callback: AsyncFunction, forceSync?: false): Promise<any>;
+  waitFor(waiter: string, callback: Function, forceSync: true): Promise<any>;
 }
 
 export interface VueWaitOptions{
