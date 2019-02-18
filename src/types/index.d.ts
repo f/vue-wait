@@ -79,7 +79,7 @@ export class VueWaitInstance {
    */
   progress(waiter: string, current: number, total?: number): Promise<any>;
 
-  waitFor<T extends Function | AsyncFunction>(waiter, callback: T, forceSync?: false): T;
+  waitFor<T extends Function | AsyncFunction>(waiter: string, callback: T, forceSync?: false): T;
 }
 
 export interface VueWaitOptions{
