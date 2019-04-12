@@ -1,6 +1,7 @@
 import Vue, { PluginFunction } from 'vue';
 import { Store } from 'vuex';
 
+
 type AsyncFunction = ((arg0: any) => Promise<any>) | Promise<any>;
 
 export default class VueWait extends VueWaitInstance {
