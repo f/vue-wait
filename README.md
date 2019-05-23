@@ -29,7 +29,7 @@ If you are a **try and learn** developer, you can start trying the **vue-wait** 
 ```bash
 yarn add vue-wait
 ```
- 
+
 ### 2. Require:
 ```js
 import VueWait from 'vue-wait'
@@ -69,9 +69,9 @@ new Vue({
     async created() {
       // start waiting
       this.$wait.start('my list is to load');
-      
+
       this.myList = await fetch('/my-list-url');
-      
+
       // stop waiting
       this.$wait.end('my list is to load');
     },
@@ -434,7 +434,7 @@ import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
       createUser: { action: 'createUser', loader: 'creating user'},
       createSuperUser: { action: 'createUser', loader: 'creating super user' },
     }),
-  }, 
+  },
 // ...
 ```
 
@@ -447,7 +447,7 @@ There is also possibility to use array as a second argument to mapWaitingActions
       { method: 'createUser', action: 'createUser', loader: 'creating user'},
       { method: 'createSuperUser', action: 'createUser', loader: 'creating super user' },
     ]),
-  }, 
+  },
 // ...
 
 
@@ -539,6 +539,27 @@ Better example for a `button` with loading state:
     Create User
   </v-wait>
 </button>
+```
+
+## 🔁 Transitions
+
+You can use transitions with `v-wait` component.
+
+Just pass `<transition>` props and listeners to the `v-wait` with `transition` prop.
+
+```vue
+<v-wait for="users"
+  transition="fade"
+  mode="out-in"
+  :duration="1000"
+  enter-active-class="enter-active"
+  @leave='someAwesomeFinish()'
+  >
+  <template slot="waiting">
+    <p>Loading...</p>
+  </template>
+  My content
+</v-wait>
 ```
 
 ## ⚡️ Making Reusable Loader Components
