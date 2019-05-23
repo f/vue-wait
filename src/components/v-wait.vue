@@ -1,16 +1,18 @@
 <template lang="html">
-  <div>
+  <transition :name='transition' :mode='mode'>
     <span v-if='waitsFor'>
       <slot name='waiting'></slot>
       <span v-if='message'>{{ message }}</span>
     </span>
     <slot v-else></slot>
-  </div>
+  </transition>
 </template>
 <script>
   export default {
     props: {
       visible: Boolean,
+      transition: String,
+      mode: String,
       for: String,
       message: String,
     },

@@ -31,6 +31,7 @@
     "test": "exit 0;",
     "precommit": "lint-staged",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "dev-transition": "poi examples/transition-example/index.js",
     "dev-vuex": "poi examples/vuex-example/index.js",
     "dev-vue": "poi examples/vue-example/index.js",
     "dev-wrap": "poi examples/wrap-example/index.js",
