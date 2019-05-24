@@ -33,42 +33,7 @@ function makeRe(pattern, options) {
   return re;
 }
 
-module.exports = (inputs, patterns, options) => {
-  if (!(Array.isArray(inputs) && Array.isArray(patterns))) {
-    throw new TypeError(
-      `Expected two arrays, got ${typeof inputs} ${typeof patterns}`
-    );
-  }
-
-  if (patterns.length === 0) {
-    return inputs;
-  }
-
-  const firstNegated = patterns[0][0] === '!';
-
-  patterns = patterns.map(x => makeRe(x, options));
-
-  const ret = [];
-
-  for (const input of inputs) {
-    // If first pattern is negated we include everything to match user expectation
-    let matches = firstNegated;
-
-    for (const pattern of patterns) {
-      if (pattern.test(input)) {
-        matches = !pattern.negated;
-      }
-    }
-
-    if (matches) {
-      ret.push(input);
-    }
-  }
-
-  return ret;
-};
-
-module.exports.isMatch = (input, pattern, options) => {
+export const isMatch = (input, pattern, options) => {
   const re = makeRe(pattern, options);
   const matches = re.test(input);
   return re.negated ? !matches : matches;
