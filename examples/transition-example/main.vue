@@ -16,6 +16,7 @@
             <li>Four</li>
             <li>Five</li>
           </ul>
+          <div>Second Component</div>
         </v-wait>
       </div>
 
@@ -33,6 +34,7 @@
             <li>Four</li>
             <li>Five</li>
           </ul>
+          <div>Second Component</div>
         </v-wait>
       </div>
     </div>

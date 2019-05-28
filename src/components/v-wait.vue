@@ -1,5 +1,6 @@
 <template lang="html">
   <transition
+    v-if='transition'
     :name='transition'
     :mode='mode'
     :duration='duration'
@@ -22,8 +23,15 @@
       <slot name='waiting'></slot>
       <span v-if='message'>{{ message }}</span>
     </span>
-    <slot v-else></slot>
+    <div v-else><slot /></div>
   </transition>
+  <div v-else>
+    <span v-if='waitsFor'>
+      <slot name='waiting'></slot>
+      <span v-if='message'>{{ message }}</span>
+    </span>
+    <slot v-else></slot>
+  </div>
 </template>
 <script>
 export default {
