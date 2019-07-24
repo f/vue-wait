@@ -37,7 +37,7 @@
 export default {
   props: {
     visible: Boolean,
-    for: String,
+    for: [String, Array],
     message: String,
     transition: String,
     duration: Number,
