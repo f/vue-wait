@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - run: yarn publish
         if: github.event == 'push'
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -43,7 +43,7 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@f'
-      - run: npm publish
+      - run: yarn publish
         if: github.event == 'push'
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
