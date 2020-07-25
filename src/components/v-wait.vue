@@ -12,7 +12,7 @@
     :leave-to-class='transitionClass(leaveToClass)'
     @beforeEnter='$emit("beforeEnter")'
     @enter='$emit("enter")'
-    @afterAnter='$emit("afterEnter")'
+    @afterEnter='$emit("afterEnter")'
     @enterCancelled='$emit("enterCancelled")'
     @beforeLeave='$emit("beforeLeave")'
     @leave='$emit("leave")'
