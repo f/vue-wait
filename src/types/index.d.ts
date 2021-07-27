@@ -117,3 +117,5 @@ export interface VueWaitOptions{
 export function mapWaitingGetters(getters: any): any;
 
 export function mapWaitingActions(vuexModuleName: any, actions?: any): any;
+
+export function createVueWait(options?: VueWaitOptions): Object;

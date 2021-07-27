@@ -38,7 +38,7 @@ export default class VueWait {
   }
 
   init(Vue, store) {
-    if (nodeIsDebug() && !install.installed) {
+    if (nodeIsDebug() && !install.installed && VueWait.getVueVersion(Vue) < 3) {
       console.warn(
         `[vue-wait] not installed. Make sure to call \`Vue.use(VueWait)\` before init root instance.`
       );
@@ -67,16 +67,25 @@ export default class VueWait {
         store.registerModule(vuexModuleName, vuexStore);
       }
 
-      this.stateHandler = new Vue({
+      const config = {
         computed: {
           is: () => waiter => store.getters[`${vuexModuleName}/is`](waiter),
           any: () => store.getters[`${vuexModuleName}/any`],
           percent: () => waiter =>
             store.getters[`${vuexModuleName}/percent`](waiter)
         }
-      });
+      };
+
+      if (VueWait.getVueVersion(Vue) > 2) {
+        const { createApp } = require('vue');
+        this.stateHandler = createApp(config).mount(
+          document.createElement('div')
+        );
+      } else {
+        this.stateHandler = new Vue(config);
+      }
     } else {
-      this.stateHandler = new Vue({
+      const config = {
         data() {
           return {
             waitingFor: [],
@@ -106,7 +115,16 @@ export default class VueWait {
             this.progresses = progress(this.progresses, waiter, current, total);
           }
         }
-      });
+      };
+
+      if (VueWait.getVueVersion(Vue) > 2) {
+        const { createApp } = require('vue');
+        this.stateHandler = createApp(config).mount(
+          document.createElement('div')
+        );
+      } else {
+        this.stateHandler = new Vue(config);
+      }
     }
 
     this.initialized = true;
@@ -114,6 +132,10 @@ export default class VueWait {
 
   get any() {
     return this.stateHandler.any;
+  }
+
+  static getVueVersion(app) {
+    return parseFloat((app.version || '').split('.')[0] || 0);
   }
 
   is(waiter) {
@@ -208,7 +230,34 @@ export function install(Vue) {
   install.installed = true;
 }
 
+function createVueWait(options) {
+  const Wait = {
+    async install(app) {
+      if (this.installed && app) {
+        if (nodeIsDebug()) {
+          console.warn('[vue-wait] already installed');
+        }
+        return;
+      }
+
+      const instance = new VueWait(options);
+      instance.init(app, app.config.globalProperties.$store);
+      app.config.globalProperties[instance.options.accessorName] = instance;
+
+      app.mixin({
+        beforeCreate() {
+          this.__$waitInstance = instance;
+        }
+      });
+
+      this.installed = true;
+    }
+  };
+
+  return Wait;
+}
+
 // Export which are imported to export
-export { mapWaitingActions, mapWaitingGetters, waitFor };
+export { mapWaitingActions, mapWaitingGetters, waitFor, createVueWait };
 
 VueWait.install = install;

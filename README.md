@@ -31,6 +31,7 @@ yarn add vue-wait
 ```
 
 ### 2. Require:
+#### For Vue 2.x
 ```js
 import VueWait from 'vue-wait'
 
@@ -40,6 +41,19 @@ new Vue({
   // your vue config
   wait: new VueWait(),
 })
+```
+
+#### For Vue 3.x
+```js
+import { createApp } from 'vue'
+import { createVueWait } from 'vue-wait'
+import App from './App.vue'
+
+const VueWait = createVueWait()
+
+createApp(App)    // Create app with root component
+  .use(VueWait)   // Register vue-wait
+  .mount('#app')
 ```
 
 ### 3. Use in Your Components
