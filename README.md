@@ -735,6 +735,21 @@ it('uses vue-wait component', () => {
 });
 ```
 
+## For Development on vue-wait
+Install packages
+```bash
+$ yarn install
+# or if you using npm
+$ npm install
+```
+
+Bundle it
+```bash
+$ yarn bundle
+# or if you using npm
+$ npm run bundle
+```
+
 ## 🎯 Contributors
 
  - Fatih Kadir Akın, (creator)
