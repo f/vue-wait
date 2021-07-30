@@ -37,8 +37,8 @@ export default class VueWait {
     this.initialized = false;
   }
 
-  init(Vue, store) {
-    if (nodeIsDebug() && !install.installed && VueWait.getVueVersion(Vue) < 3) {
+  init(App, store) {
+    if (nodeIsDebug() && !install.installed && VueWait.getVueVersion(App) < 3) {
       console.warn(
         `[vue-wait] not installed. Make sure to call \`Vue.use(VueWait)\` before init root instance.`
       );
@@ -49,11 +49,11 @@ export default class VueWait {
     }
 
     if (this.options.registerComponent) {
-      Vue.component(this.options.componentName, vWaitComponent);
+      App.component(this.options.componentName, vWaitComponent);
     }
 
     if (this.options.registerDirective) {
-      Vue.directive(this.options.directiveName, vWaitDirective);
+      App.directive(this.options.directiveName, vWaitDirective);
     }
 
     if (this.options.useVuex) {
@@ -76,13 +76,13 @@ export default class VueWait {
         }
       };
 
-      if (VueWait.getVueVersion(Vue) > 2) {
+      if (VueWait.getVueVersion(App) > 2) {
         const { createApp } = require('vue');
         this.stateHandler = createApp(config).mount(
           document.createElement('div')
         );
       } else {
-        this.stateHandler = new Vue(config);
+        this.stateHandler = new App(config);
       }
     } else {
       const config = {
@@ -117,13 +117,13 @@ export default class VueWait {
         }
       };
 
-      if (VueWait.getVueVersion(Vue) > 2) {
+      if (VueWait.getVueVersion(App) > 2) {
         const { createApp } = require('vue');
         this.stateHandler = createApp(config).mount(
           document.createElement('div')
         );
       } else {
-        this.stateHandler = new Vue(config);
+        this.stateHandler = new App(config);
       }
     }
 
@@ -192,8 +192,8 @@ export default class VueWait {
   }
 }
 
-export function install(Vue) {
-  if (install.installed && Vue) {
+export function install(App) {
+  if (install.installed && App) {
     if (nodeIsDebug()) {
       console.warn(
         '[vue-wait] already installed. Vue.use(VueWait) should be called only once.'
@@ -202,7 +202,7 @@ export function install(Vue) {
     return;
   }
 
-  Vue.mixin({
+  App.mixin({
     /**
      * VueWait init hook, injected into each instances init hooks list.
      */
@@ -213,10 +213,10 @@ export function install(Vue) {
       if (wait) {
         instance = typeof wait === 'function' ? new wait() : wait;
         // Inject store
-        instance.init(Vue, store);
+        instance.init(App, store);
       } else if (parent && parent.__$waitInstance) {
         instance = parent.__$waitInstance;
-        instance.init(Vue, parent.$store);
+        instance.init(App, parent.$store);
       }
 
       if (instance) {
