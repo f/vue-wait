@@ -123,7 +123,7 @@ export interface CreateVueWaitResponse{
   /**
    * Install function for registration
    */
-  install: Promise<VueWaitInstance>
+  install(options: object): Promise<VueWaitInstance>;
 }
 
 export function mapWaitingGetters(getters: any): any;
