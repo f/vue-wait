@@ -114,8 +114,20 @@ export interface VueWaitOptions{
   directiveName?: string;
 }
 
+export interface CreateVueWaitResponse{
+  /**
+   * Can accessible VueWait instance after registration
+   */
+  instance?: VueWaitInstance | null;
+
+  /**
+   * Install function for registration
+   */
+  install(options: object): Promise<VueWaitInstance>;
+}
+
 export function mapWaitingGetters(getters: any): any;
 
 export function mapWaitingActions(vuexModuleName: any, actions?: any): any;
 
-export function createVueWait(options?: VueWaitOptions): Object;
+export function createVueWait(options?: VueWaitOptions): CreateVueWaitResponse;

@@ -232,12 +232,13 @@ export function install(App) {
 
 function createVueWait(options) {
   const Wait = {
+    instance: null,
     async install(app) {
       if (this.installed && app) {
         if (nodeIsDebug()) {
           console.warn('[vue-wait] already installed');
         }
-        return;
+        return this.instance;
       }
 
       const instance = new VueWait(options);
@@ -250,7 +251,9 @@ function createVueWait(options) {
         }
       });
 
+      this.instance = instance;
       this.installed = true;
+      return instance;
     }
   };
 
